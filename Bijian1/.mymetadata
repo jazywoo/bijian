@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="Bijian"
+  id="myeclipse.1347189033428"
+  context-root="/Bijian"
+  j2ee-spec="5.0"
+  archive="Bijian.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping package="bijian.model.bean">
+   <class name="Comment" table="comment" dynamic-insert="true" dynamic-update="true">
+      <id name="commentID" column="commentID" type="int"> 
+        <generator class="assigned"></generator>
+      </id>
+      <property name="content" column="content" type="string" not-null="true"/>  
+      <property name="createTime" column="createTime" type="date" not-null="true"/>
+      
+      <many-to-one name="sentence" column="sentenceID" class="Sentence" not-null="true" cascade="none"/>
+      <many-to-one name="author" column="author" class="User" not-null="true" cascade="none"/>
+           
+      
+   </class>
+
+</hibernate-mapping>

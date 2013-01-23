@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping package="bijian.model.bean">
+   <class name="Message" dynamic-insert="true" dynamic-update="true">
+      <id name="messageID" column="messageID" type="int" not-null="true">
+         <generator class="identity"/>
+      </id>
+      <property name="content" column="content" type="string" not-null="true"/>
+      <property name="createTime" column="createTime" type="string" not-null="true"/>
+      
+      
+     
+     
+   </class>
+
+</hibernate-mapping>
