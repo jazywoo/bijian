@@ -27,28 +27,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `articleobject`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `articleobject` (
-  `articleObjectID` BIGINT NOT NULL AUTO_INCREMENT ,
-  `authorID` BIGINT NULL ,
-  `labelsJson` VARCHAR(400) NULL ,
-  `isValid` TINYINT NULL ,
-  PRIMARY KEY (`articleObjectID`) ,
-  INDEX `articleobject_author` (`authorID` ASC) ,
-  CONSTRAINT `articleobject_author`
-    FOREIGN KEY (`authorID` )
-    REFERENCES `user` (`userID` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `sentence`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `sentence` (
   `sentenceID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `authorID` BIGINT NULL ,
   `content` VARCHAR(400) NULL ,
   `fromPlace` VARCHAR(200) NULL ,
   `createTime` DATETIME NULL ,
@@ -56,10 +39,10 @@ CREATE  TABLE IF NOT EXISTS `sentence` (
   `commentNum` INT NULL ,
   `forwardingNum` INT NULL ,
   PRIMARY KEY (`sentenceID`) ,
-  INDEX `sentence_id` (`sentenceID` ASC) ,
-  CONSTRAINT `sentence_id`
-    FOREIGN KEY (`sentenceID` )
-    REFERENCES `articleobject` (`articleObjectID` )
+  INDEX `sentence_author` (`authorID` ASC) ,
+  CONSTRAINT `sentence_author`
+    FOREIGN KEY (`authorID` )
+    REFERENCES `user` (`userID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -209,28 +192,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `diary`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `diary` (
-  `diaryID` BIGINT NOT NULL AUTO_INCREMENT ,
-  `title` VARCHAR(200) NULL ,
-  `content` VARCHAR(2000) NULL ,
-  `createTime` DATETIME NULL ,
-  `goodNum` INT NULL ,
-  `commentNum` INT NULL ,
-  `openKind` TINYINT NULL COMMENT '公开类型，私有，公开，好友可见' ,
-  `moodValue` INT NULL ,
-  PRIMARY KEY (`diaryID`) ,
-  INDEX `diary_id` (`diaryID` ASC) ,
-  CONSTRAINT `diary_id`
-    FOREIGN KEY (`diaryID` )
-    REFERENCES `articleobject` (`articleObjectID` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `friendgroup`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `friendgroup` (
@@ -289,14 +250,13 @@ CREATE  TABLE IF NOT EXISTS `comment` (
   `createTime` DATETIME NULL ,
   `fromUserID` BIGINT NULL ,
   `toUserID` BIGINT NULL ,
-  `objectID` BIGINT NULL ,
-  `objectType` TINYINT NULL ,
+  `sentenceID` BIGINT NULL ,
   `commentType` TINYINT NULL COMMENT '值只能是1,2,3.分别代表该comment回复的对象是sentence，句子的第一个comment，其他的comment。可以产生层级关系' ,
   `isValid` TINYINT NULL ,
   PRIMARY KEY (`commentID`) ,
   INDEX `comment_from` (`fromUserID` ASC) ,
   INDEX `comment_to` (`toUserID` ASC) ,
-  INDEX `comment_object` (`objectID` ASC) ,
+  INDEX `comment_sentence` (`sentenceID` ASC) ,
   CONSTRAINT `comment_from`
     FOREIGN KEY (`fromUserID` )
     REFERENCES `user` (`userID` )
@@ -307,9 +267,9 @@ CREATE  TABLE IF NOT EXISTS `comment` (
     REFERENCES `user` (`userID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `comment_object`
-    FOREIGN KEY (`objectID` )
-    REFERENCES `articleobject` (`articleObjectID` )
+  CONSTRAINT `comment_sentence`
+    FOREIGN KEY (`sentenceID` )
+    REFERENCES `sentence` (`sentenceID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -342,56 +302,40 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `label` (
   `labelID` BIGINT NOT NULL AUTO_INCREMENT ,
   `content` VARCHAR(200) NULL ,
-  `authorID` BIGINT NULL ,
-  `objectID` BIGINT NULL ,
-  `objectType` TINYINT NULL ,
   `createTime` DATETIME NULL ,
-  PRIMARY KEY (`labelID`) ,
-  INDEX `lable_author` (`authorID` ASC) ,
-  INDEX `label_object` (`objectID` ASC) ,
-  CONSTRAINT `lable_author`
-    FOREIGN KEY (`authorID` )
-    REFERENCES `user` (`userID` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `label_object`
-    FOREIGN KEY (`objectID` )
-    REFERENCES `articleobject` (`articleObjectID` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`labelID`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `userRelatedObject`
+-- Table `userRelatedSentence`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `userRelatedObject` (
-  `userRelatedObjectID` BIGINT NOT NULL AUTO_INCREMENT ,
+CREATE  TABLE IF NOT EXISTS `userRelatedSentence` (
+  `userRelatedSentenceID` BIGINT NOT NULL AUTO_INCREMENT ,
   `userID` BIGINT NULL ,
-  `objectID` BIGINT NULL ,
-  `objectType` TINYINT NULL ,
-  `isObjectActive` TINYINT NULL ,
+  `sentenceID` BIGINT NULL ,
+  `isSentenceActive` TINYINT NULL ,
   `createTime` DATETIME NULL ,
-  PRIMARY KEY (`userRelatedObjectID`) ,
+  PRIMARY KEY (`userRelatedSentenceID`) ,
   INDEX `R_user` (`userID` ASC) ,
-  INDEX `R_object` (`objectID` ASC) ,
+  INDEX `R_sentence` (`sentenceID` ASC) ,
   CONSTRAINT `R_user`
     FOREIGN KEY (`userID` )
     REFERENCES `user` (`userID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `R_object`
-    FOREIGN KEY (`objectID` )
-    REFERENCES `articleobject` (`articleObjectID` )
+  CONSTRAINT `R_sentence`
+    FOREIGN KEY (`sentenceID` )
+    REFERENCES `sentence` (`sentenceID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `lovesentence`
+-- Table `loveSentence`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `lovesentence` (
+CREATE  TABLE IF NOT EXISTS `loveSentence` (
   `loveSentenceID` BIGINT NOT NULL ,
   `userID` BIGINT NULL ,
   `sentenceID` BIGINT NULL ,
@@ -431,6 +375,53 @@ CREATE  TABLE IF NOT EXISTS `subscribeLabel` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `sub_labelID`
+    FOREIGN KEY (`labelID` )
+    REFERENCES `label` (`labelID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `labelSentence`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `labelSentence` (
+  `labelSentenceID` BIGINT NOT NULL ,
+  `sentenceID` BIGINT NULL ,
+  `labelID` BIGINT NULL ,
+  PRIMARY KEY (`labelSentenceID`) ,
+  INDEX `ls_sentence` (`sentenceID` ASC) ,
+  INDEX `ls_label` (`labelID` ASC) ,
+  CONSTRAINT `ls_sentence`
+    FOREIGN KEY (`sentenceID` )
+    REFERENCES `sentence` (`sentenceID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ls_label`
+    FOREIGN KEY (`labelID` )
+    REFERENCES `label` (`labelID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `labelUser`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `labelUser` (
+  `labelUserID` INT NOT NULL ,
+  `userID` BIGINT NULL ,
+  `labelID` BIGINT NULL ,
+  `creatTime` DATETIME NULL ,
+  PRIMARY KEY (`labelUserID`) ,
+  INDEX `lu_user` (`userID` ASC) ,
+  INDEX `lu_label` (`labelID` ASC) ,
+  CONSTRAINT `lu_user`
+    FOREIGN KEY (`userID` )
+    REFERENCES `user` (`userID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `lu_label`
     FOREIGN KEY (`labelID` )
     REFERENCES `label` (`labelID` )
     ON DELETE NO ACTION
