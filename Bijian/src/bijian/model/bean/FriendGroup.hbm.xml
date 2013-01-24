@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean">
+   <class name="FriendGroup" table="friendgroup" dynamic-insert="true" dynamic-update="true">
+      <id name="friendGroupID" column="friendGroupID" type="long"> 
+        <generator class="native"></generator>
+      </id>
+      <property name="groupName" column="groupName" type="string"/> 
+      <property name="createTime" column="createTime" type="java.util.Date" /> 
+      
+      <many-to-one name="author" column="authorID" class="User"/>
+      
+   </class>
+
+</hibernate-mapping>

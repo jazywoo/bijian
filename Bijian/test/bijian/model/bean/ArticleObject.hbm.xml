@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean">
+   <class name="ArticleObject" table="articleobject" dynamic-insert="true" dynamic-update="true">
+      <id name="articleObjectID" column="articleObjectID"> 
+        <generator class="native"></generator>
+      </id>
+      <property name="labelsJson" column="labelsJson" type="string"/> 
+      <property name="isValid" column="isValid" type="java.lang.Integer"/> 
+
+      <many-to-one name="author" column="authorID" class="User"/>
+      <set name="userRelatedObjects" table="userRelatedObject" inverse="true">
+          <key column="objectID"/>
+          <one-to-many class="bijian.model.bean.relationbean.UserRelatedObject"/>
+      </set>
+      <set name="labels" table="label" inverse="true" cascade="all">
+         <key column="objectID"/>
+         <one-to-many class="Label"/>
+      </set>
+      <set name="comments" table="comment" inverse="true">
+         <key column="objectID"/>
+         <one-to-many class="Comment"/>
+      </set>
+      
+      <joined-subclass name="Diary" table="diary">
+           <key column="diaryID"/>
+           <property name="title" column="title" type="string"/>
+	       <property name="content" column="content" type="string"/>
+	       <property name="createTime" column="createTime" type="java.util.Date"/>
+	       <property name="goodNum" column="goodNum" type="java.lang.Integer"/>
+	       <property name="commentNum" column="commentNum" type="java.lang.Integer"/>
+	       <property name="openKind" column="openKind" type="java.lang.Integer"/>
+	       <property name="moodValue" column="moodValue" type="java.lang.Integer"/>
+      </joined-subclass>
+      <joined-subclass name="Sentence" table="sentence">
+           <key column="sentenceID"/>
+           <property name="content" column="content" type="string"/>
+           <property name="fromPlace" column="fromPlace" type="string"/>
+	       <property name="createTime" column="createTime" type="java.util.Date"/>
+	       <property name="goodNum" column="goodNum" type="java.lang.Integer"/>
+	       <property name="commentNum" column="commentNum" type="java.lang.Integer"/>
+	       <property name="forwardingNum" column="forwardingNum" type="java.lang.Integer"/>
+      </joined-subclass>
+      
+      
+      
+      
+   </class>
+
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean">
+   <class name="Comment" table="comment" dynamic-insert="true" dynamic-update="true">
+      <id name="commentID" column="commentID" type="long"> 
+        <generator class="native"></generator>
+      </id>
+      <property name="content" column="content" type="string"/>  
+      <property name="createTime" column="createTime" type="java.util.Date"/>
+      <property name="objectType" column="objectType" type="java.lang.Integer"/>
+      <property name="commentType" column="commentType" type="java.lang.Integer"/>
+      <property name="isValid" column="isValid" type="java.lang.Integer"/>
+      
+      <many-to-one name="fromUser" column="fromUserID" class="User"/>
+      <many-to-one name="toUser" column="toUserID" class="User"/>
+      <many-to-one name="articleObject" column="objectID" class="ArticleObject"/> 
+      
+   </class>
+
+</hibernate-mapping>

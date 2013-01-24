@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean.relationbean">
+    <class name="LabelUser" table="labelUser" dynamic-update="true"  dynamic-insert="true">
+       <id name="labelUserID" column="labelUserID" type="long">
+          <generator class="native"/>
+       </id>
+       <property name="createTime" column="createTime" type="java.util.Date"/>
+       <many-to-one name="label" column="labelID" class="bijian.model.bean.Label" cascade="none"/>
+       <many-to-one name="User" column="userID" class="bijian.model.bean.User" cascade="none"/>
+   
+    </class>
+
+
+</hibernate-mapping>

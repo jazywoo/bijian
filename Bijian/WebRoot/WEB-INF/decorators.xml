@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<decorators defaultdir="/decorators">   
+    <!--  不包含的装饰页面
+	    <excludes>   
+	          <pattern>/index.jsp*</pattern>   
+	          <pattern>/login/*</pattern>   
+	    </excludes>   
+    -->
+    <decorator name="mainDecorator" page="/WEB-INF/page/commonPage/mainDecorator.jsp">   
+        <pattern>/*</pattern>   
+    </decorator>   
+</decorators>   

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean">
+   <class name="User" table="user" dynamic-insert="true" dynamic-update="true">
+      <id name="userID" column="userID" type="long"> 
+        <generator class="native"></generator>
+      </id>
+      <property name="username" column="username" type="string"/> 
+      <property name="nickname" column="nickname" type="string"/>  
+      <property name="password" column="password" type="string"/>
+      <property name="sex" column="sex" type="java.lang.Integer"/>  
+      <property name="age" column="age" type="java.lang.Integer"/>
+      <property name="province" column="province" type="string"/>  
+      <property name="city" column="city" type="string"/>  
+      <property name="area" column="area" type="string"/>
+      <property name="constellation" column="constellation" type="string"/>  
+      <property name="photo" column="photo" type="string"/> 
+      <property name="attentionNum" column="attentionNum" type="java.lang.Integer"/>
+      <property name="followingNum" column="followingNum" type="java.lang.Integer"/>  
+      <property name="createTime" column="createTime" type="java.util.Date"/>
+
+      
+      <set name="attentions" table="attention" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="self"/>
+         <one-to-many class="User"/>
+      </set>
+      <set name="followings" table="following" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="self"/>
+         <one-to-many class="User"/>
+      </set>
+      <set name="friends" table="friendtable" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="friendTableID"/>
+         <one-to-many class="bijian.model.bean.relationbean.FriendTable"/>
+      </set>
+      
+      <set name="chats" table="chat" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="chatID"/>
+         <one-to-many class="Chat"/>
+      </set>
+      <set name="notices" table="notice" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="noticeID"/>
+         <one-to-many class="Notice"/>
+      </set>
+      <set name="messages" table="message" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="messageID"/>
+         <one-to-many class="Message"/>
+      </set>
+      
+      <set name="sentences" table="sentence" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="sentenceID"/>
+         <one-to-many class="Sentence"/>
+      </set>
+      <set name="diaries" table="diary" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="diaryID"/>
+         <one-to-many class="Diary"/>
+      </set>
+      <set name="comments" table="comment" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="self"/>
+         <one-to-many class="Comment"/>
+      </set>
+      <set name="labels" table="label" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="labelID"/>
+         <one-to-many class="Label"/>
+      </set>
+      
+      <set name="reportSentences" table="reportSentence" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="reportSentenceID"/>
+         <one-to-many class="bijian.model.bean.relationbean.ReportSentence"/>
+      </set>
+      <set name="relatedSentences" table="userRelatedObject" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="userRelatedObjectID"/>
+         <one-to-many class="bijian.model.bean.relationbean.UserRelatedObject"/>
+      </set>
+       <set name="relatedDiaries" table="userRelatedObject" lazy="true" inverse="true" order-by="createTime desc">
+         <key column="userRelatedObjectID"/>
+         <one-to-many class="bijian.model.bean.relationbean.UserRelatedObject"/>
+      </set>
+      
+   </class>
+
+</hibernate-mapping>

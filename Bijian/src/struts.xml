@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+     <!-- 用于显示struts上传进度条 -->
+    <bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest" name="MyMultiPartRequest" class="bijian.util.upload.MyMultiPartRequest" scope="default"/>     
+    <constant name="struts.multipart.handler" value="MyMultiPartRequest" /> 
+
+
+    <constant name="struts.objectFactory" value="spring" />
+    <constant name="struts.custom.i18n.resources" value="properties/global" />
+    
+    <package name="default" namespace="" extends="struts-default">
+       <global-results>
+	      <result name="error">error.jsp</result>
+	   </global-results>
+	   <global-exception-mappings>
+	      <exception-mapping exception="java.lang.Exception" result="error"/>
+	   </global-exception-mappings>
+	   
+        <action name="LanguageAction_changeLanguage" class="languageAction" method="changeLanguage">
+           <result>/index.jsp</result>
+        </action>
+    </package>
+    
+	<include file="strutsXml/struts-UserAction.xml"/>
+	<include file="strutsXml/struts-SentenceAction.xml"/>
+	<include file="strutsXml/struts-MoodAction.xml"/>
+	<include file="strutsXml/struts-LabelAction.xml"/>
+	<include file="strutsXml/struts-CommentAction.xml"/>
+</struts>

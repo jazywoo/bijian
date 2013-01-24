@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean.relationbean">
+    <class name="ReportSentence" table="reportSentence" dynamic-update="true"  dynamic-insert="true">
+       <id name="reportSentenceID" column="reportSentenceID" type="long">
+          <generator class="native"/>
+       </id>
+       <property name="createTime" column="createTime" type="java.util.Date"/>
+       <property name="isValid" column="isValid" type="java.lang.Integer" ></property>
+
+       <!--  多对一    -->
+       <many-to-one name="reporter" column="reporterID" class="bijian.model.bean.User" cascade="none"/>
+       <many-to-one name="sentence" column="sentenceID" class="bijian.model.bean.Sentence" cascade="none"/>
+   
+    </class>
+
+
+</hibernate-mapping>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+    <!--struts2中使用 sitemesh，必须配置ActionContextCleanUp，延长action周期 -->
+  	<filter>
+   		<filter-name>struts-cleanup</filter-name>
+   		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+	</filter>
+	<filter-mapping>
+        <filter-name>struts-cleanup</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+   <!-- sitemesh配置 -->   
+    <filter>   
+        <filter-name>sitemesh</filter-name>   
+        <filter-class>   
+             com.opensymphony.module.sitemesh.filter.PageFilter   
+        </filter-class>   
+    </filter>   
+    <filter-mapping>   
+        <filter-name>sitemesh</filter-name>   
+        <url-pattern>/*</url-pattern>   
+    </filter-mapping>
+  
+    <!-- struts2过滤器前配置 -->
+  <filter>
+     <filter-name>struts2</filter-name>
+     <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+  </filter>
+  <filter-mapping>
+     <filter-name>struts2</filter-name>
+     <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+  
+  <!-- spring配置 -->
+   <listener>
+     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+   </listener>  
+  <context-param>
+     <param-name>contextConfigLocation</param-name>
+     <param-value>classpath:/spring.xml</param-value>
+  </context-param>
+    <!-- Acegi过滤器配置 
+  <filter>
+     <filter-name>Acegi Filter Chain Proxy</filter-name>
+     <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+     <init-param>
+         <param-name>targetBean</param-name>
+         <param-value>filterChainProxy</param-value>
+     </init-param>
+   </filter>
+   <filter-mapping>
+       <filter-name>Acegi Filter Chain Proxy</filter-name>
+       <url-pattern>/*</url-pattern>
+   </filter-mapping>
+	 
+  -->
+</web-app>

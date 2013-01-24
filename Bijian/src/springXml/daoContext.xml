@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+     
+        
+         <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+	        <property name="driverClassName">  
+	            <value>com.p6spy.engine.spy.P6SpyDriver</value>  
+	        </property>  
+	        <property name="url">  
+	            <value>jdbc:mysql://localhost:3306/db_bijian</value>  
+	        </property>  
+	        <property name="username">  
+	            <value>root</value>  
+	        </property>  
+	        <property name="password">  
+	            <value>admin</value>  
+	        </property>  
+       </bean>  
+        
+        
+	     <!-- 定义sessionFactory -->
+	    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	       <property name="configLocations">
+			  <value>classpath:hibernate.cfg.xml</value>
+		   </property>
+	    </bean>
+	    
+	    <!-- 定义事务管理器：此处的含义就是下面的事务管理器管理由sessionFactory创建的session -->
+	    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	        <property name="sessionFactory" ref="sessionFactory" />
+	    </bean>
+	    
+	    <!-- HibernateTemplate类是Spring提供给我们进行Hibernate持久层操作的类，它对增删查改方法进行了封装 -->
+	    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+      
+      
+      
+      <bean id="attentionDao" class="bijian.model.dao.hibernateImpl.AttentionDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="chatDao" class="bijian.model.dao.hibernateImpl.ChatDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="commentDao" class="bijian.model.dao.hibernateImpl.CommentDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="diaryDao" class="bijian.model.dao.hibernateImpl.DiaryDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="followingDao" class="bijian.model.dao.hibernateImpl.FollowingDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="friendGroupDao" class="bijian.model.dao.hibernateImpl.FriendGroupDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="friendTableDao" class="bijian.model.dao.hibernateImpl.FriendTableDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="labelDao" class="bijian.model.dao.hibernateImpl.LabelDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="messageDao" class="bijian.model.dao.hibernateImpl.MessageDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="noticeDao" class="bijian.model.dao.hibernateImpl.NoticeDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean> 
+      <bean id="reportSentenceDao" class="bijian.model.dao.hibernateImpl.ReportSentenceDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="sentenceDao" class="bijian.model.dao.hibernateImpl.SentenceDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="userDao" class="bijian.model.dao.hibernateImpl.UserDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="userRelatedObjectDao" class="bijian.model.dao.hibernateImpl.UserRelatedObjectDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       
+       
+
+</beans>

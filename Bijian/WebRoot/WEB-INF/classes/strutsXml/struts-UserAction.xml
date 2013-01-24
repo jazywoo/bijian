@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    
+	<package name="user" namespace="/user" extends="struts-default">
+	   <action name="UserAction_login" class="userAction" method="login">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result>/index.jsp</result>
+	      <result name="login">/index.jsp</result>
+	   </action>
+	   <action name="UserAction_register" class="userAction" method="register">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result>/index.jsp</result>
+	      <result name="login">/index.jsp</result>
+	   </action>
+	   <action name="UserAction_update" class="userAction" method="update">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result>ownPage.jsp</result>
+	      <result name="login">/login.jsp</result>
+	   </action>
+	   <action name="UserAction_attentionOne" class="userAction" method="attentionOne">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result>ownPage.jsp</result>
+	      <result name="login">login.jsp</result>
+	   </action>
+	   
+	</package>
+</struts>

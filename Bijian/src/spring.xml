@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+     <!-- 导入多个xml配置文件 -->
+     
+    <!-- 配置控制层 
+    <import resource="springXml/controllerContext.xml"/>
+    -->  
+    <!-- 配置数据持久层 -->  
+    <import resource="springXml/daoContext.xml"/>
+    <!-- 配置业务bean 
+    <import resource="springXml/serviceContext.xml"/>
+    --> 
+    <!-- acegi安全角色控制 
+    <import resource="springXml/acegiSecurity.xml"/>  
+    -->  
+       
+</beans>

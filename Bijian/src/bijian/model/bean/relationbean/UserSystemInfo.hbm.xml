@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean.relationbean">
+    <class name="UserSystemInfo" table="userSystemInfo" dynamic-update="true"  dynamic-insert="true">
+       <id name="userSystemInfoID" column="userSystemInfoID" type="long">
+          <generator class="native"/>
+       </id>
+       <property name="loginState" column="loginState" type="java.lang.Integer" ></property>
+
+       <many-to-one name="user" column="userID" class="bijian.model.bean.User" unique="true"/>
+       
+    </class>
+
+
+</hibernate-mapping>

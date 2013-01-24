@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean.relationbean">
+    <class name="Attention" table="attention" dynamic-update="true"  dynamic-insert="true">
+       <id name="attentionID" column="attentionID" type="long">
+          <generator class="native"/>
+       </id>
+       <property name="createTime" column="createTime" type="java.util.Date"/>
+       <property name="isValid" column="isValid" type="java.lang.Integer" ></property>
+
+       <many-to-one name="self" column="selfID" class="bijian.model.bean.User" cascade="none"/>
+       <many-to-one name="attentioner" column="attentionerID" class="bijian.model.bean.User" cascade="none"/>
+   
+    </class>
+
+
+</hibernate-mapping>

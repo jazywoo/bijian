@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>	   
+	<package name="sentence" namespace="/sentence" extends="struts-default">
+	   <action name="SentenceAction_addSentence" class="bijian.controller.action.SentenceAction" method="addSentence">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result name="success">ownPage.jsp</result>
+	      <result name="input">ownPage.jsp</result>
+	      <result name="login">login.jsp</result>
+	   </action>
+	   <action name="SentenceAction_updateSentence" class="bijian.controller.action.SentenceAction" method="updateSentence">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result name="success">ownPage.jsp</result>
+	      <result name="input">ownPage.jsp</result>
+	      <result name="login">login.jsp</result>
+	   </action>
+	     <action name="SentenceAction_deleteSentence" class="bijian.controller.action.SentenceAction" method="deleteSentence">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result name="success">ownPage.jsp</result>
+	      <result name="input">ownPage.jsp</result>
+	      <result name="login">login.jsp</result>
+	   </action>
+	   <action name="SentenceAction_getMySentences" class="bijian.controller.action.SentenceAction" method="getMySentences">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result name="success">ownPage.jsp</result>
+	      <result name="input">ownPage.jsp</result>
+	      <result name="login">login.jsp</result>
+	   </action>
+	</package>
+</struts>

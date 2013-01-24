@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+     
+    
+      <bean name="userAction" class="bijian.controller.action.UserAction">
+           <property name="userService" ref="userService"/>
+      </bean>
+      <bean name="sentenceAction" class="bijian.controller.action.SentenceAction">
+           <property name="userService" ref="userService"/>
+      </bean>
+      <bean name="MoodAction" class="bijian.controller.action.MoodAction">
+           <property name="userService" ref="userService"/>
+      </bean>
+      <bean name="LabelAction" class="bijian.controller.action.LabelAction">
+           <property name="userService" ref="userService"/>
+      </bean>
+      <bean name="CommentAction" class="bijian.controller.action.CommentAction">
+           <property name="userService" ref="userService"/>
+      </bean>
+      <bean name="languageAction" class="bijian.controller.action.LanguageAction">
+      </bean>
+
+</beans>

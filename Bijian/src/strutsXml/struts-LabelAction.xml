@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    
+	<package name="label" namespace="/label" extends="struts-default">
+	   <action name="LabelAction_getLabels" class="userAction" method="getLabels">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result>/index.jsp</result>
+	      <result name="login">/index.jsp</result>
+	   </action>
+	   <action name="LabelAction_addLabel" class="userAction" method="addLabel">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result>/index.jsp</result>
+	      <result name="login">/index.jsp</result>
+	   </action>
+	   <action name="LabelAction_updateLabel" class="userAction" method="updateLabel">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result>ownPage.jsp</result>
+	      <result name="login">/login.jsp</result>
+	   </action>
+	   <action name="LabelAction_deleteLabel" class="userAction" method="deleteLabel">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
+	      <result>ownPage.jsp</result>
+	      <result name="login">login.jsp</result>
+	   </action>
+	   
+	</package>
+</struts>
