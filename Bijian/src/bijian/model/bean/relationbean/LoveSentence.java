@@ -9,7 +9,7 @@ public class LoveSentence {
     private long loveSentenceID;
     private User user;
     private Sentence sentence;
-    private Date creatTime;
+    private Date createTime;
     private int isValid;
 	public long getLoveSentenceID() {
 		return loveSentenceID;
@@ -29,11 +29,11 @@ public class LoveSentence {
 	public void setSentence(Sentence sentence) {
 		this.sentence = sentence;
 	}
-	public Date getCreatTime() {
-		return creatTime;
+	public Date getCreateTime() {
+		return createTime;
 	}
-	public void setCreatTime(Date creatTime) {
-		this.creatTime = creatTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	public int getIsValid() {
 		return isValid;

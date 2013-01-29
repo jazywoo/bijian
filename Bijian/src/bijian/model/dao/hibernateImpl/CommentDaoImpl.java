@@ -33,26 +33,26 @@ public class CommentDaoImpl implements ICommentDao{
 		this.hibernateTemplate.update(entity);
 	}
 	
-	public int getCommentListSize(final long articleObjectID) {
+	public int getCommentListSize(final long sentenceID) {
 		final String sql="select count(*) from Comment c " +
-			         "   where c.articleObject.articleObjectID=:articleObjectID";
+			         "   where c.sentence.sentenceID=:sentenceID";
 		Long size=(Long) this.hibernateTemplate.executeFind(new HibernateCallback(){
 		public Object doInHibernate(Session session){
 			Query query=session.createQuery(sql);
-			  query.setParameter("articleObjectID", articleObjectID);
+			  query.setParameter("sentenceID", sentenceID);
 			  return query.list();
 			}
 		
 		}).get(0);
 		return size.intValue();
 	}
-	public List<Comment> getCommentList(final long articleObjectID,final int page,final int limit) {
+	public List<Comment> getCommentList(final long sentenceID,final int page,final int limit) {
 		
-		final String sql1="from Comment as c where c.articleObject.articleObjectID=:articleObjectID ";
+		final String sql1="from Comment as c where c.sentence.sentenceID=:sentenceID ";
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
 			public Object doInHibernate(Session session){
 				Query query=session.createQuery(sql1);
-				query.setParameter("articleObjectID", articleObjectID)
+				query.setParameter("sentenceID", sentenceID)
 				.setFirstResult(page)
 				.setMaxResults(limit);
 				return query.list();				

@@ -1,5 +1,6 @@
 package bijian.model.dao.hibernateImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import bijian.model.bean.ArticleObject;
+import bijian.model.bean.Chat;
 import bijian.model.bean.Comment;
 import bijian.model.bean.Message;
 import bijian.model.bean.User;
@@ -21,7 +22,7 @@ import bijian.model.dao.IUserDao;
 
 /**
  * @author jazywoo
- * 测试通过
+ * 测试通过1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring.xml"})
@@ -33,89 +34,78 @@ public class MessageDaoTests  extends AbstractTransactionalJUnit4SpringContextTe
 	private IMessageDao messageDao;
 	
 	@Test
-	public void insert(){//T entity
-		long fromUserID=0;
-		long toUserID=1;
+	public void insert(){
+		long fromUserID=addUser("jazywoo","wujianzhi","123456");
+		long toUserID=addUser("jazywoo2","wujianzhi2","123456");
 		User fromUser=(User) userDao.get(fromUserID);
 		User toUser=(User) userDao.get(toUserID);
 		Assert.assertNotNull(fromUser);
 		Assert.assertNotNull(toUser);
-		
 		Message message=new Message();
+		message.setContent("很高兴今天认识你");
+		message.setCreateTime(new Date());
 		message.setFromUser(fromUser);
 		message.setToUser(toUser);
-		message.setContent("不错喔");
-		
 		messageDao.insert(message);
-		Assert.assertNotNull("MessageID() not null", message.getMessageID());
+		Assert.assertNotNull(message.getMessageID());
+	}
+	@Test 
+	public void delete(){
+		long fromUserID=addUser("jazywoo","wujianzhi","123456");
+		long toUserID=addUser("jazywoo2","wujianzhi2","123456");
+		long messageID=addMessage(fromUserID,toUserID);
+		messageDao.delete(messageID);
+		Message message=(Message) messageDao.get(messageID);
+		Assert.assertNull(message);
 	}
 	@Test
-    public void getByID(){//ID id
-		long messageID=addMessage(0,1);
-		Message message=(Message) messageDao.get(messageID);
-		Assert.assertNotNull(message);
-    }
+	public void getMessageListSize(){// userID,messageUserID
+		long fromUserID=addUser("jazywoo","wujianzhi","123456");
+		long toUserID=addUser("jazywoo2","wujianzhi2","123456");
+		addMessage(fromUserID,toUserID);
+		addMessage(fromUserID,toUserID);
+		addMessage(fromUserID,toUserID);
+		addMessage(fromUserID,toUserID);
+		
+		int size=messageDao.getMessageListSize(fromUserID, toUserID);
+		Assert.assertTrue(size>0);
+	}
 	@Test
-    public void update(){//T entity
-		long messageID=addMessage(0,1);
-		Message message=(Message) messageDao.get(messageID);
-		Assert.assertNotNull(message);
-		message.setContent("update");
-		message=(Message) messageDao.get(messageID);
-		Assert.assertEquals("update", message.getContent());
-    }
-    @Test
-    public void delete(){//ID id
-    	long messageID=addMessage(0,1);
-		Message message=(Message) messageDao.get(messageID);
-		Assert.assertNotNull(message);
-		messageDao.delete(messageID);
-		message=(Message) messageDao.get(messageID);
-		Assert.assertNull(message);
-    }
-    
-    
-    @Test
-    public void getCommentList(){//long fromUserID,long toUserID,final int page,final int limit
-    	addMessage(0,1);
-    	addMessage(0,1);
-    	addMessage(0,1);
-    	addMessage(0,1);
-    	addMessage(0,1);
-    	long fromUserID=0;
-    	long toUserID=1;
-    	int size=messageDao.getMessageListSize(fromUserID, toUserID);
-    	Assert.assertTrue(size>0);
-    	
-    }
-    @Test
-    public void getCommentListSize(){//long fromUserID,long toUserID
-    	addMessage(0,1);
-    	addMessage(0,1);
-    	addMessage(0,1);
-    	addMessage(0,1);
-    	addMessage(0,1);
-    	long fromUserID=0;
-    	long toUserID=1;
+	public void getMessageList(){//userID,messageUserID
+		long fromUserID=addUser("jazywoo","wujianzhi","123456");
+		long toUserID=addUser("jazywoo2","wujianzhi2","123456");
+		addMessage(fromUserID,toUserID);
+		addMessage(fromUserID,toUserID);
+		addMessage(fromUserID,toUserID);
+		addMessage(fromUserID,toUserID);
+		
     	int page=0;
     	int limit=10;
     	List<Message> messages=messageDao.getMessageList(fromUserID, toUserID, page, limit);
     	Assert.assertTrue(0<messages.size());   
     	for(int i=0;i<messages.size();i++){
-    		System.out.println("MessageID-->"+messages.get(i).getMessageID());
+    		System.out.println("messageID-->"+messages.get(i).getMessageID());
     	}
-    }
-    
-    private long addMessage(long fromUserID,long toUserID){
-		User fromUser=(User) userDao.get(fromUserID);
-		User toUser=(User) userDao.get(toUserID);
-		
-		Message message=new Message();
-		message.setFromUser(fromUser);
-		message.setToUser(toUser);
-		message.setContent("不错喔");
-		
-		messageDao.insert(message);
-		return message.getMessageID();
-    }
+	}
+	
+	 private long addMessage(long fromUserID,long toUserID){
+		 User fromUser=(User) userDao.get(fromUserID);
+		 User toUser=(User) userDao.get(toUserID);
+		 Message message=new Message();
+		 message.setContent("很高兴今天认识你");
+		 message.setCreateTime(new Date());
+		 message.setFromUser(fromUser);
+		 message.setToUser(toUser);
+		 messageDao.insert(message);
+		 return message.getMessageID();
+	 }
+	
+	 private long addUser(String username,String nickName,String password){
+	    	User user=new User();
+			user.setUsername(username);
+			user.setNickname(nickName);
+			user.setPassword(password);
+			userDao.insert(user);
+			return user.getUserID();
+	}
 }

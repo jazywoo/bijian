@@ -8,40 +8,57 @@ import bijian.model.bean.Label;
 import bijian.model.bean.Sentence;
 import bijian.model.bean.User;
 import bijian.model.bean.relationbean.Attention;
+import bijian.model.bean.relationbean.LabelSentence;
+import bijian.model.bean.relationbean.LabelUser;
 import bijian.model.bean.relationbean.ReportSentence;
 import bijian.model.bean.relationbean.UserRelatedSentence;
 import bijian.model.dao.IAttentionDao;
 import bijian.model.dao.ILabelDao;
+import bijian.model.dao.ILabelSentenceDao;
+import bijian.model.dao.ILabelUserDao;
 import bijian.model.dao.IReportSentenceDao;
 import bijian.model.dao.ISentenceDao;
 import bijian.model.dao.IUserDao;
-import bijian.model.dao.IUserRelatedObjectDao;
+import bijian.model.dao.IUserRelatedSentenceDao;
 import bijian.model.service.ISentenceService;
 
 public class SentenceServiceImpl implements ISentenceService{
     private ISentenceDao sentenceDao;
     private IUserDao userDao;
     private IAttentionDao attentionDao;
-    private IUserRelatedObjectDao relatedObjectDao;
+    private IUserRelatedSentenceDao relatedObjectDao;
     private ILabelDao labelDao;
+    private ILabelUserDao labelUserDao;
+    private ILabelSentenceDao labelSentenceDao;
     private IReportSentenceDao reportSentenceDao;
+    private IUserRelatedSentenceDao userRelatedSentenceDao;
 	
 	public void addSentence(long userID, Sentence sentence,List<Label> labels) {
 		User user=(User) userDao.get(userID);
-	    StringBuffer labelsJson=new StringBuffer();
-		for(Label l:labels){
-			l.setAuthor(user);
-			l.setCreateTime(new Date());
-			l.setObjectType(0);//标签对象是句子
-			sentence.getLabels().add(l);//关联到句子
-			labelsJson.append(l.getContent()+"###");
-		}
-		
 		sentence.setAuthor(user);
-		sentence.setLabelsJson(labelsJson.toString());
 		sentence.setCreateTime(new Date());
 		sentence.setIsValid(1);
 		sentenceDao.insert(sentence);
+		//开始处理标签
+		for(Label l:labels){
+			LabelSentence labelSentence=new LabelSentence();
+			labelSentence.setSentence(sentence);
+			Label existLabel=labelDao.getByContent(l.getContent());
+			LabelUser labelUser=new LabelUser();
+			labelUser.setUser(user);
+			labelUser.setCreateTime(new Date());
+			if(existLabel==null){//标签不存在
+				l.setCreateTime(new Date());
+				labelDao.insert(l);
+				labelUser.setLabel(l);
+				labelSentence.setLabel(l);
+			}else{
+				labelUser.setLabel(existLabel);
+				labelSentence.setLabel(existLabel);
+			}
+			labelUserDao.insert(labelUser);
+			labelSentenceDao.insert(labelSentence);
+		}
 	}
 
 	public void deleteSentence(long sentenceID) {
@@ -87,9 +104,23 @@ public class SentenceServiceImpl implements ISentenceService{
 		for(UserRelatedSentence r:relatedObjects){
 			RelatedListID.add(r.getUser().getUserID());
 		}
-		return sentenceDao.getRelated(RelatedListID, page, limit);
+		List<UserRelatedSentence> relatedSentences=userRelatedSentenceDao.getRelatedSentences(userID, page, limit);
+		List<Sentence> sentences=new ArrayList<Sentence>();
+		for(UserRelatedSentence rs:relatedSentences){
+			sentences.add(rs.getSentence());
+		}
+		return sentences;
 	}
 
+	public List<Sentence> getLabelSentences(long labelID,int page,int limit){
+		List<LabelSentence> labelSentences=labelSentenceDao.getLabelSentencesByLabel(labelID, page, limit);
+		List<Sentence> sentences=new ArrayList<Sentence>();
+		for(LabelSentence ls:labelSentences){
+			sentences.add(ls.getSentence());
+		}
+		return sentences;
+	}
+	
 	public List<Sentence> getSuggestSentences(long userID, int page, int limit) {
 		// TODO Auto-generated method stub
 		return null;
@@ -169,12 +200,37 @@ public class SentenceServiceImpl implements ISentenceService{
 		this.attentionDao = attentionDao;
 	}
 
-	public IUserRelatedObjectDao getRelatedObjectDao() {
+	public IUserRelatedSentenceDao getRelatedObjectDao() {
 		return relatedObjectDao;
 	}
 
-	public void setRelatedObjectDao(IUserRelatedObjectDao relatedObjectDao) {
+	public void setRelatedObjectDao(IUserRelatedSentenceDao relatedObjectDao) {
 		this.relatedObjectDao = relatedObjectDao;
+	}
+
+	public ILabelUserDao getLabelUserDao() {
+		return labelUserDao;
+	}
+
+	public void setLabelUserDao(ILabelUserDao labelUserDao) {
+		this.labelUserDao = labelUserDao;
+	}
+
+	public ILabelSentenceDao getLabelSentenceDao() {
+		return labelSentenceDao;
+	}
+
+	public void setLabelSentenceDao(ILabelSentenceDao labelSentenceDao) {
+		this.labelSentenceDao = labelSentenceDao;
+	}
+
+	public IUserRelatedSentenceDao getUserRelatedSentenceDao() {
+		return userRelatedSentenceDao;
+	}
+
+	public void setUserRelatedSentenceDao(
+			IUserRelatedSentenceDao userRelatedSentenceDao) {
+		this.userRelatedSentenceDao = userRelatedSentenceDao;
 	}
 
 

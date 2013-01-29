@@ -6,8 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-
-import bijian.model.bean.Diary;
 import bijian.model.bean.User;
 import bijian.model.bean.relationbean.Attention;
 import bijian.model.bean.relationbean.Following;

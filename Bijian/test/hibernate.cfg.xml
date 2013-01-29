@@ -19,20 +19,25 @@
        <property name="show_sql">true</property>
        
        
-       <mapping resource="bijian/model/bean/ArticleObject.hbm.xml"/>
+       
        <mapping resource="bijian/model/bean/Chat.hbm.xml"/>
        <mapping resource="bijian/model/bean/Comment.hbm.xml"/>
        <mapping resource="bijian/model/bean/FriendGroup.hbm.xml"/>
        <mapping resource="bijian/model/bean/Label.hbm.xml"/>
        <mapping resource="bijian/model/bean/Message.hbm.xml"/>
        <mapping resource="bijian/model/bean/Notice.hbm.xml"/>
+       <mapping resource="bijian/model/bean/Sentence.hbm.xml"/>
        <mapping resource="bijian/model/bean/User.hbm.xml"/>
           
        <mapping resource="bijian/model/bean/relationbean/Attention.hbm.xml"/>
        <mapping resource="bijian/model/bean/relationbean/Following.hbm.xml"/>
        <mapping resource="bijian/model/bean/relationbean/FriendTable.hbm.xml"/>
+       <mapping resource="bijian/model/bean/relationbean/LabelSentence.hbm.xml"/>
+       <mapping resource="bijian/model/bean/relationbean/LabelUser.hbm.xml"/>
+       <mapping resource="bijian/model/bean/relationbean/LoveSentence.hbm.xml"/>
        <mapping resource="bijian/model/bean/relationbean/ReportSentence.hbm.xml"/>
-       <mapping resource="bijian/model/bean/relationbean/UserRelatedObject.hbm.xml"/>
+       <mapping resource="bijian/model/bean/relationbean/SubscribeLabel.hbm.xml"/>
+       <mapping resource="bijian/model/bean/relationbean/UserRelatedSentence.hbm.xml"/>
        <mapping resource="bijian/model/bean/relationbean/UserSystemInfo.hbm.xml"/>
    </session-factory>
 </hibernate-configuration>

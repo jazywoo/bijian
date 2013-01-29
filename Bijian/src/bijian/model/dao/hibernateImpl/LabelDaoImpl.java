@@ -13,7 +13,6 @@ import bijian.model.dao.ILabelDao;
 
 
 public class LabelDaoImpl implements ILabelDao{
-
     private HibernateTemplate hibernateTemplate;
 
     public void delete(Object id) {
@@ -34,19 +33,40 @@ public class LabelDaoImpl implements ILabelDao{
 	}
     
 
-	public List<Label> get(final long userID,final int page,final int limit) {
-		final String sql="from Label as l where l.author.userID=:userID";
+	public List<Label> getLike(final String content,final int page,final int limit) {
+		final String sql="from Label as l where l.content like :content";
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
 			public Object doInHibernate(Session session){
 				Query query=session.createQuery(sql);
-				query.setParameter("userID", userID)
+				query.setParameter("content", "%"+content+"%")
 				.setFirstResult(page)
 				.setMaxResults(limit);
 				return query.list();				
 			}
 		});
 	}
-
+	 public Label getByContent(final String content){
+		 final String sql="from Label as l where l.content=:content";
+		return (Label) this.hibernateTemplate.executeFind(new HibernateCallback(){
+			public Object doInHibernate(Session session){
+				Query query=session.createQuery(sql);
+				query.setParameter("content", content);
+				return query.list();				
+			}
+		}).get(0);
+	 }
+	 public List<Label> getHotLabels(final int page, final int limit) {
+		 final String sql="from Label as l" +
+		 		         " order by l.hotValue desc,l.createTime desc";
+			return this.hibernateTemplate.executeFind(new HibernateCallback(){
+				public Object doInHibernate(Session session){
+					Query query=session.createQuery(sql);
+					query.setFirstResult(page)
+					.setMaxResults(limit);
+					return query.list();				
+				}
+		 });
+	 }
     
 	public HibernateTemplate getHibernateTemplate() {
 		return hibernateTemplate;
@@ -55,6 +75,8 @@ public class LabelDaoImpl implements ILabelDao{
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 		this.hibernateTemplate = hibernateTemplate;
 	}
+
+	
 
 	
 

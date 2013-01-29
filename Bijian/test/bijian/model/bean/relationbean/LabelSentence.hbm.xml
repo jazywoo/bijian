@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="bijian.model.bean.relationbean">
+    <class name="LabelSentence" table="labelSentence" dynamic-update="true"  dynamic-insert="true">
+       <id name="labelSentenceID" column="labelSentenceID" type="long">
+          <generator class="native"/>
+       </id>
+       <many-to-one name="label" column="labelID" class="bijian.model.bean.Label" cascade="none"/>
+       <many-to-one name="sentence" column="sentenceID" class="bijian.model.bean.Sentence" cascade="none"/>
+   
+    </class>
+
+
+</hibernate-mapping>

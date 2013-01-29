@@ -106,7 +106,19 @@ public class UserDaoImpl implements IUserDao {
 		}).get(0);
 		return size.intValue();
 	}
-
+	public List<User> getHotUsers(final int page, final int limit) {
+		 final String sql="from User as u" +
+				         " order by u.hotValue desc";
+		return this.hibernateTemplate.executeFind(new HibernateCallback(){
+			public Object doInHibernate(Session session){
+				Query query=session.createQuery(sql);
+				query.setFirstResult(page)
+				.setMaxResults(limit);
+				return query.list();				
+			}
+		});
+	}
+	
 	public void delete(Object id) {
 		User user=(User)this.hibernateTemplate.load(User.class, (Long)id);
 		this.hibernateTemplate.delete(user);
@@ -206,5 +218,7 @@ public class UserDaoImpl implements IUserDao {
 		System.out.println(sql.toString());
 		return propertiesFlag;
     }
+
+	
 	
 }  

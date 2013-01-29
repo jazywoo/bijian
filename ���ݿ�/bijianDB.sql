@@ -21,6 +21,7 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `createTime` DATETIME NULL ,
   `attentionNum` INT NULL ,
   `followingNum` INT NULL ,
+  `hotValue` INT NULL ,
   `isValid` TINYINT NULL ,
   PRIMARY KEY (`userID`) )
 ENGINE = InnoDB;
@@ -38,6 +39,8 @@ CREATE  TABLE IF NOT EXISTS `sentence` (
   `goodNum` INT NULL ,
   `commentNum` INT NULL ,
   `forwardingNum` INT NULL ,
+  `hotValue` INT NULL ,
+  `isValid` TINYINT NULL ,
   PRIMARY KEY (`sentenceID`) ,
   INDEX `sentence_author` (`authorID` ASC) ,
   CONSTRAINT `sentence_author`
@@ -303,6 +306,7 @@ CREATE  TABLE IF NOT EXISTS `label` (
   `labelID` BIGINT NOT NULL AUTO_INCREMENT ,
   `content` VARCHAR(200) NULL ,
   `createTime` DATETIME NULL ,
+  `hotValue` INT NULL ,
   PRIMARY KEY (`labelID`) )
 ENGINE = InnoDB;
 
@@ -336,7 +340,7 @@ ENGINE = InnoDB;
 -- Table `loveSentence`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `loveSentence` (
-  `loveSentenceID` BIGINT NOT NULL ,
+  `loveSentenceID` BIGINT NOT NULL AUTO_INCREMENT ,
   `userID` BIGINT NULL ,
   `sentenceID` BIGINT NULL ,
   `createTime` DATETIME NULL ,
@@ -361,7 +365,7 @@ ENGINE = InnoDB;
 -- Table `subscribeLabel`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `subscribeLabel` (
-  `subscribeLabelID` BIGINT NOT NULL ,
+  `subscribeLabelID` BIGINT NOT NULL AUTO_INCREMENT ,
   `userID` BIGINT NULL ,
   `labelID` BIGINT NULL ,
   `createTime` DATETIME NULL ,
@@ -386,7 +390,7 @@ ENGINE = InnoDB;
 -- Table `labelSentence`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `labelSentence` (
-  `labelSentenceID` BIGINT NOT NULL ,
+  `labelSentenceID` BIGINT NOT NULL AUTO_INCREMENT ,
   `sentenceID` BIGINT NULL ,
   `labelID` BIGINT NULL ,
   PRIMARY KEY (`labelSentenceID`) ,
@@ -409,10 +413,10 @@ ENGINE = InnoDB;
 -- Table `labelUser`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `labelUser` (
-  `labelUserID` INT NOT NULL ,
+  `labelUserID` INT NOT NULL AUTO_INCREMENT ,
   `userID` BIGINT NULL ,
   `labelID` BIGINT NULL ,
-  `creatTime` DATETIME NULL ,
+  `createTime` DATETIME NULL ,
   PRIMARY KEY (`labelUserID`) ,
   INDEX `lu_user` (`userID` ASC) ,
   INDEX `lu_label` (`labelID` ASC) ,
@@ -424,6 +428,30 @@ CREATE  TABLE IF NOT EXISTS `labelUser` (
   CONSTRAINT `lu_label`
     FOREIGN KEY (`labelID` )
     REFERENCES `label` (`labelID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `forwarding`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `forwarding` (
+  `forwardingID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `sentenceID` BIGINT NULL ,
+  `userID` BIGINT NULL ,
+  `createTime` DATETIME NULL ,
+  PRIMARY KEY (`forwardingID`) ,
+  INDEX `f_sentenceID` (`sentenceID` ASC) ,
+  INDEX `f_userID` (`userID` ASC) ,
+  CONSTRAINT `f_sentenceID`
+    FOREIGN KEY (`sentenceID` )
+    REFERENCES `sentence` (`sentenceID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `f_userID`
+    FOREIGN KEY (`userID` )
+    REFERENCES `user` (`userID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -22,7 +22,7 @@ import bijian.model.dao.IUserDao;
 
 /**
  * @author jazywoo
- *　测试通过
+ *　测试通过1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring.xml"})
@@ -37,8 +37,8 @@ public class FollowingDaoTests extends AbstractTransactionalJUnit4SpringContextT
     @Test
     @Rollback(false)
     public void insert(){//T entity
-    	long selfID=0;
-    	long followingerID=1;
+    	long selfID=addUser("jazywoo","wujianzhi","123456");
+    	long followingerID=addUser("jazywoo2","wujianzhi2","123456");
     	User self=(User) userDao.get(selfID);
     	User followinger=(User) userDao.get(followingerID);
     	Following following=new Following();
@@ -50,46 +50,74 @@ public class FollowingDaoTests extends AbstractTransactionalJUnit4SpringContextT
     }
     @Test
     public void deleteByUser(){//long selfID,long followingerID
-    	insert();
-    	long selfID=0;
-    	long followingerID=1;
-    	Following following=followingDao.get(selfID, followingerID);
-    	Assert.assertNotNull(following);
+    	long selfID=addUser("jazywoo","wujianzhi","123456");
+    	long followingerID=addUser("jazywoo2","wujianzhi2","123456");
+    	addFollowing(selfID,followingerID);
     	followingDao.delete(selfID, followingerID);
-    	following=followingDao.get(selfID, followingerID);
+    	Following following=followingDao.get(selfID, followingerID);
     	Assert.assertNull(following);
     }
     
     @Test
 	public void getByUser(){//long selfID,long followingerID
-    	insert();
-		long selfID=0;
-    	long followingerID=1;
+    	long selfID=addUser("jazywoo","wujianzhi","123456");
+    	long followingerID=addUser("jazywoo2","wujianzhi2","123456");
+    	addFollowing(selfID,followingerID);
     	Following following=followingDao.get(selfID, followingerID);
     	Assert.assertNotNull(following);
 	}
     
     @Test
     public void getFollowingListSize(){//long userID
-    	insert();
-    	long userID=0;
-    	int followingSize=followingDao.getFollowingListSize(userID);
+    	long selfID=addUser("jazywoo","wujianzhi","123456");
+    	long followingerID=addUser("jazywoo2","wujianzhi2","123456");
+    	addFollowing(selfID,followingerID);
+    	followingerID=addUser("jazywoo2","wujianzhi2","123456");
+    	addFollowing(selfID,followingerID);
+    	followingerID=addUser("jazywoo2","wujianzhi2","123456");
+    	addFollowing(selfID,followingerID);
+    	
+    	int followingSize=followingDao.getFollowingListSize(selfID);
     	Assert.assertTrue(0<followingSize);    	
     }
     
     @Test
     public void getByUserID(){//long userID,int page,int limit
-    	insert();
-    	long userID=0;
+    	long selfID=addUser("jazywoo","wujianzhi","123456");
+    	long followingerID=addUser("jazywoo2","wujianzhi2","123456");
+    	addFollowing(selfID,followingerID);
+    	followingerID=addUser("jazywoo2","wujianzhi2","123456");
+    	addFollowing(selfID,followingerID);
+    	followingerID=addUser("jazywoo2","wujianzhi2","123456");
+    	addFollowing(selfID,followingerID);
+    	
     	int page=0;
     	int limit=10;
-    	List<Following> followings=followingDao.get(userID, page, limit);
+    	List<Following> followings=followingDao.get(selfID, page, limit);
     	Assert.assertTrue(0<followings.size());   
     	for(int i=0;i<followings.size();i++){
     		System.out.println("followingID-->"+followings.get(i).getFollowingID());
     	}
     }
 	
+    private long addFollowing(long selfID,long followingerID){
+    	User self=(User) userDao.get(selfID);
+    	User followinger=(User) userDao.get(followingerID);
+    	Following following=new Following();
+    	following.setSelf(self);
+    	following.setFollowinger(followinger);
+    	following.setCreateTime(new Date());
+    	followingDao.insert(following);
+    	return following.getFollowingID();
+    }
+    private long addUser(String username,String nickName,String password){
+    	User user=new User();
+		user.setUsername(username);
+		user.setNickname(nickName);
+		user.setPassword(password);
+		userDao.insert(user);
+		return user.getUserID();
+    }
 	
 	
 }

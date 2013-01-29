@@ -21,6 +21,7 @@ public class User{
    private Integer followingNum;
    private Date createTime; 
    private Integer loginState;
+   private Integer hotValue;
    
    private Set attentions=new HashSet();
    private Set followings=new HashSet();
@@ -31,14 +32,14 @@ public class User{
    private Set messages=new HashSet();
    
    private Set sentences=new HashSet();
-   private Set diaries=new HashSet();
    private Set comments=new HashSet();
-   private Set labels=new HashSet();
    
    private Set reportSentences=new HashSet();
    private Set relatedSentences=new HashSet();
-   private Set relatedDiaries=new HashSet();
+   private Set loveSentences=new HashSet();
    
+   private Set labelUsers=new HashSet();
+   private Set subscribeLabels=new HashSet();
    
 	public long getUserID() {
 		return userID;
@@ -172,23 +173,11 @@ public class User{
 	public void setSentences(Set sentences) {
 		this.sentences = sentences;
 	}
-	public Set getDiaries() {
-		return diaries;
-	}
-	public void setDiaries(Set diaries) {
-		this.diaries = diaries;
-	}
 	public Set getComments() {
 		return comments;
 	}
 	public void setComments(Set comments) {
 		this.comments = comments;
-	}
-	public Set getLabels() {
-		return labels;
-	}
-	public void setLabels(Set labels) {
-		this.labels = labels;
 	}
 	public Set getReportSentences() {
 		return reportSentences;
@@ -202,11 +191,29 @@ public class User{
 	public void setRelatedSentences(Set relatedSentences) {
 		this.relatedSentences = relatedSentences;
 	}
-	public Set getRelatedDiaries() {
-		return relatedDiaries;
+	public Set getLoveSentences() {
+		return loveSentences;
 	}
-	public void setRelatedDiaries(Set relatedDiaries) {
-		this.relatedDiaries = relatedDiaries;
+	public void setLoveSentences(Set loveSentences) {
+		this.loveSentences = loveSentences;
+	}
+	public Set getLabelUsers() {
+		return labelUsers;
+	}
+	public void setLabelUsers(Set labelUsers) {
+		this.labelUsers = labelUsers;
+	}
+	public Set getSubscribeLabels() {
+		return subscribeLabels;
+	}
+	public void setSubscribeLabels(Set subscribeLabels) {
+		this.subscribeLabels = subscribeLabels;
+	}
+	public Integer getHotValue() {
+		return hotValue;
+	}
+	public void setHotValue(Integer hotValue) {
+		this.hotValue = hotValue;
 	}
    
 }

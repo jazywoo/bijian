@@ -19,7 +19,7 @@ import bijian.model.dao.IUserDao;
 
 /**
  * @author jazywoo
- * 测试通过
+ * 测试通过1
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +33,7 @@ public class NoticeDaoTests extends AbstractTransactionalJUnit4SpringContextTest
 	
 	@Test
 	public void insert(){
-		long userID=0;
+		long userID=addUser("jazywoo","wujianzhi","123456");
 		User user=(User) userDao.get(userID);
 		Assert.assertNotNull(user);
 		Notice notice=new Notice();
@@ -45,7 +45,9 @@ public class NoticeDaoTests extends AbstractTransactionalJUnit4SpringContextTest
 	}
 	@Test
 	public void delete(){
-		long noticeID=addNotice(0);
+		long userID=addUser("jazywoo","wujianzhi","123456");
+		long noticeID=addNotice(userID);
+		
 		Notice notice=(Notice) noticeDao.get(noticeID);
 		Assert.assertNotNull(notice);
 		noticeDao.delete(noticeID);
@@ -53,39 +55,33 @@ public class NoticeDaoTests extends AbstractTransactionalJUnit4SpringContextTest
 		Assert.assertNull(notice);
 	}
 	@Test
-	public void getNoticeListSize(){
-		addNotice(0);
-		addNotice(0);
-		addNotice(0);
-		addNotice(0);
-		addNotice(0);
-		long userID=0;
-		int size=noticeDao.getNoticeListSize(userID);
-		Assert.assertTrue(size>=5);
-	}
-	@Test
     public void getNoticeList(){
-		addNotice(0);
-		addNotice(0);
-		addNotice(0);
-		addNotice(0);
-		addNotice(0);
-		long userID=0;
+		long userID=addUser("jazywoo","wujianzhi","123456");
+		addNotice(userID);
+		addNotice(userID);
+		addNotice(userID);
+		addNotice(userID);
 		int page=0;
 		int limit=10;
 		List<Notice> notices=noticeDao.getNoticeList(userID, page, limit);
-		Assert.assertTrue(0<notices.size());   
+		Assert.assertTrue(3<notices.size());   
     	for(int i=0;i<notices.size();i++){
     		System.out.println("NoticeID-->"+notices.get(i).getNoticeID());
     	}
 	}
-	
+	private long addUser(String username,String nickName,String password){
+    	User user=new User();
+		user.setUsername(username);
+		user.setNickname(nickName);
+		user.setPassword(password);
+		userDao.insert(user);
+		return user.getUserID();
+    }
 	private long addNotice(long userID){
 		User user=(User) userDao.get(userID);
 		Notice notice=new Notice();
 		notice.setContent("notice");
-		notice.setUser(user);
-		
+		notice.setUser(user);		
 		noticeDao.insert(notice);
 		return notice.getNoticeID();
 	}

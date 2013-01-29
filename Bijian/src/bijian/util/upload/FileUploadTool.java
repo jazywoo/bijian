@@ -9,7 +9,7 @@ import org.apache.commons.io.FileUtils;
 
 public class FileUploadTool {
 	private String saveDir;
-    private int userID;
+    private long userID;
     private File[] uploadFiles;
     private String[] uploadFileNames;
     private String[] uploadFileContentTypes;
@@ -24,10 +24,10 @@ public class FileUploadTool {
     }
     
     
-	public int getUserID() {
+	public long getUserID() {
 		return userID;
 	}
-	public void setUserID(int userID) {
+	public void setUserID(long userID) {
 		this.userID = userID;
 	}
 	public File[] getUploadFiles() {

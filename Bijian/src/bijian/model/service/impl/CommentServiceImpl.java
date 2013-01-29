@@ -15,14 +15,14 @@ public class CommentServiceImpl implements ICommentService {
 	private IUserDao userDao;
 	private ICommentDao commentDao;
 
-	public void commentSentence(long articleObjectID, Comment comment) {
-		Sentence sentence=(Sentence) sentenceDao.get(articleObjectID);
+	public void commentSentence(long sentenceID, Comment comment) {
+		Sentence sentence=(Sentence) sentenceDao.get(sentenceID);
 		sentence.getComments().add(comment);
 		sentenceDao.update(sentence);
 	}
 
-	public void deleteComment(long userID,long articleObjectID, long commentID) {
-		Sentence sentence=(Sentence) sentenceDao.get(articleObjectID);
+	public void deleteComment(long userID,long sentenceID, long commentID) {
+		Sentence sentence=(Sentence) sentenceDao.get(sentenceID);
 		if(sentence.getAuthor().getUserID()!=userID){
 			System.out.println("无权限，句子不属于此人");
 			return ;
@@ -30,8 +30,8 @@ public class CommentServiceImpl implements ICommentService {
 		commentDao.delete(commentID);
 	}
 
-	public List<Comment> getComment(long articleObjectID, int page, int limit) {
-		return commentDao.getCommentList(articleObjectID, page, limit);
+	public List<Comment> getComment(long sentenceID, int page, int limit) {
+		return commentDao.getCommentList(sentenceID, page, limit);
 	}
 	
 

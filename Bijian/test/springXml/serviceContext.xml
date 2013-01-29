@@ -3,11 +3,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
      
-     <bean id="userService" class="bijian.model.service.impl.UserServiceImpl">
+     <bean id="commentService" class="bijian.model.service.impl.CommentServiceImpl">
          <property name="userDao" ref="userDao"/>
          <property name="sentenceDao" ref="sentenceDao"/>
      </bean>  
-     
+     <bean id="labelService" class="bijian.model.service.impl.LabelServiceImpl">
+         <property name="userDao" ref="userDao"/>
+         <property name="sentenceDao" ref="sentenceDao"/>
+     </bean>
+     <bean id="sentenceService" class="bijian.model.service.impl.SentenceServiceImpl">
+         <property name="userDao" ref="userDao"/>
+         <property name="sentenceDao" ref="sentenceDao"/>
+     </bean>
+     <bean id="userService" class="bijian.model.service.impl.UserServiceImpl">
+         <property name="userDao" ref="userDao"/>
+         <property name="sentenceDao" ref="sentenceDao"/>
+     </bean>
      
 
 </beans>

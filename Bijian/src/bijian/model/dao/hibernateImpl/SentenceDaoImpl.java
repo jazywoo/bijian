@@ -45,18 +45,6 @@ public class SentenceDaoImpl implements ISentenceDao{
 			}
 		});
 	}
-    public List<Sentence> getRelated(final List<Long> relatedUserList, final int page,final int limit) {
-    	return this.hibernateTemplate.executeFind(new HibernateCallback(){
-			public Object doInHibernate(Session session){
-				Criteria criteria=session.createCriteria(Sentence.class)
-				.add(Restrictions.in("author.userID", relatedUserList))
-				.addOrder(Order.desc("createTime"))
-				.setFirstResult(page)
-				.setMaxResults(limit);
-				return criteria.list();
-			}
-		});
-	}
     public List<Sentence> getHot(final int page,final int limit){
     	final String sql="from Sentence as s" +
 				        " order by s.goodNum desc,s.creatTime desc ";
@@ -113,7 +101,6 @@ public class SentenceDaoImpl implements ISentenceDao{
 		    }     
 		   }); 
 	}
-	
 	
 	public HibernateTemplate getHibernateTemplate() {
 		return hibernateTemplate;

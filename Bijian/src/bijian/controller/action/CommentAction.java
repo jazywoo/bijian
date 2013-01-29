@@ -3,10 +3,13 @@ package bijian.controller.action;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import bijian.model.bean.Comment;
+import bijian.model.service.ICommentService;
 import bijian.model.service.IUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -16,6 +19,7 @@ public class CommentAction extends ActionSupport implements SessionAware,Request
 	private Map request;
 	
 	private IUserService userService;
+	private ICommentService commentService;
 	private String resultJson;
 	//评论一个句子
     public String commentSentence(){
@@ -30,24 +34,14 @@ public class CommentAction extends ActionSupport implements SessionAware,Request
      }
      //显示一个句子的评论
      public String showComment(){
-    	 int sentenceID=(Integer)request.get("sentenceID");
-    	 int page=(Integer)request.get("page");
-     	 int limit=(Integer)request.get("limit");
-     	// List<Comment> commentList=userService.getSentenceComment(sentenceID, page, limit);
-    	 
+    	 long sentenceID=Long.parseLong(request.get("sentenceID").toString());
+    	 int page=Integer.parseInt(request.get("page").toString());
+     	 int limit=Integer.parseInt(request.get("limit").toString());
+     	 List<Comment> commentList=commentService.getComment(sentenceID, page, limit);
+    	 String commentJson=JSONObject.fromObject(commentList).toString();
+     	 resultJson="{'root':'commentList',result:"+commentJson+"}";
      	 return SUCCESS;
      }
-     
-     
-     
-     
-    public void setSession(Map<String, Object>  session) {
- 		this.session = session;
- 	}
-
-	public void setRequest(Map<String, Object> request) {
-		this.request=request;
-	}
 
 	public IUserService getUserService() {
 		return userService;
@@ -63,5 +57,29 @@ public class CommentAction extends ActionSupport implements SessionAware,Request
 
 	public String getResultJson() {
 		return resultJson;
+	}
+
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+
+	public Map getRequest() {
+		return request;
+	}
+
+	public void setRequest(Map request) {
+		this.request = request;
+	}
+
+	public ICommentService getCommentService() {
+		return commentService;
+	}
+
+	public void setCommentService(ICommentService commentService) {
+		this.commentService = commentService;
 	}
 }

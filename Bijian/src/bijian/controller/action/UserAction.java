@@ -1,8 +1,11 @@
 package bijian.controller.action;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
@@ -28,6 +31,38 @@ public class UserAction extends ActionSupport implements SessionAware,RequestAwa
 	
 	private User user;//修改用户信息
 	private FileUploadTool uploadTool=new FileUploadTool();//上传文件处理类
+	
+	private String resultJson;
+	
+	public String getUserInfo(){
+		long userID=Long.parseLong(request.get("userID").toString());
+		User user=userService.getUser(userID);
+		String userJson=JSONObject.fromObject(user).toString();		
+		resultJson="{'root':'user',result:"+userJson+"}";
+		return SUCCESS;
+	}
+	//喜欢该句子的所有用户
+	public String getSentenceLoveUsers(){
+		long sentenceID=Long.parseLong(request.get("sentenceID").toString());
+		int page=Integer.parseInt(request.get("page").toString());
+    	int limit=Integer.parseInt(request.get("limit").toString());
+    	List<User> sentenceLoveUsers=userService.getSentenceLoveUsers(sentenceID, page, limit);
+    	String usersJson=JSONObject.fromObject(sentenceLoveUsers).toString();
+    	resultJson="{'root':'sentenceLoveUsers',result:"+usersJson+"}";
+		return SUCCESS;
+	}
+	//转发该句子的所有用户
+	public String getSentenceForwardingUsers(){
+		long sentenceID=Long.parseLong(request.get("sentenceID").toString());
+		int page=Integer.parseInt(request.get("page").toString());
+    	int limit=Integer.parseInt(request.get("limit").toString());
+    	List<User> sentenceForwardingUsers=userService.getSentenceForwardingUsers(sentenceID, page, limit);
+    	String usersJson=JSONObject.fromObject(sentenceForwardingUsers).toString();
+    	resultJson="{'root':'sentenceForwardingUsers',result:"+usersJson+"}";
+		return SUCCESS;
+	}
+	
+	
 	//登陆
 	public String login(){
 		String result;
@@ -47,76 +82,81 @@ public class UserAction extends ActionSupport implements SessionAware,RequestAwa
     	return SUCCESS;
     }
     //修改个人信息
-//    public String modifyPhoto(){
-//    	User loginUser=(User) session.get("loginUser");
-//    	int userID=loginUser.getUserID();
-//    	String saveDir=ServletActionContext.getServletContext().getRealPath("uploadDir");	
-//    	uploadTool.setSaveDir(saveDir);
-//    	uploadTool.setUserID(userID);
-//    	try {
-//			uploadTool.beginUpload();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//    	return SUCCESS;
-//    }
-//    public String modifyBasicInfomation(){
-//    	
-//    	return SUCCESS;
-//    }
-//    public String modifyPassword(){
-//    	String result=SUCCESS;
-//    	String password=(String) request.get("user.password");
-//    	String verifyPassword=(String) request.get("user.verifyPassword");
-//    	if(!password.equals(verifyPassword)){
-//    		result="notEquals";
-//    	}else{
-//    		User loginUser=(User) session.get("loginUser");
-//    		if(password.equals(loginUser.getPassword())){
-//    			result="unModify";
-//    		}else{
-//    			loginUser.setPassword(password);
-//    			this.userService.update(loginUser);
-//    			result=SUCCESS;
-//    		}
-//    		
-//    	}
-//    	return result;
-//    }
-//    //关注某人
-//    public String attentionOne(){
-//    	int attentionUserID=(Integer) request.get("attentionUserID");
-//    	User loginUser=(User) session.get("loginUser");
-//    	int userID=loginUser.getUserID();
-//    	this.userService.attentionOne(userID, attentionUserID);
-//    	return SUCCESS;
-//    }
-//    
-//    
-//	public User getUser() {
-//		return this.user;
-//	}
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-//	public IUserService getUserService() {
-//		return userService;
-//	}
-//	public void setUserService(IUserService userService) {
-//		this.userService = userService;
-//	}
-//	public void setSession(Map<String, Object> session) {
-//		this.session=session;
-//	}
-//	public void setRequest(Map<String, Object> request) {
-//		this.request=request;
-//	}
-	public void setSession(Map<String, Object> arg0) {
-		// TODO Auto-generated method stub
-		
+    public String modifyPhoto(){
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	String saveDir=ServletActionContext.getServletContext().getRealPath("uploadDir");	
+    	uploadTool.setSaveDir(saveDir);
+    	uploadTool.setUserID(userID);
+    	try {
+			uploadTool.beginUpload();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	return SUCCESS;
+    }
+    public String modifyBasicInfomation(){
+    	
+    	return SUCCESS;
+    }
+    public String modifyPassword(){
+    	String result=SUCCESS;
+    	String password=(String) request.get("user.password");
+    	String verifyPassword=(String) request.get("user.verifyPassword");
+    	if(!password.equals(verifyPassword)){
+    		result="notEquals";
+    	}else{
+    		User loginUser=(User) session.get("loginUser");
+    		if(password.equals(loginUser.getPassword())){
+    			result="unModify";
+    		}else{
+    			loginUser.setPassword(password);
+    			this.userService.update(loginUser);
+    			result=SUCCESS;
+    		}
+    		
+    	}
+    	return result;
+    }
+    //关注某人
+    public String attentionOne(){
+    	int attentionUserID=(Integer) request.get("attentionUserID");
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	this.userService.attentionOne(userID, attentionUserID);
+    	return SUCCESS;
+    }
+    
+    
+	public User getUser() {
+		return this.user;
 	}
-	public void setRequest(Map<String, Object> arg0) {
-		// TODO Auto-generated method stub
-		
+	public void setUser(User user) {
+		this.user = user;
 	}
+	public IUserService getUserService() {
+		return userService;
+	}
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
+	}
+	public Map getSession() {
+		return session;
+	}
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	public Map getRequest() {
+		return request;
+	}
+	public void setRequest(Map request) {
+		this.request = request;
+	}
+	public String getResultJson() {
+		return resultJson;
+	}
+	public void setResultJson(String resultJson) {
+		this.resultJson = resultJson;
+	}
+	
 }

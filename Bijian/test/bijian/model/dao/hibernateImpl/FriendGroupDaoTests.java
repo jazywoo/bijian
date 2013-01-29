@@ -20,7 +20,7 @@ import bijian.model.dao.IUserDao;
 
 /**
  * @author jazywoo
- * 测试通过
+ * 测试通过1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring.xml"})
@@ -33,8 +33,9 @@ public class FriendGroupDaoTests extends AbstractTransactionalJUnit4SpringContex
 	
 	@Test
     public void insert(){//T entity
+		long userID=addUser("jazywoo","wujianzhi","123456");
 		FriendGroup friendGroup=new FriendGroup();
-		User user=(User) userDao.get(new Long(0));
+		User user=(User) userDao.get(userID);
 		friendGroup.setAuthor(user);
 		friendGroup.setGroupName("同事");
 		friendGroupDao.insert(friendGroup);
@@ -42,8 +43,8 @@ public class FriendGroupDaoTests extends AbstractTransactionalJUnit4SpringContex
     }
 	@Test
     public void update(){//T entity
-		insert();
-    	long friendGroupID=0;
+		long userID=addUser("jazywoo","wujianzhi","123456");
+    	long friendGroupID=addFriendGroup(userID);
     	FriendGroup friendGroup=(FriendGroup) friendGroupDao.get(friendGroupID);
     	Assert.assertNotNull(friendGroup);
     	friendGroup.setGroupName("pengyou");
@@ -52,8 +53,8 @@ public class FriendGroupDaoTests extends AbstractTransactionalJUnit4SpringContex
     }
 	@Test
     public void deleteByID(){//ID id
-		insert();
-    	long friendGroupID=0;
+		long userID=addUser("jazywoo","wujianzhi","123456");
+    	long friendGroupID=addFriendGroup(userID);
     	FriendGroup friendGroup=(FriendGroup) friendGroupDao.get(friendGroupID);
     	Assert.assertNotNull(friendGroup); 
     	friendGroupDao.delete(friendGroupID);
@@ -62,11 +63,28 @@ public class FriendGroupDaoTests extends AbstractTransactionalJUnit4SpringContex
     }
     @Test
 	public void getByID(){//ID id
-    	insert();
-    	long friendGroupID=0;
+    	long userID=addUser("jazywoo","wujianzhi","123456");
+    	long friendGroupID=addFriendGroup(userID);
     	FriendGroup friendGroup=(FriendGroup) friendGroupDao.get(friendGroupID);
     	Assert.assertNotNull(friendGroup);    	
 	}
+    
+    private long addFriendGroup(long userID){
+    	FriendGroup friendGroup=new FriendGroup();
+		User user=(User) userDao.get(userID);
+		friendGroup.setAuthor(user);
+		friendGroup.setGroupName("同事");
+		friendGroupDao.insert(friendGroup);
+		return friendGroup.getFriendGroupID();
+    }
+    private long addUser(String username,String nickName,String password){
+    	User user=new User();
+		user.setUsername(username);
+		user.setNickname(nickName);
+		user.setPassword(password);
+		userDao.insert(user);
+		return user.getUserID();
+    }
 	
 	
 	

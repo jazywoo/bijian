@@ -15,16 +15,16 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import bijian.model.bean.Diary;
 import bijian.model.bean.Sentence;
 import bijian.model.bean.User;
-import bijian.model.dao.IDiaryDao;
+import bijian.model.bean.relationbean.Attention;
+import bijian.model.dao.IAttentionDao;
 import bijian.model.dao.ISentenceDao;
 import bijian.model.dao.IUserDao;
 
 /**
  * @author jazywoo
- * 测试通过
+ * 测试通过1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring.xml"})
@@ -34,10 +34,12 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
     private ISentenceDao sentenceDao;
 	@Resource(name="userDao",type=UserDaoImpl.class)
 	private IUserDao userDao;
+	@Resource(name="attentionDao",type=AttentionDaoImpl.class)
+	private IAttentionDao attentionDao;
 	
 	@Test
 	public void insert(){//T entity
-		long userID=0;
+		long userID=addUser("jazywoo","wujianzhi","123456");
 		User user=(User) userDao.get(userID);
 		Assert.assertNotNull(user);
 		Sentence sentence=new Sentence();
@@ -49,13 +51,17 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
 	}
 	@Test
     public void getByID(){//ID id
-		long sentenceID=addSentence(0,0);
+		long userID=addUser("jazywoo","wujianzhi","123456");
+		long sentenceID=addSentence(userID,0);
+		
 		Sentence sentence=(Sentence) sentenceDao.get(sentenceID);
 		Assert.assertNotNull(sentence);
     }
 	@Test
     public void update(){//T entity
-		long sentenceID=addSentence(0,0);
+		long userID=addUser("jazywoo","wujianzhi","123456");
+		long sentenceID=addSentence(userID,0);
+		
 		Sentence sentence=(Sentence) sentenceDao.get(sentenceID);
 		Assert.assertNotNull(sentence);
 		sentence.setContent("update_content");
@@ -65,8 +71,9 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
     }
     @Test
     public void delete(){//ID id
-    	long sentenceID=addSentence(0,0);
-    	System.out.println("9999999999999   ----"+sentenceID);
+    	long userID=addUser("jazywoo","wujianzhi","123456");
+		long sentenceID=addSentence(userID,0);
+		
 		Sentence sentence=(Sentence) sentenceDao.get(sentenceID);
 		Assert.assertNotNull(sentence);
 		sentenceDao.delete(sentenceID);
@@ -77,14 +84,15 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
     
     @Test
     public void getByUserID(){//long userID,int page,int limit
-    	 addSentence(0,0);
-    	 addSentence(0,1);
-    	 addSentence(0,2);
-	   	 long userID=0;
+    	long userID=addUser("jazywoo","wujianzhi","123456");
+		addSentence(userID,0);
+		addSentence(userID,1);
+		addSentence(userID,2);
+		addSentence(userID,3);
 	   	 int page=0;
 	   	 int limit=10;
 	   	 List<Sentence> sentences=sentenceDao.getByUserID(userID, page, limit);
-	   	 Assert.assertTrue(sentences.size()>0);
+	   	 Assert.assertTrue(sentences.size()>3);
 	   	 for(int i=0;i<sentences.size();i++){
 	   		 System.out.println("SentenceID--->"+sentences.get(i).getSentenceID());
 	   	 }
@@ -92,11 +100,11 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
 	 
 	 @Test
     public void getByUserID2(){//long userID,Date date1,Date date2,int page,int limit
-		 addSentence(0,0);
-    	 addSentence(0,1);
-    	 addSentence(0,2);
-    	 addSentence(0,3);
-		 long userID=0;
+		 long userID=addUser("jazywoo","wujianzhi","123456");
+		 addSentence(userID,0);
+		 addSentence(userID,1);
+		 addSentence(userID,2);
+		 addSentence(userID,3);
 	   	 int page=0;
 	   	 int limit=10;
 	   	 Date date1=new Date(System.currentTimeMillis());
@@ -105,30 +113,33 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
 	   	 now.add(Calendar.DAY_OF_YEAR, 3);
 	   	 Date date2=now.getTime();
 	   	 List<Sentence> sentences=sentenceDao.getByUserID(userID, page, limit);
-	   	 Assert.assertTrue(sentences.size()>0);
+	   	 Assert.assertTrue(sentences.size()>3);
 	   	 for(int i=0;i<sentences.size();i++){
 	   		 System.out.println("SentenceID--->"+sentences.get(i).getSentenceID());
 	   	 }
     }
-	 
-	 @Test
-     public void get(){//List<Long> attentionUserList,int page,int limit
-		 addSentence(0,0);
-    	 addSentence(0,1);
-    	 addSentence(1,2);
-    	 addSentence(1,3);
+     @Test
+	 public void getAttention(){//List<Long> attentionUserList,int page,int limit
+    	 long selfID=addUser("jazywoo","wujianzhi","123456");
+     	 long attentionerID1=addUser("jazywoo1","wujianzhi1","123456");
+     	 addAttention(selfID,attentionerID1);
+     	 long  attentionerID2=addUser("jazywoo1","wujianzhi1","123456");
+    	 addAttention(selfID,attentionerID2);
+    	 
+    	 addSentence(attentionerID1,0);
+		 addSentence(attentionerID2,1);
     	 List<Long> attentionUserList=new ArrayList<Long>();
-    	 attentionUserList.add(new Long(0));
-    	 attentionUserList.add(new Long(1));
-    	 int page=0;
+    	 attentionUserList.add(attentionerID1);
+    	 attentionUserList.add(attentionerID2);
+		 int page=0;
     	 int limit=10;
-    	 List<Sentence> sentences=sentenceDao.get(attentionUserList, page, limit);
+    	 List<Sentence> sentences=sentenceDao.getAttention(attentionUserList, page, limit);
 	   	 Assert.assertTrue(sentences.size()>0);
 	   	 for(int i=0;i<sentences.size();i++){
 	   		 System.out.println("SentenceID--->"+sentences.get(i).getSentenceID());
 	   	 }
-    	 
-     }
+	 }
+	 
     public long addSentence(long userID,int date){
     	User user=(User) userDao.get(userID);
 		Assert.assertNotNull(user);
@@ -142,5 +153,23 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
 		sentenceDao.insert(sentence);
 		return sentence.getSentenceID();
     }
-    
+    private long addAttention(long selfID,long attentionerID){
+    	User self=(User) userDao.get(selfID);
+    	User attentioner=(User) userDao.get(attentionerID);
+    	Attention attention=new Attention();
+    	attention.setSelf(self);
+    	attention.setAttentioner(attentioner);
+    	attention.setCreateTime(new Date());
+    	attentionDao.insert(attention);
+    	return attention.getAttentionID();
+    }
+    private long addUser(String username,String nickName,String password){
+    	User user=new User();
+		user.setUsername(username);
+		user.setNickname(nickName);
+		user.setPassword(password);
+		userDao.insert(user);
+		return user.getUserID();
+   }
+   
 }

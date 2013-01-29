@@ -32,8 +32,6 @@ public class DaoTest{
 	  @Resource
       private ICommentDao commentDao;
 	  @Resource
-      private IDiaryDao diaryDao;
-	  @Resource
       private IFollowingDao followingDao;
 	  @Resource
       private IFriendGroupDao friendGroupDao;
@@ -52,7 +50,7 @@ public class DaoTest{
 	  @Resource
       private IUserDao userDao;
 	  @Resource
-      private IUserRelatedObjectDao userRelatedObjectDao;
+      private IUserRelatedSentenceDao userRelatedObjectDao;
       public void testAttentionDao(){
     	  Attention attention=new Attention();
     	  attention.setAttentionID(1);

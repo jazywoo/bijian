@@ -9,11 +9,20 @@
        </id>
        <property name="content" column="content" type="string"/>
        <property name="createTime" column="createTime" type="java.util.Date"/>
-       <property name="objectType" column="objectType" type="java.lang.Integer"/>
+       <property name="hotValue" column="hotValue" type="java.lang.Integer"/> 
        
-       <many-to-one name="author" column="authorID" class="User"/>
-       <many-to-one name="articleObject" column="objectID" class="ArticleObject" cascade="none"/>
-    
+       <set name="labelSentences" table="labelSentence"  lazy="true" inverse="true">
+          <key column="labelID"/>
+          <one-to-many class="bijian.model.bean.relationbean.LabelSentence"/>
+       </set>
+       <set name="labelUsers" table="labelUser"  lazy="true" inverse="true">
+          <key column="labelID"/>
+          <one-to-many class="User"/>
+       </set>
+       <set name="subscribeLabels" table="subscribeLabel"  lazy="true" inverse="true">
+          <key column="labelID"/>
+          <one-to-many class="bijian.model.bean.relationbean.SubscribeLabel"/>
+       </set>
     </class>
 
 </hibernate-mapping>

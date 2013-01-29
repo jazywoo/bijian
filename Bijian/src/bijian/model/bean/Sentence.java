@@ -1,6 +1,8 @@
 package bijian.model.bean;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Sentence{
@@ -12,8 +14,12 @@ public class Sentence{
     private Integer goodNum;
     private Integer commentNum;
     private Integer forwardingNum;
+    private Integer hotValue;
     private Integer isValid;
 
+    private Set comments=new HashSet();
+    private Set labelSentences=new HashSet();
+    
 	public long getSentenceID() {
 		return sentenceID;
 	}
@@ -85,6 +91,30 @@ public class Sentence{
 
 	public void setIsValid(Integer isValid) {
 		this.isValid = isValid;
+	}
+
+	public Set getComments() {
+		return comments;
+	}
+
+	public void setComments(Set comments) {
+		this.comments = comments;
+	}
+
+	public Set getLabelSentences() {
+		return labelSentences;
+	}
+
+	public void setLabelSentences(Set labelSentences) {
+		this.labelSentences = labelSentences;
+	}
+
+	public Integer getHotValue() {
+		return hotValue;
+	}
+
+	public void setHotValue(Integer hotValue) {
+		this.hotValue = hotValue;
 	}
 
 	

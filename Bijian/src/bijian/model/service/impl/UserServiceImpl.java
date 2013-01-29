@@ -10,24 +10,30 @@ import bijian.model.bean.Sentence;
 import bijian.model.bean.User;
 import bijian.model.bean.relationbean.Attention;
 import bijian.model.bean.relationbean.Following;
+import bijian.model.bean.relationbean.Forwarding;
+import bijian.model.bean.relationbean.LoveSentence;
 import bijian.model.bean.relationbean.ReportSentence;
 import bijian.model.bean.relationbean.UserRelatedSentence;
 import bijian.model.dao.IAttentionDao;
 import bijian.model.dao.ICommentDao;
 import bijian.model.dao.IFollowingDao;
+import bijian.model.dao.IForwardingDao;
 import bijian.model.dao.ILabelDao;
+import bijian.model.dao.ILoveSentenceDao;
 import bijian.model.dao.IReportSentenceDao;
 import bijian.model.dao.ISentenceDao;
 import bijian.model.dao.IUserDao;
-import bijian.model.dao.IUserRelatedObjectDao;
+import bijian.model.dao.IUserRelatedSentenceDao;
 import bijian.model.service.IUserService;
 
 public class UserServiceImpl implements IUserService{
 	private IUserDao userDao;
 	private IAttentionDao attentionDao;
 	private IFollowingDao followingDao;
+	private ILoveSentenceDao loveSentenceDao;
+	private IForwardingDao forwardingDao;
 
-	public void attentionOne(int myID, int otherID) { //关注
+	public void attentionOne(long myID, long otherID) { //关注
 		User self=(User) userDao.get(myID);
 		User attentioner=(User) userDao.get(otherID);
 		Attention attention=new Attention();
@@ -64,7 +70,28 @@ public class UserServiceImpl implements IUserService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public List<User> getSentenceLoveUsers(long sentenceID, int page, int limit) {
+		List<LoveSentence> loveSentences=loveSentenceDao.getLoveSentencesBySentence(sentenceID, page, limit);
+		List<User> users=new ArrayList<User>();
+		for(LoveSentence l:loveSentences){
+			users.add(l.getUser());
+		}
+		return users;
+	}
+	public List<User> getSentenceForwardingUsers(long sentenceID, int page, int limit) {
+		List<Forwarding> forwardings=forwardingDao.getForwardingsBySentence(sentenceID, page, limit);
+		List<User> users=new ArrayList<User>();
+		for(Forwarding f:forwardings){
+			users.add(f.getUser());
+		}
+		return users;
+	}
+	public List<User> getHotUsers() {
+		int page=0;
+		int limit=5;
+		return userDao.getHotUsers(page, limit);
+	}
+	
 	public User login(String username, String password) {
 		User user=userDao.get(username);
 		if(null!=user&&user.getPassword().equals(password)){
@@ -114,4 +141,23 @@ public class UserServiceImpl implements IUserService{
 	public void setFollowingDao(IFollowingDao followingDao) {
 		this.followingDao = followingDao;
 	}
+
+	public ILoveSentenceDao getLoveSentenceDao() {
+		return loveSentenceDao;
+	}
+
+	public void setLoveSentenceDao(ILoveSentenceDao loveSentenceDao) {
+		this.loveSentenceDao = loveSentenceDao;
+	}
+
+	public IForwardingDao getForwardingDao() {
+		return forwardingDao;
+	}
+
+	public void setForwardingDao(IForwardingDao forwardingDao) {
+		forwardingDao = forwardingDao;
+	}
+
+
+	
 }

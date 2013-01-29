@@ -48,10 +48,10 @@
        <bean id="commentDao" class="bijian.model.dao.hibernateImpl.CommentDaoImpl">
             <property name="hibernateTemplate" ref="hibernateTemplate"/>
        </bean>
-       <bean id="diaryDao" class="bijian.model.dao.hibernateImpl.DiaryDaoImpl">
+       <bean id="followingDao" class="bijian.model.dao.hibernateImpl.FollowingDaoImpl">
             <property name="hibernateTemplate" ref="hibernateTemplate"/>
        </bean>
-       <bean id="followingDao" class="bijian.model.dao.hibernateImpl.FollowingDaoImpl">
+       <bean id="forwardingDao" class="bijian.model.dao.hibernateImpl.ForwardingDaoImpl">
             <property name="hibernateTemplate" ref="hibernateTemplate"/>
        </bean>
        <bean id="friendGroupDao" class="bijian.model.dao.hibernateImpl.FriendGroupDaoImpl">
@@ -61,6 +61,15 @@
             <property name="hibernateTemplate" ref="hibernateTemplate"/>
        </bean>
        <bean id="labelDao" class="bijian.model.dao.hibernateImpl.LabelDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="labelSentenceDao" class="bijian.model.dao.hibernateImpl.LabelSentenceDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="labelUserDao" class="bijian.model.dao.hibernateImpl.LabelUserDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
+       <bean id="loveSentenceDao" class="bijian.model.dao.hibernateImpl.LoveSentenceDaoImpl">
             <property name="hibernateTemplate" ref="hibernateTemplate"/>
        </bean>
        <bean id="messageDao" class="bijian.model.dao.hibernateImpl.MessageDaoImpl">
@@ -75,10 +84,13 @@
        <bean id="sentenceDao" class="bijian.model.dao.hibernateImpl.SentenceDaoImpl">
             <property name="hibernateTemplate" ref="hibernateTemplate"/>
        </bean>
+       <bean id="subscribeLabelDao" class="bijian.model.dao.hibernateImpl.SubscribeLabelDaoImpl">
+            <property name="hibernateTemplate" ref="hibernateTemplate"/>
+       </bean>
        <bean id="userDao" class="bijian.model.dao.hibernateImpl.UserDaoImpl">
             <property name="hibernateTemplate" ref="hibernateTemplate"/>
        </bean>
-       <bean id="userRelatedObjectDao" class="bijian.model.dao.hibernateImpl.UserRelatedObjectDaoImpl">
+       <bean id="userRelatedSentenceDao" class="bijian.model.dao.hibernateImpl.UserRelatedSentenceDaoImpl">
             <property name="hibernateTemplate" ref="hibernateTemplate"/>
        </bean>
        

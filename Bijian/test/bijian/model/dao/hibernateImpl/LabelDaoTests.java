@@ -22,7 +22,7 @@ import bijian.model.dao.IUserDao;
 
 /**
  * @author jazywoo
- * 测试通过
+ * 测试通过1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring.xml"})
@@ -35,38 +35,39 @@ public class LabelDaoTests extends AbstractTransactionalJUnit4SpringContextTests
 	
 	@Test
 	public void insert(){//T entity
-		long userID=0;
-		User user=(User) userDao.get(userID);
-		Assert.assertNotNull("userID not null", user.getUserID());
 		Label label=new Label();
 		label.setContent("开心");
-		label.setAuthor(user);
 		labelDao.insert(label);
 		Assert.assertNotNull("labelID not null", label.getLabelID());
 	}
-    
 	@Test
-	public void get(){//int userID,int page,int limit
-		addLabel(0);
-		addLabel(0);
-		addLabel(0);
-		addLabel(0);
-		long userID=0;
+    public void getByContent(){//String content
+    	addLabel("开心");
+    	String content="开心";
+    	Label label=labelDao.getByContent(content);
+    	Assert.assertNotNull(label);
+    }
+	@Test
+	public void getLike(){//int userID,int page,int limit
+		addLabel("开心1");
+		addLabel("开心2");
+		addLabel("开心3");
+		addLabel("开心4");
+    	String content="开心";
+    	
 		int page=0;
 		int limit=10;
-		
-		List<Label> labels=labelDao.get(userID, page, limit);
+		List<Label> labels=labelDao.getLike(content, page, limit);
 		Assert.assertTrue(labels.size()>0);
 	   	for(int i=0;i<labels.size();i++){
 	   		System.out.println("labelID--->"+labels.get(i).getLabelID());
 	   	}
 	}
     
-	private void addLabel(long userID){
-		User user=(User) userDao.get(userID);
+	private long addLabel(String content){
 		Label label=new Label();
-		label.setContent("开心");
-		label.setAuthor(user);
+		label.setContent(content);
 		labelDao.insert(label);
+		return label.getLabelID();
 	}
 }

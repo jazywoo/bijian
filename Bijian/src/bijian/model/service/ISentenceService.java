@@ -19,6 +19,8 @@ public interface ISentenceService {
     public List<Sentence> getSuggestSentences(long userID,int page,int limit);
      //得到与我相关，评论过的动态句子
     public List<Sentence> getRelatedMeSentences(long userID,int page,int limit);
+    //得收藏标签的句子
+    public List<Sentence> getLabelSentences(long labelID,int page,int limit);
     
     //公共的操作---------
     public List<Sentence> getLatestSentence(int page,int limit);//最新的
