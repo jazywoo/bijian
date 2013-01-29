@@ -1,5 +1,6 @@
 package bijian.model.dao.hibernateImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,7 +16,11 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+import bijian.model.bean.Label;
 import bijian.model.bean.User;
+import bijian.model.bean.relationbean.LabelUser;
+import bijian.model.dao.ILabelDao;
+import bijian.model.dao.ILabelUserDao;
 import bijian.model.dao.IUserDao;
 
 /**
@@ -28,6 +33,10 @@ import bijian.model.dao.IUserDao;
 public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
 	@Resource(name="userDao",type=UserDaoImpl.class)
     private IUserDao userDao;
+	@Resource(name="labelDao",type=LabelDaoImpl.class)
+    private ILabelDao labelDao;
+	@Resource(name="labelUserDao",type=LabelUserDaoImpl.class)
+    private ILabelUserDao labelUserDao;
 	
 	@Test
 	public void insert(){//T entity
@@ -78,10 +87,10 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
     
 	@Test
 	public void getLike(){//User user,int page,int limit
-		addUser("jazywoo","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,1);
-		addUser("jazywoo1","wujianzhi","123456","湖北省","武汉市","洪山区","摩羯座",22,1);
-		addUser("jazywoo2","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",23,1);
-		addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0);
+		addUser("jazywoo","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,1,10);
+		addUser("jazywoo1","wujianzhi","123456","湖北省","武汉市","洪山区","摩羯座",22,1,10);
+		addUser("jazywoo2","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",23,1,10);
+		addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0,10);
 		List<User> matchUsers;
 		User user=new User();
 		int page=0;
@@ -119,6 +128,51 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
 			e.printStackTrace();
 		}
 	}
+	public void getHotUsers(){//int page,int limit
+		addUser("jazywoo","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,1,1);
+		addUser("jazywoo1","wujianzhi","123456","湖北省","武汉市","洪山区","摩羯座",22,1,2);
+		addUser("jazywoo2","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",23,1,4);
+		addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0,10);
+		int page=0;
+		int limit=10;
+		List<User> users=userDao.getHotUsers(page, limit);
+		Assert.assertTrue(users.size()>0);
+		for(int i=0;i<users.size();i++){
+			System.out.println("userID "+users.get(i).getUserID());
+		}
+	}
+	public void getHotUserByLabel(){//long labelID
+		long userID=addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0,10);
+		long max=userID;
+		long labelID=addLabel("开心");
+		addLabelUser(userID,labelID);
+		userID=addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0,4);
+		addLabelUser(userID,labelID);
+		userID=addUser("jazywoo2","wujianzhi2","123456");
+		addLabelUser(userID,labelID);
+		userID=addUser("jazywoo3","wujianzhi3","123456");
+		addLabelUser(userID,labelID);
+		
+		User user=userDao.getHotUserByLabel(labelID);
+		Assert.assertTrue(user.getUserID()==max);
+	}
+	public void getActiveUsersByLabel(){//long labelID,int page,int limit
+		long userID=addUser("jazywoo3","wujianzhi","123456");
+		long max=userID;
+		long labelID=addLabel("开心");
+		addLabelUser(userID,labelID);
+		userID=addUser("jazywoo3","wujianzhi","123456");
+		addLabelUser(userID,labelID);
+		userID=addUser("jazywoo2","wujianzhi2","123456");
+		addLabelUser(userID,labelID);
+		userID=addUser("jazywoo3","wujianzhi3","123456");
+		addLabelUser(userID,labelID);
+		
+		int page=0;
+		int limit=10;
+		List<User> users=userDao.getActiveUsersByLabel(labelID, page, limit);
+		Assert.assertTrue(users.size()>2);
+	}
 	
 	
 	private long addUser(String username,String nickName,String password){
@@ -130,7 +184,7 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
 		return user.getUserID();
     }
 	private long addUser(String username,String nickName,String password,
-			String province,String city,String area,String constellation,int age,int sex){
+			String province,String city,String area,String constellation,int age,int sex,int hotValue){
     	User user=new User();
 		user.setUsername(username);
 		user.setNickname(nickName);
@@ -144,5 +198,21 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
 		userDao.insert(user);
 		return user.getUserID();
     }
+	private long addLabel(String content){
+		Label label=new Label();
+		label.setContent(content);
+		labelDao.insert(label);
+		return label.getLabelID();
+	}
+	private long addLabelUser(long userID,long labelID){
+		User user=(User) userDao.get(userID);
+		Label label=(Label) labelDao.get(labelID);
+		LabelUser labelUser=new LabelUser();
+		labelUser.setLabel(label);
+		labelUser.setUser(user);
+		labelUser.setCreateTime(new Date());
+		labelUserDao.insert(labelUser);
+		return labelUser.getLabelUserID();
+	}
     
 }

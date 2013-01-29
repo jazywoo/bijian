@@ -1,5 +1,6 @@
 package bijian.model.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,10 +32,15 @@ public class LabelServiceImpl implements ILabelService{
 		}
 		labelUserDao.insert(labelUser);
 	}
-	public List<Label> getHotLabels() {
-		int page=0;
-		int limit=5;
+	public List<Label> getHotLabels(int page,int limit) {
 		return labelDao.getHotLabels(page, limit);
+	}
+	public int getUsedCount(long labelID,Date date){
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_YEAR, 1);
+		Date date2=calendar.getTime();
+		return labelUserDao.getLabelUsersSizeByLabel(labelID, date, date2);
 	}
 	public IUserDao getUserDao() {
 		return userDao;

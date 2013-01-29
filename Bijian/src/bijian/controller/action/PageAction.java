@@ -1,6 +1,8 @@
 package bijian.controller.action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,15 +27,44 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     private ILabelService labelService;
     //显示首页
     public String displayHomePage(){   
-    	int page=0;
-    	int limit=10;
         List<User> hotUserList=userService.getHotUsers();
-        List<Sentence> sentenceList=sentenceService.getHotSentence(page, limit);
-        List<Label> hotLabelList=labelService.getHotLabels();
+        List<Sentence> sentenceList=sentenceService.getHotSentence(0, 10);
+        List<Label> hotLabelList=labelService.getHotLabels(0,5);
         
     	session.put("hotUserList", hotUserList);
     	session.put("sentenceList", sentenceList);
     	session.put("hotLabelList", hotLabelList);
+    	return SUCCESS;
+    }
+    //显示发现页面
+    public String displayDiscoveryPage(){
+    	List<Sentence> sentenceList=sentenceService.getHotSentence(0, 10); //发现 好句子
+    	List<Label> hotLabelList=labelService.getHotLabels(0,20); // 发现 热的标签
+    	List<User> labelHotUserList=new ArrayList<User>(); //发现 热的标签对应的优秀博客
+    	List<List<User>> labelActiveUserList=new ArrayList<List<User>>();//发现 热的标签对应的活跃博客
+    	List<List<Integer>> labelCountList=new ArrayList<List<Integer>>();
+    	for(Label l:hotLabelList){
+    		labelHotUserList.add(userService.getHotUserByLabel(l.getLabelID()));
+    		labelActiveUserList.add(userService.getActiveUsersByLabel(l.getLabelID(), 0, 3));
+    		List<Integer> countList=new ArrayList<Integer>();//近5天的使用次数
+    		Calendar calendar=Calendar.getInstance();
+    		calendar.setTime(new Date());
+    		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
+    		calendar.add(Calendar.DAY_OF_YEAR, -1);
+    		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
+    		calendar.add(Calendar.DAY_OF_YEAR, -1);
+    		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
+    		calendar.add(Calendar.DAY_OF_YEAR, -1);
+    		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
+    		calendar.add(Calendar.DAY_OF_YEAR, -1);
+    		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
+    		labelCountList.add(countList);
+    	}
+    	session.put("sentenceList", sentenceList);
+    	session.put("hotLabelList", hotLabelList);
+    	session.put("labelHotUserList", labelHotUserList);
+    	session.put("labelActiveUserList", labelActiveUserList);
+    	session.put("labelCountList", labelCountList);
     	return SUCCESS;
     }
     //显示其他人的主页

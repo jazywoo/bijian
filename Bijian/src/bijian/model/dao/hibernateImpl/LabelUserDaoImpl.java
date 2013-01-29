@@ -1,6 +1,7 @@
 package bijian.model.dao.hibernateImpl;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -45,7 +46,39 @@ public class LabelUserDaoImpl implements ILabelUserDao{
 		}).get(0);
 		return size.intValue();
 	}
-	
+	public int getLabelUsersSizeByLabel(final long labelID,final Date date1,final Date date2){
+		final String sql="select count(*) from LabelUser as l " +
+		        		"  where l.label.labelID=:labelID" +
+		        		"    and l.createTime between :date1 and :date2";
+		Long size=(Long)  this.hibernateTemplate.executeFind(new HibernateCallback() {     
+			public Object doInHibernate(Session session)     
+			throws HibernateException, SQLException {     
+				Query query = session.createQuery(sql); 
+				query.setParameter("labelID", labelID)
+				.setParameter("date1", date1)
+                .setParameter("date2", date2);
+				return query.list(); 
+			}     
+		}).get(0);
+		return size.intValue();
+	}
+    public List<LabelUser> getLabelUsersByLabel(final long labelID,final Date date1,final Date date2,final int page,final int limit){
+    	final String sql="from LabelUser as l " +
+					   "  where l.label.labelID=:labelID" +
+					   "    and l.createTime between :date1 and :date2";
+		return this.hibernateTemplate.executeFind(new HibernateCallback() {     
+			public Object doInHibernate(Session session)     
+			throws HibernateException, SQLException {     
+				Query query = session.createQuery(sql); 
+				query.setParameter("labelID", labelID)
+				.setParameter("date1", date1)
+                .setParameter("date2", date2)
+				.setFirstResult(page)
+				.setMaxResults(limit); 
+				return query.list(); 
+			}     
+		});
+    }
 	public List<LabelUser> getLabelUsersByUser(final long userID,final int page,final int limit) {
 		final String sql="from LabelUser as l " +
 						"  where l.user.userID=:userID";

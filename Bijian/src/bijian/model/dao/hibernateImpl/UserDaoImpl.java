@@ -16,6 +16,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import bijian.model.bean.User;
 import bijian.model.bean.relationbean.Attention;
+import bijian.model.bean.relationbean.LabelUser;
 import bijian.model.dao.IUserDao;
 
 public class UserDaoImpl implements IUserDao {  
@@ -118,7 +119,38 @@ public class UserDaoImpl implements IUserDao {
 			}
 		});
 	}
-	
+	public User getHotUserByLabel(final long labelID){
+		final String sql="from User as u " +
+				       "  where u.hotValue=(select max(temp.hotValue) from User as temp) " +
+				       "    and u.userID in (select distinct lu.user.userID from LabelUser as lu " +
+				       "                    where lu.label.labelID=:labelID)";
+		return (User)this.hibernateTemplate.executeFind(new HibernateCallback(){
+			public Object doInHibernate(Session session){
+				Query query=session.createQuery(sql);
+				query.setParameter("labelID", labelID);
+				return query.list();				
+			}
+		}).get(0);
+	}
+	public List<User> getActiveUsersByLabel(final long labelID,final int page,final int limit){
+		final String sql="from LabelUser as lu " +
+				       "  where lu.label.labelID=:labelID" +
+				       "  order by lu.createTime desc";
+		List<LabelUser> labelUsers=this.hibernateTemplate.executeFind(new HibernateCallback(){
+			public Object doInHibernate(Session session){
+				Query query=session.createQuery(sql);
+				query.setParameter("labelID", labelID)
+				.setFirstResult(page)
+				.setMaxResults(limit);
+				return query.list();				
+			}
+        });
+		List<User> users=new ArrayList<User>();
+		for(LabelUser lu:labelUsers){
+			users.add(lu.getUser());
+		}
+		return users;
+	}
 	public void delete(Object id) {
 		User user=(User)this.hibernateTemplate.load(User.class, (Long)id);
 		this.hibernateTemplate.delete(user);

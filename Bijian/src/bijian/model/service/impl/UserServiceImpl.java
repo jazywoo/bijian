@@ -91,7 +91,12 @@ public class UserServiceImpl implements IUserService{
 		int limit=5;
 		return userDao.getHotUsers(page, limit);
 	}
-	
+	public User getHotUserByLabel(long labelID){
+		return userDao.getHotUserByLabel(labelID);
+	}
+    public List<User> getActiveUsersByLabel(long labelID,int page,int limit){
+    	return userDao.getActiveUsersByLabel(labelID, page, limit);
+    }
 	public User login(String username, String password) {
 		User user=userDao.get(username);
 		if(null!=user&&user.getPassword().equals(password)){
@@ -157,6 +162,7 @@ public class UserServiceImpl implements IUserService{
 	public void setForwardingDao(IForwardingDao forwardingDao) {
 		forwardingDao = forwardingDao;
 	}
+
 
 
 	
