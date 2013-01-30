@@ -71,7 +71,34 @@ public class SentenceDaoImpl implements ISentenceDao{
 			}     
 		});
     }
-	public List<Sentence> getByUserID(final long userID, final int page, final int limit) {
+    public Sentence getHotestByUser(final long userID){
+    	final String sql="from Sentence as s " +
+    			      "  where s.user.userID=:userID " +
+    			      "    and s.hotValue=(select max(temp.hotValue) from Sentence";
+    	return (Sentence)this.hibernateTemplate.executeFind(new HibernateCallback() {     
+			public Object doInHibernate(Session session)     
+			throws HibernateException, SQLException {     
+			  Query query = session.createQuery(sql.toString()); 
+			  query.setParameter("userID", userID);  
+			  return query.list();        
+			}     
+		}).get(0);
+    }
+    public int getSizeByUser(final long userID){
+    	final String sql="select count(*) from Sentence as s" +
+		        	   "  where s.author.userID=:userID";
+		Long size=(Long) this.hibernateTemplate.executeFind(new HibernateCallback() {     
+			public Object doInHibernate(Session session)     
+			throws HibernateException, SQLException {     
+			  Query query = session.createQuery(sql.toString()); 
+			  query.setParameter("userID", userID);  
+			  return query.list();        
+			}     
+		}).get(0);
+		return size.intValue();
+    	
+    }
+	public List<Sentence> getByUser(final long userID, final int page, final int limit) {
 		final String sql="from Sentence as s" +
 		               "  where s.author.userID=:userID";
 		return this.hibernateTemplate.executeFind(new HibernateCallback() {     
@@ -85,7 +112,7 @@ public class SentenceDaoImpl implements ISentenceDao{
 		    }     
 		  });
 	}
-	public List<Sentence> getByUserID(final long userID, final Date date1, final Date date2,final int page, final int limit) {
+	public List<Sentence> getByUser(final long userID, final Date date1, final Date date2,final int page, final int limit) {
 		final String sql="from Sentence as s " +
 		               "  where s.author.userID=:userID and s.createTime between :date1 and :date2";
 		return this.hibernateTemplate.executeFind(new HibernateCallback() {     

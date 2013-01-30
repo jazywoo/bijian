@@ -8,6 +8,8 @@ import bijian.model.bean.Sentence;
 public interface ISentenceService {
 
 	//对已登录的用户--------
+	public Sentence getMyHotestSentence(long userID);
+	public int getMySentencesSize(long userID);
     public List<Sentence> getMySentences(long userID,int page,int limit);
     public void addSentence(long userID,Sentence sentence,List<Label> labels);
     public void updateSentence(long sentenceID,Sentence sentence);
@@ -21,6 +23,9 @@ public interface ISentenceService {
     public List<Sentence> getRelatedMeSentences(long userID,int page,int limit);
     //得收藏标签的句子
     public List<Sentence> getLabelSentences(long labelID,int page,int limit);
+    //得到喜欢的句子
+    public int getLoveSentencesSize(long userID);
+    public List<Sentence> getLoveSentences(long userID,int page,int limit);
     
     //公共的操作---------
     public List<Sentence> getLatestSentence(int page,int limit);//最新的

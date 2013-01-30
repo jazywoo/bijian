@@ -10,12 +10,14 @@ import bijian.model.bean.User;
 import bijian.model.bean.relationbean.Attention;
 import bijian.model.bean.relationbean.LabelSentence;
 import bijian.model.bean.relationbean.LabelUser;
+import bijian.model.bean.relationbean.LoveSentence;
 import bijian.model.bean.relationbean.ReportSentence;
 import bijian.model.bean.relationbean.UserRelatedSentence;
 import bijian.model.dao.IAttentionDao;
 import bijian.model.dao.ILabelDao;
 import bijian.model.dao.ILabelSentenceDao;
 import bijian.model.dao.ILabelUserDao;
+import bijian.model.dao.ILoveSentenceDao;
 import bijian.model.dao.IReportSentenceDao;
 import bijian.model.dao.ISentenceDao;
 import bijian.model.dao.IUserDao;
@@ -32,6 +34,7 @@ public class SentenceServiceImpl implements ISentenceService{
     private ILabelSentenceDao labelSentenceDao;
     private IReportSentenceDao reportSentenceDao;
     private IUserRelatedSentenceDao userRelatedSentenceDao;
+    private ILoveSentenceDao loveSentenceDao;
 	
 	public void addSentence(long userID, Sentence sentence,List<Label> labels) {
 		User user=(User) userDao.get(userID);
@@ -93,9 +96,14 @@ public class SentenceServiceImpl implements ISentenceService{
 	public List<Sentence> getLatestSentence(int page, int limit) {
 		return sentenceDao.getLatest(page, limit);
 	}
-
+	public int getMySentencesSize(long userID){
+		return sentenceDao.getSizeByUser(userID);
+	}
+	public Sentence getMyHotestSentence(long userID){
+		return sentenceDao.getHotestByUser(userID);
+	}
 	public List<Sentence> getMySentences(long userID, int page, int limit) {
-		return sentenceDao.getByUserID(userID, page, limit);
+		return sentenceDao.getByUser(userID, page, limit);
 	}
 
 	public List<Sentence> getRelatedMeSentences(long userID, int page, int limit) {
@@ -137,6 +145,17 @@ public class SentenceServiceImpl implements ISentenceService{
 		reportSentenceDao.insert(reportSentence);
 		
 	}
+	public int getLoveSentencesSize(long userID){
+		return loveSentenceDao.getLoveSentencesSizeByUser(userID);
+	}
+    public List<Sentence> getLoveSentences(long userID,int page,int limit){
+    	List<LoveSentence> loveSentences=loveSentenceDao.getLoveSentencesByUser(userID, page, limit);
+    	List<Sentence> sentences=new ArrayList<Sentence>();
+    	for(LoveSentence l:loveSentences){
+    		sentences.add(l.getSentence());
+    	}
+    	return sentences;
+    }
 
 	public List<Sentence> searchSentence(String keyword, int page, int limit) {
 		// TODO Auto-generated method stub
@@ -231,6 +250,14 @@ public class SentenceServiceImpl implements ISentenceService{
 	public void setUserRelatedSentenceDao(
 			IUserRelatedSentenceDao userRelatedSentenceDao) {
 		this.userRelatedSentenceDao = userRelatedSentenceDao;
+	}
+
+	public ILoveSentenceDao getLoveSentenceDao() {
+		return loveSentenceDao;
+	}
+
+	public void setLoveSentenceDao(ILoveSentenceDao loveSentenceDao) {
+		this.loveSentenceDao = loveSentenceDao;
 	}
 
 

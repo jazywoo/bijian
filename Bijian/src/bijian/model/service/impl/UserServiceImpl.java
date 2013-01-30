@@ -43,7 +43,9 @@ public class UserServiceImpl implements IUserService{
 		attention.setIsValid(1);
 		attentionDao.insert(attention);
 	}
-
+	public int getAttentionUsersSize(long userID){
+		return attentionDao.getAttentionListSize(userID);
+	}
 	public List<User> getAttentionUsers(long userID, int page, int limit) {//得到关注人
 		List<Attention> attentions=attentionDao.get(userID, page, limit);
 		List<User> users=new ArrayList<User>();
@@ -52,7 +54,9 @@ public class UserServiceImpl implements IUserService{
 		}
 		return users;
 	} 
-
+	public int getFollowingUsersSize(long userID){
+		return followingDao.getFollowingListSize(userID);
+	}
 	public List<User> getFollowingUsers(long userID, int page, int limit) {//得到被关注人
 		List<Following> followings=followingDao.get(userID, page, limit);
 		List<User> users=new ArrayList<User>();

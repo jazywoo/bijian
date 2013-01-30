@@ -14,7 +14,9 @@ public interface IUserService {
     public void attentionOne(long myID,long otherID);//社交、关注某人
     
     public User getUser(long userID);//得到某个人的信息
+    public int getAttentionUsersSize(long userID);
     public List<User> getAttentionUsers(long userID,int page,int limit);//得到关注的人
+    public int getFollowingUsersSize(long userID);
     public List<User> getFollowingUsers(long userID,int page,int limit);//得到关注我的人
     public List<User> getVisitUsers(long userID,int page,int limit);//得到最近访问的人
     

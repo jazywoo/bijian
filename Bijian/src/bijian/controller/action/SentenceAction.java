@@ -15,6 +15,7 @@ import bijian.model.bean.User;
 import bijian.model.dao.hibernateImpl.SentenceDaoImpl;
 import bijian.model.dao.hibernateImpl.UserDaoImpl;
 import bijian.model.service.ICommonService;
+import bijian.model.service.ISentenceService;
 import bijian.model.service.IUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -23,60 +24,48 @@ public class SentenceAction extends ActionSupport implements SessionAware,Reques
 	private Map session;
 	private Map request;
 	private IUserService userService;
+	private ISentenceService sentenceService;
 	private ICommonService commonService;
 	
 	private String resultJson;
 	//发表句子
 	public String publishSentence() throws Exception{
 		 User loginUser=(User) session.get("loginUser");
-     	 int userID=loginUser.getUserID();
-     	 int moodID=(Integer)request.get("moodID");
-     	 String content=(String) request.get("content");
-         userService.addSentence(userID,moodID,content);
+     	 long userID=loginUser.getUserID();
      	 return SUCCESS;
      }
 	//修改句子
      public String modifySentence() throws Exception{
     	String content=(String) request.get("content");
-    	int sentenceID=(Integer)request.get("sentenceID");
-    	userService.updateSentence(sentenceID,content);
+    	long sentenceID=(Integer)request.get("sentenceID");
     	return SUCCESS;
      }
      //删除句子
      public String deleteSentence() throws Exception{
-    	int sentenceID=(Integer)request.get("sentenceID");
-    	userService.deleteSentence(sentenceID);
+    	long sentenceID=(Integer)request.get("sentenceID");
+    	sentenceService.deleteSentence(sentenceID);
      	return SUCCESS;
      }
      //赞
      public String gooding() throws Exception{
     	int sentenceID=(Integer)request.get("sentenceID");
-    	userService.thinkGood(sentenceID);
+    	sentenceService.thinkGood(sentenceID);
  	    return SUCCESS;
      }
      //转发
      public String forwarding() throws Exception{
     	User loginUser=(User) session.get("loginUser");
-     	int userID=loginUser.getUserID();
-     	int sentenceID=(Integer)request.get("sentenceID");
-	    userService.forwardingSentence(userID, sentenceID);
+     	long userID=loginUser.getUserID();
+     	long sentenceID=(Integer)request.get("sentenceID");
+	    sentenceService.forwardingSentence(userID, sentenceID);
       	return SUCCESS;
      }
      //举报
      public String report() throws Exception{
     	User loginUser=(User) session.get("loginUser");
-      	int userID=loginUser.getUserID();
-      	int sentenceID=(Integer)request.get("sentenceID");
-	    userService.reportSentence(userID, sentenceID);
-      	return SUCCESS;
-     }
-     //给句子帖上自己的心情
-     public String addMyMood() throws Exception{
-    	User loginUser=(User) session.get("loginUser");
-       	int userID=loginUser.getUserID();
-       	int sentenceID=(Integer)request.get("sentenceID");
-       	int moodID=(Integer)request.get("moodID");
-	    userService.giveMyMood(sentenceID, userID, moodID);
+    	long userID=loginUser.getUserID();
+    	long sentenceID=(Integer)request.get("sentenceID");
+	    sentenceService.reportSentence(userID, sentenceID);
       	return SUCCESS;
      }
      //得到更多的最新句子
@@ -126,12 +115,6 @@ public class SentenceAction extends ActionSupport implements SessionAware,Reques
         return SUCCESS;
      }
      
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
-	public void setRequest(Map<String, Object> request) {
-		this.request=request;
-	}
 	public String getResultJson() {
 		return resultJson;
 	}
@@ -149,5 +132,23 @@ public class SentenceAction extends ActionSupport implements SessionAware,Reques
 	}
 	public void setCommonService(ICommonService commonService) {
 		this.commonService = commonService;
+	}
+	public Map getSession() {
+		return session;
+	}
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	public Map getRequest() {
+		return request;
+	}
+	public void setRequest(Map request) {
+		this.request = request;
+	}
+	public ISentenceService getSentenceService() {
+		return sentenceService;
+	}
+	public void setSentenceService(ISentenceService sentenceService) {
+		this.sentenceService = sentenceService;
 	}
 }

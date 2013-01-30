@@ -17,6 +17,7 @@ import org.hibernate.cfg.Configuration;
 import bijian.model.bean.Sentence;
 import bijian.model.bean.User;
 import bijian.model.dao.hibernateImpl.UserDaoImpl;
+import bijian.model.service.ISentenceService;
 import bijian.model.service.IUserService;
 import bijian.util.upload.FileUploadTool;
 
@@ -28,15 +29,19 @@ public class UserAction extends ActionSupport implements SessionAware,RequestAwa
 	private Map session;
 	private Map request;
 	private IUserService userService;
+	private ISentenceService sentenceService;
 	
 	private User user;//修改用户信息
 	private FileUploadTool uploadTool=new FileUploadTool();//上传文件处理类
 	
 	private String resultJson;
 	
+	//得到用户信息
 	public String getUserInfo(){
 		long userID=Long.parseLong(request.get("userID").toString());
 		User user=userService.getUser(userID);
+		int sentencesSize=sentenceService.getMySentencesSize(userID);
+		Sentence hotestSentence=sentenceService.getMyHotestSentence(userID);
 		String userJson=JSONObject.fromObject(user).toString();		
 		resultJson="{'root':'user',result:"+userJson+"}";
 		return SUCCESS;
@@ -157,6 +162,18 @@ public class UserAction extends ActionSupport implements SessionAware,RequestAwa
 	}
 	public void setResultJson(String resultJson) {
 		this.resultJson = resultJson;
+	}
+	public ISentenceService getSentenceService() {
+		return sentenceService;
+	}
+	public void setSentenceService(ISentenceService sentenceService) {
+		this.sentenceService = sentenceService;
+	}
+	public FileUploadTool getUploadTool() {
+		return uploadTool;
+	}
+	public void setUploadTool(FileUploadTool uploadTool) {
+		this.uploadTool = uploadTool;
 	}
 	
 }
