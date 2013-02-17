@@ -16,6 +16,8 @@ import org.hibernate.cfg.Configuration;
 
 import bijian.model.bean.Sentence;
 import bijian.model.bean.User;
+import bijian.model.bean.relationbean.Attention;
+import bijian.model.bean.relationbean.Following;
 import bijian.model.dao.hibernateImpl.UserDaoImpl;
 import bijian.model.service.ISentenceService;
 import bijian.model.service.IUserService;
@@ -28,6 +30,7 @@ import com.opensymphony.xwork2.ModelDriven;
 public class UserAction extends ActionSupport implements SessionAware,RequestAware{	
 	private Map session;
 	private Map request;
+	
 	private IUserService userService;
 	private ISentenceService sentenceService;
 	
@@ -40,33 +43,17 @@ public class UserAction extends ActionSupport implements SessionAware,RequestAwa
 	public String getUserInfo(){
 		long userID=Long.parseLong(request.get("userID").toString());
 		User user=userService.getUser(userID);
+		int followingSize=userService.getFollowingUsersSize(userID);
 		int sentencesSize=sentenceService.getMySentencesSize(userID);
 		Sentence hotestSentence=sentenceService.getMyHotestSentence(userID);
-		String userJson=JSONObject.fromObject(user).toString();		
-		resultJson="{'root':'user',result:"+userJson+"}";
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("user", user);
+		jsonObject.put("followingSize", followingSize);
+		jsonObject.put("sentencesSize", sentencesSize);
+		jsonObject.put("hotestSentence", hotestSentence);
+		resultJson=JSONObject.fromObject(jsonObject).toString();	
 		return SUCCESS;
 	}
-	//喜欢该句子的所有用户
-	public String getSentenceLoveUsers(){
-		long sentenceID=Long.parseLong(request.get("sentenceID").toString());
-		int page=Integer.parseInt(request.get("page").toString());
-    	int limit=Integer.parseInt(request.get("limit").toString());
-    	List<User> sentenceLoveUsers=userService.getSentenceLoveUsers(sentenceID, page, limit);
-    	String usersJson=JSONObject.fromObject(sentenceLoveUsers).toString();
-    	resultJson="{'root':'sentenceLoveUsers',result:"+usersJson+"}";
-		return SUCCESS;
-	}
-	//转发该句子的所有用户
-	public String getSentenceForwardingUsers(){
-		long sentenceID=Long.parseLong(request.get("sentenceID").toString());
-		int page=Integer.parseInt(request.get("page").toString());
-    	int limit=Integer.parseInt(request.get("limit").toString());
-    	List<User> sentenceForwardingUsers=userService.getSentenceForwardingUsers(sentenceID, page, limit);
-    	String usersJson=JSONObject.fromObject(sentenceForwardingUsers).toString();
-    	resultJson="{'root':'sentenceForwardingUsers',result:"+usersJson+"}";
-		return SUCCESS;
-	}
-	
 	
 	//登陆
 	public String login(){
@@ -125,13 +112,44 @@ public class UserAction extends ActionSupport implements SessionAware,RequestAwa
     }
     //关注某人
     public String attentionOne(){
-    	int attentionUserID=(Integer) request.get("attentionUserID");
+    	long attentionUserID=Long.parseLong(request.get("attentionUserID").toString());
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
     	this.userService.attentionOne(userID, attentionUserID);
     	return SUCCESS;
     }
-    
+    //取消关注某人
+    public String cancelAttention(){
+    	long attentionUserID=Long.parseLong(request.get("attentionUserID").toString());
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	this.userService.cancelAttention(userID, attentionUserID);
+    	return SUCCESS;
+    }
+    //得到粉丝
+    public String getFollowing(){
+    	int page=Integer.parseInt(request.get("page").toString());
+    	int limit=Integer.parseInt(request.get("limit").toString());
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<Following> followings=userService.getFollowings(userID, page, limit);
+    	JSONObject jsonObject=new JSONObject();
+      	jsonObject.put("followings", followings);
+      	resultJson=JSONObject.fromObject(jsonObject).toString();
+      	return SUCCESS;
+    }
+    //得到我关注的
+    public String getAttention(){
+    	int page=Integer.parseInt(request.get("page").toString());
+    	int limit=Integer.parseInt(request.get("limit").toString());
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<Attention> attentions=userService.getAttentions(userID, page, limit);
+    	JSONObject jsonObject=new JSONObject();
+      	jsonObject.put("attentions", attentions);
+      	resultJson=JSONObject.fromObject(jsonObject).toString();
+      	return SUCCESS;
+    }
     
 	public User getUser() {
 		return this.user;

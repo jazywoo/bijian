@@ -91,7 +91,7 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
 		addSentence(userID,3);
 	   	 int page=0;
 	   	 int limit=10;
-	   	 List<Sentence> sentences=sentenceDao.getByUserID(userID, page, limit);
+	   	 List<Sentence> sentences=sentenceDao.getByUser(userID, page, limit);
 	   	 Assert.assertTrue(sentences.size()>3);
 	   	 for(int i=0;i<sentences.size();i++){
 	   		 System.out.println("SentenceID--->"+sentences.get(i).getSentenceID());
@@ -112,7 +112,7 @@ public class SentenceDaoTests extends AbstractTransactionalJUnit4SpringContextTe
 	   	 now.setTime(date1);
 	   	 now.add(Calendar.DAY_OF_YEAR, 3);
 	   	 Date date2=now.getTime();
-	   	 List<Sentence> sentences=sentenceDao.getByUserID(userID, page, limit);
+	   	 List<Sentence> sentences=sentenceDao.getByUser(userID, page, limit);
 	   	 Assert.assertTrue(sentences.size()>3);
 	   	 for(int i=0;i<sentences.size();i++){
 	   		 System.out.println("SentenceID--->"+sentences.get(i).getSentenceID());

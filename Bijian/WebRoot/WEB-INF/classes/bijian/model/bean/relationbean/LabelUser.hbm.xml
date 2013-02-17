@@ -9,7 +9,7 @@
        </id>
        <property name="createTime" column="createTime" type="java.util.Date"/>
        <many-to-one name="label" column="labelID" class="bijian.model.bean.Label" cascade="none"/>
-       <many-to-one name="user" column="userID" class="bijian.model.bean.User" cascade="none"/>
+       <many-to-one name="User" column="userID" class="bijian.model.bean.User" cascade="none"/>
    
     </class>
 

@@ -47,7 +47,7 @@ public class SentenceDaoImpl implements ISentenceDao{
 	}
     public List<Sentence> getHot(final int page,final int limit){
     	final String sql="from Sentence as s" +
-				        " order by s.goodNum desc,s.creatTime desc ";
+				        " order by s.goodNum desc,s.createTime desc ";
 		return this.hibernateTemplate.executeFind(new HibernateCallback() {     
 			 public Object doInHibernate(Session session)     
 				 throws HibernateException, SQLException {     
@@ -60,7 +60,7 @@ public class SentenceDaoImpl implements ISentenceDao{
     }
     public List<Sentence> getLatest(final int page,final int limit){
     	final String sql="from Sentence as s" +
-		                 " order by s.creatTime desc ";
+		                 " order by s.createTime desc ";
 		return this.hibernateTemplate.executeFind(new HibernateCallback() {     
 		 public Object doInHibernate(Session session)     
 		 throws HibernateException, SQLException {     

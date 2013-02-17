@@ -23,10 +23,9 @@
            <result>/index.jsp</result>
         </action>
     </package>
-    
-	<include file="strutsXml/struts-UserAction.xml"/>
-	<include file="strutsXml/struts-SentenceAction.xml"/>
-	<include file="strutsXml/struts-MoodAction.xml"/>
-	<include file="strutsXml/struts-LabelAction.xml"/>
-	<include file="strutsXml/struts-CommentAction.xml"/>
+	<include file="strutsXml/CommentAction.xml"/>
+	<include file="strutsXml/LabelAction.xml"/>
+	<include file="strutsXml/PageAction.xml"/>
+	<include file="strutsXml/SentenceAction.xml"/>
+	<include file="strutsXml/UserAction.xml"/>
 </struts>

@@ -8,12 +8,14 @@ import bijian.model.bean.Label;
 import bijian.model.bean.Sentence;
 import bijian.model.bean.User;
 import bijian.model.bean.relationbean.Attention;
+import bijian.model.bean.relationbean.Forwarding;
 import bijian.model.bean.relationbean.LabelSentence;
 import bijian.model.bean.relationbean.LabelUser;
 import bijian.model.bean.relationbean.LoveSentence;
 import bijian.model.bean.relationbean.ReportSentence;
 import bijian.model.bean.relationbean.UserRelatedSentence;
 import bijian.model.dao.IAttentionDao;
+import bijian.model.dao.IForwardingDao;
 import bijian.model.dao.ILabelDao;
 import bijian.model.dao.ILabelSentenceDao;
 import bijian.model.dao.ILabelUserDao;
@@ -28,13 +30,13 @@ public class SentenceServiceImpl implements ISentenceService{
     private ISentenceDao sentenceDao;
     private IUserDao userDao;
     private IAttentionDao attentionDao;
-    private IUserRelatedSentenceDao relatedObjectDao;
     private ILabelDao labelDao;
     private ILabelUserDao labelUserDao;
     private ILabelSentenceDao labelSentenceDao;
     private IReportSentenceDao reportSentenceDao;
     private IUserRelatedSentenceDao userRelatedSentenceDao;
     private ILoveSentenceDao loveSentenceDao;
+    private IForwardingDao forwardingDao;
 	
 	public void addSentence(long userID, Sentence sentence,List<Label> labels) {
 		User user=(User) userDao.get(userID);
@@ -107,7 +109,7 @@ public class SentenceServiceImpl implements ISentenceService{
 	}
 
 	public List<Sentence> getRelatedMeSentences(long userID, int page, int limit) {
-		List<UserRelatedSentence> relatedObjects=relatedObjectDao.getRelatedSentences(userID, page, limit);
+		List<UserRelatedSentence> relatedObjects=userRelatedSentenceDao.getRelatedSentences(userID, page, limit);
 		List<Long> RelatedListID=new ArrayList<Long>();
 		for(UserRelatedSentence r:relatedObjects){
 			RelatedListID.add(r.getUser().getUserID());
@@ -148,7 +150,7 @@ public class SentenceServiceImpl implements ISentenceService{
 	public int getLoveSentencesSize(long userID){
 		return loveSentenceDao.getLoveSentencesSizeByUser(userID);
 	}
-    public List<Sentence> getLoveSentences(long userID,int page,int limit){
+    public List<Sentence> getLovedSentences(long userID,int page,int limit){
     	List<LoveSentence> loveSentences=loveSentenceDao.getLoveSentencesByUser(userID, page, limit);
     	List<Sentence> sentences=new ArrayList<Sentence>();
     	for(LoveSentence l:loveSentences){
@@ -156,7 +158,14 @@ public class SentenceServiceImpl implements ISentenceService{
     	}
     	return sentences;
     }
-
+    public List<LoveSentence> getLoveSentences(long userID,int page,int limit){
+    	return loveSentenceDao.getLoveSentencesByUser(userID, page, limit);
+    }
+    public void cancelLove(long loveSentenceID){
+    	LoveSentence loveSentence=(LoveSentence) loveSentenceDao.get(loveSentenceID);
+    	loveSentence.setIsValid(0);
+    	loveSentenceDao.update(loveSentence);
+    }
 	public List<Sentence> searchSentence(String keyword, int page, int limit) {
 		// TODO Auto-generated method stub
 		return null;
@@ -167,8 +176,14 @@ public class SentenceServiceImpl implements ISentenceService{
 		sentence.setGoodNum(sentence.getGoodNum()+1);
 		sentenceDao.update(sentence);
 	}
-
-	public void updateSentence(long sentenceID, Sentence sentence) {
+	public List<Forwarding> getForwarding(long sentenceID,int page,int limit){
+		return forwardingDao.getForwardingsBySentence(sentenceID, page, limit);
+	}
+	public List<LoveSentence> getLove(long sentenceID,int page,int limit){
+		return loveSentenceDao.getLoveSentencesBySentence(sentenceID, page, limit);
+	}
+	public void updateSentence(long userID,long sentenceID,Sentence sentence,List<Label> labels) {
+		User user=(User) userDao.get(userID);
 		Sentence oldSentence=(Sentence) sentenceDao.get(sentenceID);
 		if(sentence.getContent()!=null){
 			oldSentence.setContent(sentence.getContent());
@@ -177,6 +192,26 @@ public class SentenceServiceImpl implements ISentenceService{
 			oldSentence.setFromPlace(sentence.getFromPlace());
 		}
 		sentenceDao.update(oldSentence);
+		//开始处理标签
+		for(Label l:labels){
+			LabelSentence labelSentence=new LabelSentence();
+			labelSentence.setSentence(sentence);
+			Label existLabel=labelDao.getByContent(l.getContent());
+			LabelUser labelUser=new LabelUser();
+			labelUser.setUser(user);
+			labelUser.setCreateTime(new Date());
+			if(existLabel==null){//标签不存在
+				l.setCreateTime(new Date());
+				labelDao.insert(l);
+				labelUser.setLabel(l);
+				labelSentence.setLabel(l);
+			}else{
+				labelUser.setLabel(existLabel);
+				labelSentence.setLabel(existLabel);
+			}
+			labelUserDao.insert(labelUser);
+			labelSentenceDao.insert(labelSentence);
+		}
 	}
 
 	public ISentenceDao getSentenceDao() {
@@ -220,11 +255,11 @@ public class SentenceServiceImpl implements ISentenceService{
 	}
 
 	public IUserRelatedSentenceDao getRelatedObjectDao() {
-		return relatedObjectDao;
+		return userRelatedSentenceDao;
 	}
 
-	public void setRelatedObjectDao(IUserRelatedSentenceDao relatedObjectDao) {
-		this.relatedObjectDao = relatedObjectDao;
+	public void setRelatedObjectDao(IUserRelatedSentenceDao userRelatedSentenceDao) {
+		this.userRelatedSentenceDao = userRelatedSentenceDao;
 	}
 
 	public ILabelUserDao getLabelUserDao() {
@@ -258,6 +293,14 @@ public class SentenceServiceImpl implements ISentenceService{
 
 	public void setLoveSentenceDao(ILoveSentenceDao loveSentenceDao) {
 		this.loveSentenceDao = loveSentenceDao;
+	}
+
+	public IForwardingDao getForwardingDao() {
+		return forwardingDao;
+	}
+
+	public void setForwardingDao(IForwardingDao forwardingDao) {
+		this.forwardingDao = forwardingDao;
 	}
 
 

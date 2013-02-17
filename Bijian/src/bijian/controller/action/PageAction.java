@@ -13,6 +13,10 @@ import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import bijian.model.bean.*;
+import bijian.model.bean.relationbean.Attention;
+import bijian.model.bean.relationbean.Following;
+import bijian.model.bean.relationbean.LoveSentence;
+import bijian.model.bean.relationbean.SubscribeLabel;
 import bijian.model.service.ILabelService;
 import bijian.model.service.ISentenceService;
 import bijian.model.service.IUserService;
@@ -22,13 +26,15 @@ import com.opensymphony.xwork2.ActionSupport;
 public class PageAction extends ActionSupport implements SessionAware,RequestAware{
 	private Map request;
 	private Map session;
+	
     private IUserService userService;
     private ISentenceService sentenceService;
     private ILabelService labelService;
+    
     private Map resultMap=new HashMap();//向jsp传递的值
     
     //显示首页
-    public String displayHomePage(){   
+    public String displayHomepage(){   
         List<User> hotUserList=userService.getHotUsers();
         List<Sentence> sentenceList=sentenceService.getHotSentence(0, 10);
         List<Label> hotLabelList=labelService.getHotLabels(0,5);
@@ -39,12 +45,12 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     	return SUCCESS;
     }
     //显示登陆用户首页1，推荐的句子
-    public String displayUserHomePage(){
+    public String displayUserHomepage(){
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
-    	List<Sentence> suggestSentences=sentenceService.getSuggestSentences(userID, 0, 10);//推荐句子
+    	List<Sentence> sentences=sentenceService.getSuggestSentences(userID, 0, 10);//推荐句子
     	resultMap.put("userHomePage_type", "suggest");
-        resultMap.put("userHomePage_sentences", suggestSentences);  //显示推荐句子
+        resultMap.put("userHomePage_sentences", sentences);  //显示推荐句子
         getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
@@ -52,9 +58,9 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     public String displayUserAttentionSentence(){
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
-    	List<Sentence> suggestSentences=sentenceService.getAttentionSentences(userID, 0, 10);//关注的博客的句子
+    	List<Sentence> sentences=sentenceService.getAttentionSentences(userID, 0, 10);//关注的博客的句子
     	resultMap.put("userHomePage_type", "attention");
-    	resultMap.put("userHomePage_sentences", suggestSentences);  //显示推荐句子
+    	resultMap.put("userHomePage_sentences", sentences);  //显示关注的博客的句子
         getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
@@ -62,9 +68,9 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     public String displayUserLoveSentence(){
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
-    	List<Sentence> suggestSentences=sentenceService.getLoveSentences(userID, 0, 10);//推荐句子
+    	List<Sentence> sentences=sentenceService.getLovedSentences(userID, 0, 10);//喜欢的句子
     	resultMap.put("userHomePage_type", "loveSentence");
-    	resultMap.put("userHomePage_sentences", suggestSentences);  //显示推荐句子
+    	resultMap.put("userHomePage_sentences", sentences);  //显示喜欢的句子
         getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
@@ -73,8 +79,8 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     	long labelID=Long.parseLong(request.get("labelID").toString());
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
-    	List<Sentence> suggestSentences=sentenceService.getLabelSentences(labelID, 0, 10);//标签句子
-        resultMap.put("userHomePage_sentences", suggestSentences);  //显示推荐句子
+    	List<Sentence> sentences=sentenceService.getLabelSentences(labelID, 0, 10);//标签句子
+        resultMap.put("userHomePage_sentences", sentences);  //显示标签句子
         getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
@@ -112,10 +118,77 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     }
     
     //显示个人管理页面
-    public String displayOwnPage(){
+    //显示博客设置
+    public String displayOwnBlogSetting(){
     	
     	return SUCCESS;
     }
+    //显示个人设置
+    public String displayOwnSetting(){
+    	
+    	return SUCCESS;
+    }
+    //显示我的句子
+    public String displayOwnSentence(){
+    	getOwnPageData();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<Sentence> sentences=sentenceService.getMySentences(userID, 0, 10);
+    	resultMap.put("ownPage_ownSentenceList", sentences);
+    	return SUCCESS;
+    }
+    //显示我的粉丝
+    public String displayOwnFollowing(){
+    	getOwnPageData();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<Following> followings=userService.getFollowings(userID, 0, 10);
+    	resultMap.put("ownPage_ownFollowingList", followings);
+    	return SUCCESS;
+    }
+    //显示我的关注
+    public String displayOwnAttention(){
+    	getOwnPageData();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<Attention> attentions=userService.getAttentions(userID, 0, 10);
+    	resultMap.put("ownPage_ownAttentionList", attentions);
+    	return SUCCESS;
+    }
+    //显示我搜藏标签
+    public String displayOwnSubscribeLabel(){
+    	getOwnPageData();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<SubscribeLabel> subscribeLabels=labelService.getSubscribeLabels(userID, 0, 10);
+    	resultMap.put("ownPage_subscribeLabelList", subscribeLabels);
+    	return SUCCESS;
+    }
+    //显示我喜欢的句子
+    public String displayOwnLoveSentence(){
+    	getOwnPageData();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<LoveSentence> loveSentences=sentenceService.getLoveSentences(userID, 0, 10);
+    	resultMap.put("ownPage_loveSentenceList", loveSentences);
+    	return SUCCESS;
+    }
+    //显示我的消息
+    public String displayOwnNotice(){
+    	
+    	return SUCCESS;
+    }
+    //显示我的私信
+    public String displayOwnMessage(){
+    	
+    	return SUCCESS;
+    }
+    
     
     //显示博客的主页
     public String displayOnePage(){
@@ -131,7 +204,7 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     	long userID=loginUser.getUserID();
     	int attentionSize=userService.getAttentionUsersSize(userID);//关注博客数
     	int loveSentenceSize=sentenceService.getLoveSentencesSize(userID);//喜欢的句子数
-    	List<Label> subscribeLabels=labelService.getSubscribeLabels(userID, 0, 5);//收藏的标签
+    	List<Label> subscribeLabels=labelService.getSubscribedLabels(userID, 0, 5);//收藏的标签
     	List<User> hotUserList=userService.getHotUsers();//优秀博客
         List<Label> hotLabelList=labelService.getHotLabels(0,5);//热门标签
         resultMap.put("userHomePage_attentionSize", attentionSize);

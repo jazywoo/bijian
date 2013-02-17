@@ -6,18 +6,32 @@
      <bean id="commentService" class="bijian.model.service.impl.CommentServiceImpl">
          <property name="userDao" ref="userDao"/>
          <property name="sentenceDao" ref="sentenceDao"/>
+         <property name="commentDao" ref="commentDao"/>
      </bean>  
      <bean id="labelService" class="bijian.model.service.impl.LabelServiceImpl">
          <property name="userDao" ref="userDao"/>
-         <property name="sentenceDao" ref="sentenceDao"/>
+         <property name="labelDao" ref="labelDao"/>
+         <property name="labelUserDao" ref="labelUserDao"/>
+         <property name="subscribeLabelDao" ref="subscribeLabelDao"/>
      </bean>
      <bean id="sentenceService" class="bijian.model.service.impl.SentenceServiceImpl">
          <property name="userDao" ref="userDao"/>
          <property name="sentenceDao" ref="sentenceDao"/>
+         <property name="attentionDao" ref="attentionDao"/>
+         <property name="labelDao" ref="labelDao"/>
+         <property name="labelUserDao" ref="labelUserDao"/>
+         <property name="labelSentenceDao" ref="labelSentenceDao"/>
+         <property name="reportSentenceDao" ref="reportSentenceDao"/>
+         <property name="userRelatedSentenceDao" ref="userRelatedSentenceDao"/>
+         <property name="loveSentenceDao" ref="loveSentenceDao"/>
+         <property name="forwardingDao" ref="forwardingDao"/>
      </bean>
      <bean id="userService" class="bijian.model.service.impl.UserServiceImpl">
          <property name="userDao" ref="userDao"/>
-         <property name="sentenceDao" ref="sentenceDao"/>
+         <property name="attentionDao" ref="attentionDao"/>
+         <property name="followingDao" ref="followingDao"/>
+         <property name="loveSentenceDao" ref="loveSentenceDao"/>
+         <property name="forwardingDao" ref="forwardingDao"/>
      </bean>
      
 

@@ -1,5 +1,6 @@
 package bijian.model.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import bijian.model.bean.Comment;
@@ -15,21 +16,26 @@ public class CommentServiceImpl implements ICommentService {
 	private IUserDao userDao;
 	private ICommentDao commentDao;
 
-	public void commentSentence(long sentenceID, Comment comment) {
+	public void commentSentence(long sentenceID,long userID,Comment comment) {
 		Sentence sentence=(Sentence) sentenceDao.get(sentenceID);
-		sentence.getComments().add(comment);
-		sentenceDao.update(sentence);
+		User user=(User) userDao.get(userID);
+		Comment newComment=new Comment();
+		newComment.setContent(comment.getContent());
+		newComment.setFromUser(user);
+		newComment.setSentence(sentence);
+		newComment.setToUser(sentence.getAuthor());
+		newComment.setCreateTime(new Date());
+		newComment.setIsValid(1);
+		commentDao.insert(newComment);
 	}
 
-	public void deleteComment(long userID,long sentenceID, long commentID) {
-		Sentence sentence=(Sentence) sentenceDao.get(sentenceID);
-		if(sentence.getAuthor().getUserID()!=userID){
-			System.out.println("无权限，句子不属于此人");
-			return ;
-		}
+	public void deleteComment(long commentID) {
 		commentDao.delete(commentID);
 	}
 
+	public int getCommentSize(long sentenceID){
+		return commentDao.getCommentListSize(sentenceID);
+	}
 	public List<Comment> getComment(long sentenceID, int page, int limit) {
 		return commentDao.getCommentList(sentenceID, page, limit);
 	}

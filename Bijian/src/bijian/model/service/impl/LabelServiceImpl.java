@@ -36,10 +36,25 @@ public class LabelServiceImpl implements ILabelService{
 		}
 		labelUserDao.insert(labelUser);
 	}
+	public void subscribeLabel(long userID,long labelID){
+		User user=(User) userDao.get(userID);
+		Label label=(Label) labelDao.get(labelID);
+		SubscribeLabel subscribeLabel=new SubscribeLabel();
+		subscribeLabel.setUser(user);
+		subscribeLabel.setLabel(label);
+		subscribeLabel.setCreateTime(new Date());
+		subscribeLabel.setIsValid(1);
+		subscribeLabelDao.insert(subscribeLabel);
+	}
+	public void cancelSubscribeLabel(long subscribeLabelID){
+		SubscribeLabel subscribeLabel=(SubscribeLabel) subscribeLabelDao.get(subscribeLabelID);
+		subscribeLabel.setIsValid(0);
+		subscribeLabelDao.update(subscribeLabel);
+	}
 	public int getSubscribeLabelsSize(long userID){
 		return subscribeLabelDao.getSubscribeLabelsSizeByUser(userID);
 	}
-	public List<Label> getSubscribeLabels(long userID,int page,int limit){
+	public List<Label> getSubscribedLabels(long userID,int page,int limit){
 		List<SubscribeLabel> subscribeLabels=subscribeLabelDao.getSubscribeLabelsByUser(userID, page, limit);
 		List<Label> labels=new ArrayList<Label>();
 		for(SubscribeLabel s:subscribeLabels){
@@ -47,7 +62,9 @@ public class LabelServiceImpl implements ILabelService{
 		}
 		return labels;
 	}
-	
+	public List<SubscribeLabel> getSubscribeLabels(long userID,int page,int limit){
+		return subscribeLabelDao.getSubscribeLabelsByUser(userID, page, limit);
+	}
 	public List<Label> getHotLabels(int page,int limit) {
 		return labelDao.getHotLabels(page, limit);
 	}

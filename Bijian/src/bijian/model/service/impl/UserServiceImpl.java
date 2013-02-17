@@ -43,6 +43,11 @@ public class UserServiceImpl implements IUserService{
 		attention.setIsValid(1);
 		attentionDao.insert(attention);
 	}
+	public void cancelAttention(long myID,long otherID){
+		Attention attention=attentionDao.get(myID, otherID);
+		attention.setIsValid(0);
+		attentionDao.insert(attention);
+	}
 	public int getAttentionUsersSize(long userID){
 		return attentionDao.getAttentionListSize(userID);
 	}
@@ -54,6 +59,9 @@ public class UserServiceImpl implements IUserService{
 		}
 		return users;
 	} 
+	public List<Attention> getAttentions(long userID,int page,int limit){
+		return attentionDao.get(userID, page, limit);
+	}
 	public int getFollowingUsersSize(long userID){
 		return followingDao.getFollowingListSize(userID);
 	}
@@ -65,7 +73,9 @@ public class UserServiceImpl implements IUserService{
 		}
 		return users;
 	}
-
+	public List<Following> getFollowings(long userID,int page,int limit){
+		return followingDao.get(userID, page, limit);
+	}
 	public User getUser(long userID) {
 		return (User) userDao.get(userID);
 	}
@@ -91,9 +101,7 @@ public class UserServiceImpl implements IUserService{
 		return users;
 	}
 	public List<User> getHotUsers() {
-		int page=0;
-		int limit=5;
-		return userDao.getHotUsers(page, limit);
+		return userDao.getHotUsers(0, 5);
 	}
 	public User getHotUserByLabel(long labelID){
 		return userDao.getHotUserByLabel(labelID);
