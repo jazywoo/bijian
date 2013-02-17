@@ -1,0 +1,96 @@
+/*indexÒ³ÃæµÄ CSS Document */
+
+body{
+  background:#EDEDEF url(../img/bg.png) repeat-x ;
+  width: 100%;
+  height: 100%;
+}
+.leftFloat{
+  float:left;
+}
+.rightFloat{
+  float:right;
+}
+.portrait{
+  width:64px;
+  height:64px;
+}
+.smallPortrait{
+  width:30px;
+  height:30px;
+}
+#header{
+  width:1000px;
+  height:80px;
+  margin:auto auto;
+}
+.navi{
+  margin-left:10px;
+}
+.selectNavi{
+  margin-left:10px;
+  font-weight:bold;
+}
+#content{
+  width:1000px;
+  margin:auto auto;
+}
+#leftContent{
+  width:675px;
+}
+#rightContent{
+  width:235px;
+}
+#contentTitle{
+  text-align:center;
+}
+#photoContainer{
+  width:120px;
+}
+#sentenceContainer{
+  width:550px;
+}
+#commentContainer{
+  clear:both;
+}
+#sentenceDiv{
+  clear:both;
+}
+.comment_moreDiv{
+  clear:left;
+  text-align:center;
+}
+.menuBtn{
+  clear:both;
+}
+.headMenuBtn{
+  clear:both;
+}
+.menuPortrait{
+  height:40px;
+}
+#userInfoTip{
+	position:absolute;
+	left:3px;
+	top:389px;
+	width: 207px;
+}
+#userPopSentenceDiv{
+  clear:both;
+}
+#ownTip{
+  position:absolute;
+  left:888px;
+  top:443px;
+  width: 142px;
+}
+.ownSubMenu{
+  text-align:center;
+}
+#discoveryTip{
+	position:absolute;
+	left:550px;
+	top:397px;
+	width: 171px;
+	height: 107px;
+}
