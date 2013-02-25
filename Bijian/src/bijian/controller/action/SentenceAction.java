@@ -56,12 +56,7 @@ public class SentenceAction extends ActionSupport implements SessionAware,Reques
     	sentenceService.deleteSentence(sentenceID);
      	return SUCCESS;
      }
-     //赞
-     public String gooding() throws Exception{
-    	long sentenceID=Long.parseLong(request.get("sentenceID").toString());
-    	sentenceService.thinkGood(sentenceID);
- 	    return SUCCESS;
-     }
+     
      //转发
      public String forwarding() throws Exception{
     	User loginUser=(User) session.get("loginUser");
@@ -81,7 +76,15 @@ public class SentenceAction extends ActionSupport implements SessionAware,Reques
      	resultJson=JSONObject.fromObject(jsonObject).toString();
      	return SUCCESS;
      }
-    //得到喜欢句子的人
+     //赞,喜欢
+     public String loving() throws Exception{
+    	User loginUser=(User) session.get("loginUser");
+      	long userID=loginUser.getUserID();
+    	long sentenceID=Long.parseLong(request.get("sentenceID").toString());
+    	sentenceService.lovingSentence(sentenceID,userID);
+ 	    return SUCCESS;
+     }
+     //得到喜欢句子的人
      public String getLove(){
      	long sentenceID=Long.parseLong(request.get("sentenceID").toString());
      	int page=Integer.parseInt(request.get("page").toString());
@@ -122,13 +125,24 @@ public class SentenceAction extends ActionSupport implements SessionAware,Reques
       	resultJson=JSONObject.fromObject(jsonObject).toString();
       	return SUCCESS;
      }   
-     //得到关注人的的句子
-     public String getAttentionSentences(){
+     //得到所有关注人的的句子
+     public String getAllAttentionSentences(){
     	int page=Integer.parseInt(request.get("page").toString());
        	int limit=Integer.parseInt(request.get("limit").toString());
       	User loginUser=(User) session.get("loginUser");
      	long userID=loginUser.getUserID();
-      	List<Sentence> sentences=sentenceService.getAttentionSentences(userID, page, limit);
+      	List<Sentence> sentences=sentenceService.getOneAttentionSentences(userID, page, limit);
+      	JSONObject jsonObject=new JSONObject();
+      	jsonObject.put("attentionSentences", sentences);
+      	resultJson=JSONObject.fromObject(jsonObject).toString();
+      	return SUCCESS;
+     }
+     //得到某一个关注人的的句子
+     public String getOneAttentionSentences(){
+    	int page=Integer.parseInt(request.get("page").toString());
+       	int limit=Integer.parseInt(request.get("limit").toString());
+       	long attentionerID=Long.parseLong(request.get("attentionerID").toString());
+      	List<Sentence> sentences=sentenceService.getOneAttentionSentences(attentionerID, page, limit);
       	JSONObject jsonObject=new JSONObject();
       	jsonObject.put("attentionSentences", sentences);
       	resultJson=JSONObject.fromObject(jsonObject).toString();
@@ -164,14 +178,26 @@ public class SentenceAction extends ActionSupport implements SessionAware,Reques
       	resultJson=JSONObject.fromObject(jsonObject).toString();
       	return SUCCESS;
      }
-     //得到标签下的句子
-     public String getLabelSentences(){
+     //得到用户所有收藏标签下的句子
+     public String getAllLabelSentences(){
+    	User loginUser=(User) session.get("loginUser");
+      	long userID=loginUser.getUserID();
+     	int page=Integer.parseInt(request.get("page").toString());
+       	int limit=Integer.parseInt(request.get("limit").toString());
+    	List<Sentence> sentences=sentenceService.getAllLabelSentences(userID, page, limit);
+    	JSONObject jsonObject=new JSONObject();
+      	jsonObject.put("labelSentences", sentences);
+      	resultJson=JSONObject.fromObject(jsonObject).toString();
+      	return SUCCESS;
+      }
+     //得到某一个标签下的句子
+     public String getOneLabelSentences(){
     	User loginUser=(User) session.get("loginUser");
       	long userID=loginUser.getUserID();
       	long labelID=Long.parseLong(request.get("labelID").toString());
      	int page=Integer.parseInt(request.get("page").toString());
        	int limit=Integer.parseInt(request.get("limit").toString());
-    	List<Sentence> sentences=sentenceService.getLabelSentences(labelID, page, limit);
+    	List<Sentence> sentences=sentenceService.getOneLabelSentences(labelID, page, limit);
     	JSONObject jsonObject=new JSONObject();
       	jsonObject.put("labelSentences", sentences);
       	resultJson=JSONObject.fromObject(jsonObject).toString();

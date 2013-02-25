@@ -10,131 +10,393 @@
 <body>
    <div id="header">
       <div class="leftFloat"><img src="img/logo.jpg"> </div>
-	  <div class="leftFloat">
+	  <div id="searchMenu" class="leftFloat">
 	     <form> 
-		   <input type="text"/>
-		   <input type="button" value="搜索"/>
+		   <input id="searchMenuInput" type="text"/>
+		   <span id="searchMenuBtn">搜索</span>
 		 </form>
 	  </div>
-	  <div class="rightFloat"> 
-		   <span class="navi">首页</span>
+	  <div id="naviMenu" class="rightFloat"> 
+		   <span class="selectNavi">首页</span>
 		   <span class="navi">发现</span>
-		   <span class="selectNavi">jazywoo</span>
+		   <span id="ownNavi" class="navi">jazywoo</span>	 
+		   <div id="ownTip">
+			  <div class="ownTipContainer">
+			   <img class="ownTipImg" src="img/menuTipIImg1.png"/>
+			   <div class="ownSubMenu">博客设置</div>
+			   <div class="ownSubMenu">个人设置</div>
+			   <div class="ownSubMenu">通知</div>
+			   <div class="ownSubMenu">私信</div>
+			   <div class="ownSubMenu">登出</div>
+			  </div>
+	    </div>
 	  </div>
    </div>
    <div id="content">
       <div id="leftContent" class="leftFloat">
 	     <div id="contentTitle"> <span>猜你喜欢的句子</span> </div>
-		 <div id="contentItem">
-		   <div id="photoContainer" class="leftFloat"><img class="portrait" src="img/icon.jpg"/></div>
-		   <div id="sentenceContainer" class="rightFloat">
-		      <div><span class="leftFloat">2012年12月21号</span>  <span class="rightFloat">78℃</span></div>
-			  <div id="sentenceDiv"><span> 在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。</span></div>
-			  <div>
-			      <div class="leftFloat"><span class="label">开心</span>|<span class="label">理想</span>|<span class="label">世纪</span></div>
-				  <div class="rightFloat"><img src="img/bb.jpg"/>|<img src="img/bb.jpg"/>|<img src="img/bb.jpg"/></div>
+		 <div class="contentItem">
+		   <div class="photoContainer  leftFloat"><img class="portrait photoInfo" src="img/icon.jpg"/></div>
+		   <div class="sentenceParentContainer rightFloat">
+		      <div class="sentenceHeader"></div>
+		      <div class="sentenceContainer" sentenceID="123">
+		        <div><span class="label leftFloat">2012年12月21号</span>  <span class="label rightFloat">78℃</span></div>
+			    <div class="clearFloat"></div>
+			    <div class="sentenceDiv clearFloat" sentenceID="123"><span> 在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。</span></div>
+			    <div>
+			      <div class="leftFloat"><span class="icon icon6">&nbsp;</span><span class="label">开心</span><span class="label">理想</span><span class="label">世纪</span></div>
+				  <div  class="rightFloat extractBtnContainer"  sentenceID="123">
+				      <div class="floatLeft extractBtn btn1" sentenceID="123"><div class="label leftFloat">(10)</div><span class="icon icon7 extractBtnSelect">&nbsp;</span></div>
+					  <div class="floatLeft extractBtn btn2" sentenceID="123"><div class="label leftFloat">(30)</div><span class="icon icon8">&nbsp;</span></div>
+					  <div class="floatLeft extractBtn btn3" sentenceID="123"><div class="label leftFloat">(130)</div><span class="icon icon9">&nbsp;</span></div>
+					  <img class="extracImg" src="img/extrac1.png"/>				  
+				  </div>
+				  <div class="clearFloat"></div>
+			    </div>
 			  </div>
-			  
-			  <div id="commentContainer">
-		        <div>
-			     <form> 
-				   <input type="text"/>
-				   <input type="button" value="评论"/>
-				 </form>
+			  <div class="extractContainer" sentenceID="123">
+			     <div class="commentContainer">
+		          <div class="submitBtnDiv" >
+			       <form> 
+				     <textarea class="commmentInput"></textarea>
+				     <div class="submitBtn">我来评论</div>
+				   </form>
+				   <div class="clearFloat"></div>
+			      </div>
+		          <div class="commentDiv">
+			        <img class="smallPortrait leftFloat" src="img/icon.jpg">
+				    <div class="commentContent leftFloat">
+			          <span class="username">jazywoo</span>回复了<span class="username">张梅:</span><span>说的很好</span>
+					</div>
+			        <span class="clickSpan2 floatRight">回复</span>
+				    <div class="clearFloat"></div>
+			      </div>
+				  <div class="commentDiv">
+			        <img class="smallPortrait leftFloat" src="img/icon.jpg">
+				    <div class="commentContent leftFloat">
+			          <span class="username">jazywoo</span>回复了<span class="username">张梅:</span><span>说的很好</span>
+					</div>
+			        <span class="clickSpan2 floatRight">回复</span>
+				    <div class="clearFloat"></div>
+			      </div>
+		        </div>
+			     <div class="forwardingContainer">
+		          <div class="submitBtnDiv" >
+					 <div class="submitBtn">我要转发</div>
+					 <div class="clearFloat"></div>
+			      </div>
+				  <div class="forwardingDiv">
+					  <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>转发了该句子					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+				  </div>
+				  <div class="forwardingDiv">
+					  <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>转发了该句子					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+				  </div>
+		       </div>
+			     <div class="loveContainer">
+		        <div  class="submitBtnDiv" >
+				   <div class="submitBtn">我也喜欢</div>
+				   <div class="clearFloat"></div>
 			    </div>
-		        <div id="commentDiv">
-			      <img class="smallPortrait leftFloat" src="img/icon.jpg">
-			      <span>jazywoo</span>回复了<span>张梅</span><span>说的很好</span>
-			      <a href="javascript:void(0);">回复</a>
+		        <div class="loveDiv">
+			          <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>喜欢该句子					  
+					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
 			    </div>
-			    <div class="comment_moreDiv">更多</div>
+				<div class="loveDiv">
+			          <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>喜欢该句子					 
+					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+			    </div>
 		     </div>
-			  <div id="forwardingContainer">
-		        <div>
-			     <form> 
-				   <input type="text"/>
-				   <input type="button" value="转发"/>
-				 </form>
+			     <div class="moreBtnContainer">
+					  <div class="moreDiv"><img class="moreImg  leftFloat" src="img/rightArrow.png"/>查看更多</div>
+					  <div class="packUp clickSpan2"><span>收起∧</span></div>
 			    </div>
-		        <div id="forwardingDiv">
-			      <img class="smallPortrait leftFloat" src="img/icon.jpg">
-			      <span>jazywoo</span>转发了该句子<span>2012年3月8号</span>
-			    </div>
-			    <div class="comment_moreDiv">更多</div>
-		     </div>
-			  <div id="forwardingContainer">
-		        <div>
-			     <form> 
-				   <input type="button" value="我也喜欢"/>
-				 </form>
-			    </div>
-		        <div id="forwardingDiv">
-			      <img class="smallPortrait leftFloat" src="img/icon.jpg">
-			      <span>jazywoo</span>喜欢该句子<span>2012年3月8号</span>
-			    </div>
-			    <div class="comment_moreDiv">更多</div>
-		     </div>
-			 
+			  </div>
 		   </div>
-		   
+		   <div class="clearFloat"></div>
+		 </div>
+		 <div class="contentItem">
+		   <div class="photoContainer  leftFloat"><img class="portrait photoInfo" src="img/icon.jpg"/></div>
+		   <div class="sentenceParentContainer rightFloat">
+		      <div class="sentenceHeader"></div>
+		      <div class="sentenceContainer">
+		        <div><span class="label leftFloat">2012年12月21号</span>  <span class="label rightFloat">78℃</span></div>
+			    <div class="clearFloat"></div>
+			    <div class="sentenceDiv clearFloat"><span> 在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。</span></div>
+			    <div>
+			      <div class="leftFloat"><span class="icon icon6">&nbsp;</span><span class="label">开心</span><span class="label">理想</span><span class="label">世纪</span></div>
+				  <div  class="rightFloat extractBtnContainer">
+				      <div class="floatLeft extractBtn"><div class="label leftFloat">(10)</div><span class="icon icon7">&nbsp;</span></div>
+					  <div class="floatLeft extractBtn"><div class="label leftFloat">(30)</div><span class="icon icon8">&nbsp;</span></div>
+					  <div class="floatLeft extractBtn"><div class="label leftFloat">(130)</div><span class="icon icon9">&nbsp;</span></div>
+					  <img class="extracImg" src="img/extrac1.png"/>				  
+				  </div>
+				  <div class="clearFloat"></div>
+			    </div>
+			  </div>
+			  <div class="extractContainer">
+			     <div class="commentContainer">
+		          <div class="submitBtnDiv" >
+			       <form> 
+				     <textarea class="commmentInput"></textarea>
+				     <div class="submitBtn">我来评论</div>
+				   </form>
+				   <div class="clearFloat"></div>
+			      </div>
+		          <div class="commentDiv">
+			        <img class="smallPortrait leftFloat" src="img/icon.jpg">
+				    <div class="commentContent leftFloat">
+			          <span class="username">jazywoo</span>回复了<span class="username">张梅:</span><span>说的很好</span>
+					</div>
+			        <span class="username floatRight">回复</span>
+				    <div class="clearFloat"></div>
+			      </div>
+				  <div class="commentDiv">
+			        <img class="smallPortrait leftFloat" src="img/icon.jpg">
+				    <div class="commentContent leftFloat">
+			          <span class="username">jazywoo</span>回复了<span class="username">张梅:</span><span>说的很好</span>
+					</div>
+			        <span class="username floatRight">回复</span>
+				    <div class="clearFloat"></div>
+			      </div>
+		        </div>
+			     <div class="forwardingContainer">
+		          <div class="submitBtnDiv" >
+					 <div class="submitBtn">我要转发</div>
+					 <div class="clearFloat"></div>
+			      </div>
+				  <div class="forwardingDiv">
+					  <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>转发了该句子					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+				  </div>
+				  <div class="forwardingDiv">
+					  <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>转发了该句子					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+				  </div>
+		       </div>
+			   <div class="loveContainer">
+		        <div  class="submitBtnDiv" >
+				   <div class="submitBtn">我也喜欢</div>
+				   <div class="clearFloat"></div>
+			    </div>
+		        <div class="loveDiv">
+			          <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>喜欢该句子					  
+					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+			    </div>
+				<div class="loveDiv">
+			          <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>喜欢该句子					 
+					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+			    </div>
+		     </div>
+			     <div class="moreBtnContainer">
+					  <div class="moreDiv"><img class="moreImg  leftFloat" src="img/rightArrow.png"/>查看更多</div>
+					  <div class="packUp clickSpan2"><span>收起∧</span></div>
+			    </div>
+			  </div>
+		   </div>
+		   <div class="clearFloat"></div>
+		 </div>
+		 <div class="contentItem">
+		   <div class="photoContainer  leftFloat"><img class="portrait photoInfo" src="img/icon.jpg"/></div>
+		   <div class="sentenceParentContainer rightFloat">
+		      <div class="sentenceHeader"></div>
+		      <div class="sentenceContainer">
+		        <div><span class="label leftFloat">2012年12月21号</span>  <span class="label rightFloat">78℃</span></div>
+			    <div class="clearFloat"></div>
+			    <div class="sentenceDiv clearFloat"><span> 在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。</span></div>
+			    <div>
+			      <div class="leftFloat"><span class="icon icon6">&nbsp;</span><span class="label">开心</span><span class="label">理想</span><span class="label">世纪</span></div>
+				  <div  class="rightFloat extractBtnContainer">
+				      <div class="floatLeft extractBtn"><div class="label leftFloat">(10)</div><span class="icon icon7">&nbsp;</span></div>
+					  <div class="floatLeft extractBtn"><div class="label leftFloat">(30)</div><span class="icon icon8">&nbsp;</span></div>
+					  <div class="floatLeft extractBtn"><div class="label leftFloat">(130)</div><span class="icon icon9">&nbsp;</span></div>
+					  <img class="extracImg" src="img/extrac1.png"/>				  
+				  </div>
+				  <div class="clearFloat"></div>
+			    </div>
+			  </div>
+			  <div class="extractContainer">
+			     <div class="commentContainer">
+		          <div class="submitBtnDiv" >
+			       <form> 
+				     <textarea class="commmentInput"></textarea>
+				     <div class="submitBtn">我来评论</div>
+				   </form>
+				   <div class="clearFloat"></div>
+			      </div>
+		          <div class="commentDiv">
+			        <img class="smallPortrait leftFloat" src="img/icon.jpg">
+				    <div class="commentContent leftFloat">
+			          <span class="username">jazywoo</span>回复了<span class="username">张梅:</span><span>说的很好</span>
+					</div>
+			        <span class="username floatRight">回复</span>
+				    <div class="clearFloat"></div>
+			      </div>
+				  <div class="commentDiv">
+			        <img class="smallPortrait leftFloat" src="img/icon.jpg">
+				    <div class="commentContent leftFloat">
+			          <span class="username">jazywoo</span>回复了<span class="username">张梅:</span><span>说的很好</span>
+					</div>
+			        <span class="username floatRight">回复</span>
+				    <div class="clearFloat"></div>
+			      </div>
+		        </div>
+			     <div class="forwardingContainer">
+		          <div class="submitBtnDiv" >
+					 <div class="submitBtn">我要转发</div>
+					 <div class="clearFloat"></div>
+			      </div>
+				  <div class="forwardingDiv">
+					  <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>转发了该句子					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+				  </div>
+				  <div class="forwardingDiv">
+					  <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>转发了该句子					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+				  </div>
+		       </div>
+			   <div class="loveContainer">
+		        <div  class="submitBtnDiv" >
+				   <div class="submitBtn">我也喜欢</div>
+				   <div class="clearFloat"></div>
+			    </div>
+		        <div class="loveDiv">
+			          <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>喜欢该句子					  
+					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+			    </div>
+				<div class="loveDiv">
+			          <img class="smallPortrait leftFloat" src="img/icon.jpg">
+					  <div class="commentContent leftFloat">
+					     <span class="username">jazywoo</span>喜欢该句子					 
+					  </div>
+					  <span class="rightFloat">2012年3月8号</span>
+					  <div class="clearFloat"></div>
+			    </div>
+		     </div>
+			     <div class="moreBtnContainer">
+					  <div class="moreDiv"><img class="moreImg  leftFloat" src="img/rightArrow.png"/>查看更多</div>
+					  <div class="packUp clickSpan2"><span>收起∧</span></div>
+			    </div>
+			  </div>
+		   </div>
+		   <div class="clearFloat"></div>
 		 </div>
 	  </div>
 	  <div id="rightContent" class="rightFloat">
-	      <div class="menuBtn"><span>我喜欢的2个句子</span></div>
-		  <div class="headMenuBtn"><span class="leftFloat">我收藏的12个标签</span><span class="menuNext rightFloat">下一组</span></div>
-		  <div class="menuBtn"><span class="leftFloat">人生</span><span class="rightFloat">已被使用过2003次</span></div>
-		  <div class="menuBtn"><span class="leftFloat">爱情</span><span class="rightFloat">已被使用过2003次</span></div>
-		  <div class="menuBtn"><span class="leftFloat">感悟</span><span class="rightFloat">已被使用过2003次</span></div>
-		  <div class="menuBtn"><span class="leftFloat">时尚</span><span class="rightFloat">已被使用过2003次</span></div>
-		  <div class="headMenuBtn"><span class="leftFloat">我关注的12个人</span><span class="menuNext rightFloat">下一组</span></div>
-		  <div class="menuBtn menuPortrait"> 
-		     <img class="smallPortrait leftFloat" src="img/icon.jpg"/>
-			 <div class="leftFloat"><span>jazywoo</span><br/><span>时间</span></div>
-			 <div class="rightFloat">排名23</div>
+	      <div class="menuItem">
+	          <div class="headMenuBtn"><span class="icon icon3">&nbsp;</span><span>我喜欢的2个句子</span></div>
 		  </div>
-		  <div class="menuBtn menuPortrait"> 
-		     <img class="smallPortrait leftFloat" src="img/icon.jpg"/>
-			 <div class="leftFloat"><span>jazywoo</span><br/><span>时间</span></div>
-			 <div class="rightFloat">排名23</div>
+		  <div class="menuItem">
+		     <div class="headMenuBtn"><span class="icon icon2">&nbsp;</span><span class="leftFloat">我收藏的12个标签</span><span class="menuNext rightFloat clickSpan">下一组</span><div class="clearFloat"></div></div>
+		     <div class="menuBtn"><span class="icon icon1">&nbsp;</span><span class="leftFloat">人生</span><span class="rightFloat">已被使用过2003次</span></div>
+		     <div class="menuBtn"><span class="icon icon1">&nbsp;</span><span class="leftFloat">爱情</span><span class="rightFloat">已被使用过2003次</span></div>
+		     <div class="menuBtn"><span class="icon icon1">&nbsp;</span><span class="leftFloat">感悟</span><span class="rightFloat">已被使用过2003次</span></div>
+		     <div class="menuBtn"><span class="icon icon1">&nbsp;</span><span class="leftFloat">时尚</span><span class="rightFloat">已被使用过2003次</span></div>
+			 <div class="clearFloat"></div>
 		  </div>
-		  <div class="menuBtn menuPortrait"> 
-		     <img class="smallPortrait leftFloat" src="img/icon.jpg"/>
-			 <div class="leftFloat"><span>jazywoo</span><br/><span>时间</span></div>
-			 <div class="rightFloat">排名23</div>
+		  <div class="menuItem">
+		     <div class="headMenuBtn"><span class="icon icon4">&nbsp;</span><span class="leftFloat">我关注的12个人</span><span class="menuNext rightFloat clickSpan">下一组</span><div class="clearFloat"></div></div>
+		     <div class="menuBtn menuPortrait"> 
+		    <div class="menuPortraitDiv">
+		     <img class="middlePortrait leftFloat photoInfo" src="img/icon.jpg"/>
+			 <div class="leftFloat"><span>jazywoo</span><span class="span1">时间</span></div>
+			 <div class="rightFloat span2">排名23</div>
+			 <div class="clearFloat"></div>
+			</div>
 		  </div>
-		  <div class="headMenuBtn"><span>每日一句</span></div>
-		  <div><span>在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。</span> </div>
-	  </div>
+		     <div class="menuBtn menuPortrait"> 
+		    <div class="menuPortraitDiv">
+		     <img class="middlePortrait leftFloat photoInfo" src="img/icon.jpg"/>
+			 <div class="leftFloat"><span>jazywoo</span><span class="span1">时间</span></div>
+			 <div class="rightFloat span2">排名23</div>
+			 <div class="clearFloat"></div>
+			</div>
+		  </div>
+		     <div class="menuBtn menuPortrait"> 
+		    <div class="menuPortraitDiv"><img class="middlePortrait leftFloat photoInfo" src="img/icon.jpg"/>
+		     
+			 <div class="leftFloat"><span>jazywoo</span><span class="span1">时间</span></div>
+			 <div class="rightFloat span2">排名23</div>
+			 <div class="clearFloat"></div>
+			</div>
+		  </div>
+		     <div class="clearFloat"></div>
+		  </div>
+		  <div class="menuItem">
+		     <div class="headMenuBtn"><span class="icon icon5">&nbsp;</span><span>每日一句</span></div>
+		     <div id="dailySentenceDiv">
+		       <div>
+			     <span>在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。</span> 
+		       </div>
+			   <div><span class="icon icon6">&nbsp;</span><span class="label">开心</span><span class="label">理想</span><span class="label">世纪</span></div>
+			 </div>
+		  </div>
+     </div>
+</div>
    </div> 
 
 
    <div id="userInfoTip">
-       <div>
-	      <div class="leftFloat"><img class="portrait" src="img/icon.jpg"/><span>jazywoo</span></div>
-          <div class="rightFloat"><div><span>21粉丝</span>|<span>349记录</span></div><div>关注我</div></div>
-	   </div>
-       <div id="userPopSentenceDiv">在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。</div>
+       <div class="userInfoTipContainer">
+	      <img class="tipImg" src="img/tipImg1.png" />
+	      <div class="leftFloat tipPhoto">
+		      <img class="portrait leftFloat" src="img/icon.jpg"/>
+			  <div class="tipName rightFloat"><span  class="span2">jazywoo</span><span class="span3">时间</span></div>
+		  </div>
+          <div class="fanNumDiv rightFloat">
+		     <div><span>21粉丝</span>|<span>349记录</span></div>
+			 <div class="span1"><span class="icon icon10 addImg">&nbsp;</span>关注我</div>
+		  </div>
+		  <div class="clearFloat"></div>
+     </div>
+	   
+       <div id="userPopSentenceDiv">
+	      <span>在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。		  </span></div>
+	   
        <div><a href="#">www.bijian.com/jazywoo</a></div>
-   </div>
+</div>
    
-   <div id="discoveryTip">
-       <div class="personItem"><span class="leftFloat">热门标签</span><span class="rightFloat">更多</span></div>
-	   <div class="clearFloat"><span class="popLabel">美丽</span><span class="popLabel">美丽</span><span class="popLabel">美丽</span><span class="popLabel">美丽</span><span class="popLabel">美丽</span><span class="popLabel">美丽</span><span class="popLabel">美丽</span><span class="popLabel">美丽</span></div>
-	   <div class="persoItem"><span class="leftFloat">活跃者</span><span class="rightFloat">更多</span></div>
-	   <div class="clearFloat">
-	      <img class="smallPortrait floatLeft" src="img/icon.jpg"/><img class="smallPortrait floatLeft" src="img/icon.jpg"/>
-		  <img class="smallPortrait floatLeft" src="img/icon.jpg"/><img class="smallPortrait floatLeft" src="img/icon.jpg"/>
-		  <img class="smallPortrait floatLeft" src="img/icon.jpg"/><img class="smallPortrait floatLeft" src="img/icon.jpg"/>
-	   </div>
-   </div>
    
-   <div id="ownTip">
-       <div class="ownSubMenu">博客设置</div>
-	   <div class="ownSubMenu">个人设置</div>
-	   <div class="ownSubMenu">通知</div>
-	   <div class="ownSubMenu">私信</div>
-	   <div class="ownSubMenu">登出</div>
-   </div>
-
+<script type="text/javascript" src="js/jquery-min1.6.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

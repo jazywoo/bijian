@@ -10,11 +10,12 @@
       <property name="content" column="content" type="string"/>  
       <property name="fromPlace" column="fromPlace" type="string"/>  
       <property name="createTime" column="createTime" type="java.util.Date"/>
+      <property name="isValid" column="isValid" type="java.lang.Integer"/>
+      <property name="hotValue" column="hotValue" type="java.lang.Integer"/>
       <property name="goodNum" column="goodNum" type="java.lang.Integer"/>
       <property name="commentNum" column="commentNum" type="java.lang.Integer"/>
       <property name="forwardingNum" column="forwardingNum" type="java.lang.Integer"/>
-      <property name="hotValue" column="hotValue" type="java.lang.Integer"/>
-      <property name="isValid" column="isValid" type="java.lang.Integer"/>
+      
       
       <many-to-one name="author" column="authorID" class="User"/>
       

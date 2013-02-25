@@ -29,7 +29,7 @@ public class UserServiceTests  extends AbstractTransactionalJUnit4SpringContextT
 	
 	@Test
 	public void getHotUsers(){
-		List<User> users=userService.getHotUsers();
+		List<User> users=userService.getHotUsers(0,5);
 		Assert.assertTrue(users.size()>0);
 		System.out.println(users.get(0).getUsername());
 	}

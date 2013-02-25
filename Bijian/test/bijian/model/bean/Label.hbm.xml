@@ -10,6 +10,8 @@
        <property name="content" column="content" type="string"/>
        <property name="createTime" column="createTime" type="java.util.Date"/>
        <property name="hotValue" column="hotValue" type="java.lang.Integer"/> 
+       <property name="usedNum" column="usedNum" type="java.lang.Integer"/>
+       <property name="subscribedNum" column="subscribedNum" type="java.lang.Integer"/>
        
        <set name="labelSentences" table="labelSentence"  lazy="true" inverse="true">
           <key column="labelID"/>

@@ -87,10 +87,10 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
     
 	@Test
 	public void getLike(){//User user,int page,int limit
-		addUser("jazywoo","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,1,10);
-		addUser("jazywoo1","wujianzhi","123456","湖北省","武汉市","洪山区","摩羯座",22,1,10);
-		addUser("jazywoo2","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",23,1,10);
-		addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0,10);
+		addUser("jazywoo","wujianzhi","123456",22,1,10);
+		addUser("jazywoo1","wujianzhi","123456",22,1,10);
+		addUser("jazywoo2","wujianzhi","123456",23,1,10);
+		addUser("jazywoo3","wujianzhi","123456",22,0,10);
 		List<User> matchUsers;
 		User user=new User();
 		int page=0;
@@ -108,16 +108,6 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
 			user.setAge(22);
 			matchUsers=userDao.getLike(user, page,limit);
 			Assert.assertNotNull(matchUsers);
-			user.setProvince("湖北省");
-			matchUsers=userDao.getLike(user, page,limit);
-			Assert.assertNotNull(matchUsers);
-			user.setCity("武汉市");
-			matchUsers=userDao.getLike(user, page,limit);
-			Assert.assertNotNull(matchUsers);
-			user.setArea("洪山区");
-			matchUsers=userDao.getLike(user, page,limit);
-			Assert.assertNotNull(matchUsers);
-			user.setConstellation("摩羯座");
 			matchUsers=userDao.getLike(user, page,limit);
 			Assert.assertNotNull(matchUsers);
 			for(int i=0;i<matchUsers.size();i++){
@@ -129,10 +119,10 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
 		}
 	}
 	public void getHotUsers(){//int page,int limit
-		addUser("jazywoo","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,1,1);
-		addUser("jazywoo1","wujianzhi","123456","湖北省","武汉市","洪山区","摩羯座",22,1,2);
-		addUser("jazywoo2","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",23,1,4);
-		addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0,10);
+		addUser("jazywoo","wujianzhi","123456",22,1,1);
+		addUser("jazywoo1","wujianzhi","123456",22,1,2);
+		addUser("jazywoo2","wujianzhi","123456",23,1,4);
+		addUser("jazywoo3","wujianzhi","123456",22,0,10);
 		int page=0;
 		int limit=10;
 		List<User> users=userDao.getHotUsers(page, limit);
@@ -142,11 +132,11 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
 		}
 	}
 	public void getHotUserByLabel(){//long labelID
-		long userID=addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0,10);
+		long userID=addUser("jazywoo3","wujianzhi","123456",22,0,10);
 		long max=userID;
 		long labelID=addLabel("开心");
 		addLabelUser(userID,labelID);
-		userID=addUser("jazywoo3","wujianzhi","123456","湖北省","武汉市","黄陂区","摩羯座",22,0,4);
+		userID=addUser("jazywoo3","wujianzhi","123456",22,0,4);
 		addLabelUser(userID,labelID);
 		userID=addUser("jazywoo2","wujianzhi2","123456");
 		addLabelUser(userID,labelID);
@@ -183,16 +173,11 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests{
 		userDao.insert(user);
 		return user.getUserID();
     }
-	private long addUser(String username,String nickName,String password,
-			String province,String city,String area,String constellation,int age,int sex,int hotValue){
+	private long addUser(String username,String nickName,String password,int age,int sex,int hotValue){
     	User user=new User();
 		user.setUsername(username);
 		user.setNickname(nickName);
 		user.setPassword(password);
-		user.setProvince(province);
-		user.setCity(city);
-		user.setArea(area);
-		user.setConstellation(constellation);
 		user.setAge(age);
 		user.setSex(sex);
 		userDao.insert(user);

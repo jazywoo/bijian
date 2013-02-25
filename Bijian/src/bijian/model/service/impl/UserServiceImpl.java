@@ -100,8 +100,8 @@ public class UserServiceImpl implements IUserService{
 		}
 		return users;
 	}
-	public List<User> getHotUsers() {
-		return userDao.getHotUsers(0, 5);
+	public List<User> getHotUsers(int page,int limit) {
+		return userDao.getHotUsers(page,limit);
 	}
 	public User getHotUserByLabel(long labelID){
 		return userDao.getHotUserByLabel(labelID);

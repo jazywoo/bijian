@@ -30,7 +30,7 @@ public interface IUserService {
     public List<User> getActiveUsersByLabel(long labelID,int page,int limit);
     
     public List<User> searchUser(User user,int page,int limit);//搜索
-    public List<User> getHotUsers();//热门博客
+    public List<User> getHotUsers(int page,int limit);//热门博客
     public List<User> getSentenceForwardingUsers(long sentenceID,int page,int limit);//转发该句子的所有用户
     public List<User> getSentenceLoveUsers(long sentenceID,int page,int limit);//喜欢该句子的所有用户
     

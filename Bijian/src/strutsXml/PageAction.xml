@@ -5,7 +5,8 @@
 <struts>
     
 	<package name="page" namespace="/" extends="struts-default">
-	   <action name="mypageAction" class="pageAction" method="displayHomepage">
+	   <action name="pageAction" class="pageAction" method="displayHomepage">
+	      <exception-mapping result="error" exception="java.lang.Exception"/>
 	      <result>/index2.jsp</result>
 	   </action>
 	   

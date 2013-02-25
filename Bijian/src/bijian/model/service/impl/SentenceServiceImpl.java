@@ -13,6 +13,7 @@ import bijian.model.bean.relationbean.LabelSentence;
 import bijian.model.bean.relationbean.LabelUser;
 import bijian.model.bean.relationbean.LoveSentence;
 import bijian.model.bean.relationbean.ReportSentence;
+import bijian.model.bean.relationbean.SubscribeLabel;
 import bijian.model.bean.relationbean.UserRelatedSentence;
 import bijian.model.dao.IAttentionDao;
 import bijian.model.dao.IForwardingDao;
@@ -22,6 +23,7 @@ import bijian.model.dao.ILabelUserDao;
 import bijian.model.dao.ILoveSentenceDao;
 import bijian.model.dao.IReportSentenceDao;
 import bijian.model.dao.ISentenceDao;
+import bijian.model.dao.ISubscribeLabelDao;
 import bijian.model.dao.IUserDao;
 import bijian.model.dao.IUserRelatedSentenceDao;
 import bijian.model.service.ISentenceService;
@@ -33,6 +35,7 @@ public class SentenceServiceImpl implements ISentenceService{
     private ILabelDao labelDao;
     private ILabelUserDao labelUserDao;
     private ILabelSentenceDao labelSentenceDao;
+    private ISubscribeLabelDao subscribeLabelDao;
     private IReportSentenceDao reportSentenceDao;
     private IUserRelatedSentenceDao userRelatedSentenceDao;
     private ILoveSentenceDao loveSentenceDao;
@@ -81,14 +84,16 @@ public class SentenceServiceImpl implements ISentenceService{
 		forwardingSentence.setFromPlace(sentenceAuthor.getUsername());
 		sentenceDao.insert(forwardingSentence);
 	}
-
-	public List<Sentence> getAttentionSentences(long userID, int page, int limit) {
+	public List<Sentence> getAllAttentionSentences(long userID, int page, int limit) {
 		List<Attention> attentions=attentionDao.get(userID, page, limit);
 		List<Long> attentionListID=new ArrayList<Long>();
 		for(Attention a:attentions){
 			attentionListID.add(a.getAttentioner().getUserID());
 		}
 		return sentenceDao.getAttention(attentionListID, page, limit);
+	}
+	public List<Sentence> getOneAttentionSentences(long attentionerID, int page, int limit) {
+		return sentenceDao.getByUser(attentionerID, page, limit);
 	}
 
 	public List<Sentence> getHotSentence(int page, int limit) {
@@ -121,8 +126,21 @@ public class SentenceServiceImpl implements ISentenceService{
 		}
 		return sentences;
 	}
-
-	public List<Sentence> getLabelSentences(long labelID,int page,int limit){
+	public List<Sentence> getAllLabelSentences(long userID,int page,int limit){
+		int labelSize=subscribeLabelDao.getSubscribeLabelsSizeByUser(userID);
+		List<SubscribeLabel> subscribeLabels=subscribeLabelDao.getSubscribeLabelsByUser(userID, 0, labelSize-1);
+		List<Long> labelList=new ArrayList();
+		for(SubscribeLabel sl:subscribeLabels){
+			labelList.add(sl.getLabel().getLabelID());
+		}
+		List<LabelSentence> labelSentences=labelSentenceDao.getLabelSentencesByLabelList(labelList, page, limit);
+		List<Sentence> sentences=new ArrayList<Sentence>();
+		for(LabelSentence ls:labelSentences){
+			sentences.add(ls.getSentence());
+		}
+		return sentences;
+	}
+	public List<Sentence> getOneLabelSentences(long labelID,int page,int limit){
 		List<LabelSentence> labelSentences=labelSentenceDao.getLabelSentencesByLabel(labelID, page, limit);
 		List<Sentence> sentences=new ArrayList<Sentence>();
 		for(LabelSentence ls:labelSentences){
@@ -171,8 +189,15 @@ public class SentenceServiceImpl implements ISentenceService{
 		return null;
 	}
 
-	public void thinkGood(long sentenceID) {
+	public void lovingSentence(long sentenceID,long userID) {
+		User user=(User) userDao.get(userID);
 		Sentence sentence=(Sentence) sentenceDao.get(sentenceID);
+		LoveSentence loveSentence=new LoveSentence();
+		loveSentence.setSentence(sentence);
+		loveSentence.setUser(user);
+		loveSentence.setCreateTime(new Date());
+		loveSentence.setIsValid(1);
+		loveSentenceDao.insert(loveSentence);
 		sentence.setGoodNum(sentence.getGoodNum()+1);
 		sentenceDao.update(sentence);
 	}
@@ -301,6 +326,14 @@ public class SentenceServiceImpl implements ISentenceService{
 
 	public void setForwardingDao(IForwardingDao forwardingDao) {
 		this.forwardingDao = forwardingDao;
+	}
+
+	public ISubscribeLabelDao getSubscribeLabelDao() {
+		return subscribeLabelDao;
+	}
+
+	public void setSubscribeLabelDao(ISubscribeLabelDao subscribeLabelDao) {
+		this.subscribeLabelDao = subscribeLabelDao;
 	}
 
 

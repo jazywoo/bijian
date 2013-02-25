@@ -11,12 +11,12 @@ public class Sentence{
     private String content;
     private String fromPlace;
     private Date createTime;
+    private Integer isValid;
+    private Integer hotValue;
     private Integer goodNum;
     private Integer commentNum;
     private Integer forwardingNum;
-    private Integer hotValue;
-    private Integer isValid;
-
+    
     private Set comments=new HashSet();
     private Set labelSentences=new HashSet();
     

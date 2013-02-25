@@ -51,18 +51,6 @@ public class UserDaoImpl implements IUserDao {
 				if(propertiesFlag[i++]==1){
 					query.setParameter("age", user.getAge());
 				}
-				if(propertiesFlag[i++]==1){
-					query.setParameter("province", user.getProvince());
-				}
-				if(propertiesFlag[i++]==1){
-					query.setParameter("city", user.getCity());
-				}
-				if(propertiesFlag[i++]==1){
-					query.setParameter("area", user.getArea());
-				}
-				if(propertiesFlag[i++]==1){
-					query.setParameter("constellation", user.getConstellation());
-				}
 				query.setFetchSize(page).setMaxResults(limit);
 				return query.list();
 			}
@@ -89,18 +77,6 @@ public class UserDaoImpl implements IUserDao {
 				}
 				if(propertiesFlag[i++]==1){
 					query.setParameter("age", user.getAge());
-				}
-				if(propertiesFlag[i++]==1){
-					query.setParameter("province", user.getProvince());
-				}
-				if(propertiesFlag[i++]==1){
-					query.setParameter("city", user.getCity());
-				}
-				if(propertiesFlag[i++]==1){
-					query.setParameter("area", user.getArea());
-				}
-				if(propertiesFlag[i++]==1){
-					query.setParameter("constellation", user.getConstellation());
 				}
 				return query.list();
 			}

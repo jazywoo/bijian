@@ -43,13 +43,11 @@ public class UserAction extends ActionSupport implements SessionAware,RequestAwa
 	public String getUserInfo(){
 		long userID=Long.parseLong(request.get("userID").toString());
 		User user=userService.getUser(userID);
-		int followingSize=userService.getFollowingUsersSize(userID);
-		int sentencesSize=sentenceService.getMySentencesSize(userID);
 		Sentence hotestSentence=sentenceService.getMyHotestSentence(userID);
 		JSONObject jsonObject=new JSONObject();
 		jsonObject.put("user", user);
-		jsonObject.put("followingSize", followingSize);
-		jsonObject.put("sentencesSize", sentencesSize);
+		jsonObject.put("followingSize", user.getFollowingNum());
+		jsonObject.put("sentencesSize", user.getSentenceNum());
 		jsonObject.put("hotestSentence", hotestSentence);
 		resultJson=JSONObject.fromObject(jsonObject).toString();	
 		return SUCCESS;

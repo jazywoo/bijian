@@ -35,7 +35,7 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     
     //显示首页
     public String displayHomepage(){   
-        List<User> hotUserList=userService.getHotUsers();
+        List<User> hotUserList=userService.getHotUsers(0,5);
         List<Sentence> sentenceList=sentenceService.getHotSentence(0, 10);
         List<Label> hotLabelList=labelService.getHotLabels(0,5);
         
@@ -51,53 +51,85 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     	List<Sentence> sentences=sentenceService.getSuggestSentences(userID, 0, 10);//推荐句子
     	resultMap.put("userHomePage_type", "suggest");
         resultMap.put("userHomePage_sentences", sentences);  //显示推荐句子
+        getUserHomepageMenu();//加上首页右侧目录数据
         getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
-    //显示登陆用户首页2，用户关注的博客的句子
-    public String displayUserAttentionSentence(){
-    	User loginUser=(User) session.get("loginUser");
-    	long userID=loginUser.getUserID();
-    	List<Sentence> sentences=sentenceService.getAttentionSentences(userID, 0, 10);//关注的博客的句子
-    	resultMap.put("userHomePage_type", "attention");
-    	resultMap.put("userHomePage_sentences", sentences);  //显示关注的博客的句子
-        getDiscoveryPageData();//加上发现页面中用户的其他数据
-    	return SUCCESS;
-    }
-    //显示登陆用户首页3，用户喜欢过的的句子
+    //显示登陆用户首页2，用户喜欢过的的句子
     public String displayUserLoveSentence(){
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
     	List<Sentence> sentences=sentenceService.getLovedSentences(userID, 0, 10);//喜欢的句子
     	resultMap.put("userHomePage_type", "loveSentence");
     	resultMap.put("userHomePage_sentences", sentences);  //显示喜欢的句子
+    	 getUserHomepageMenu();//加上首页右侧目录数据
+         getDiscoveryPageData();//加上发现页面中用户的其他数据
+    	return SUCCESS;
+    }
+    //显示登陆用户首页3，收藏的所有标签的所有句子
+    public String displayUserAllLabelSentence(){
+    	long labelID=Long.parseLong(request.get("labelID").toString());
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<Sentence> sentences=sentenceService.getAllLabelSentences(userID, 0, 10);//标签句子
+    	resultMap.put("userHomePage_type", "allLabelSentence");
+    	resultMap.put("userHomePage_sentences", sentences);  //显示标签句子
+    	getUserHomepageMenu();//加上首页右侧目录数据
         getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
     //显示登陆用户首页4，收藏的某一个标签的所有句子
-    public String displayUserLabelSentence(){
+    public String displayUserOneLabelSentence(){
     	long labelID=Long.parseLong(request.get("labelID").toString());
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
-    	List<Sentence> sentences=sentenceService.getLabelSentences(labelID, 0, 10);//标签句子
-        resultMap.put("userHomePage_sentences", sentences);  //显示标签句子
+    	List<Sentence> sentences=sentenceService.getOneLabelSentences(labelID, 0, 10);//标签句子
+    	resultMap.put("userHomePage_type", "oneLabelSentence");
+    	resultMap.put("userHomePage_sentences", sentences);  //显示标签句子
+    	getUserHomepageMenu();//加上首页右侧目录数据
         getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
+    //显示登陆用户首页5，用户关注的博客的句子
+    public String displayUserAllAttentionSentence(){
+    	User loginUser=(User) session.get("loginUser");
+    	long userID=loginUser.getUserID();
+    	List<Sentence> sentences=sentenceService.getAllAttentionSentences(userID, 0, 10);//关注所有的博客的句子
+    	resultMap.put("userHomePage_type", "allAttention");
+    	resultMap.put("userHomePage_sentences", sentences);  //显示关注的博客的句子
+    	getUserHomepageMenu();//加上首页右侧目录数据
+        getDiscoveryPageData();//加上发现页面中用户的其他数据
+    	return SUCCESS;
+    }
+    //显示登陆用户首页6，用户关注的博客的句子
+    public String displayUserOneAttentionSentence(){
+    	long attentionerID=Long.parseLong(request.get("attentionerID").toString());
+    	List<Sentence> sentences=sentenceService.getOneAttentionSentences(attentionerID, 0, 10);//关注的博客的句子
+    	resultMap.put("userHomePage_type", "oneAttention");
+    	resultMap.put("userHomePage_sentences", sentences);  //显示关注的博客的句子
+    	getUserHomepageMenu();//加上首页右侧目录数据
+        getDiscoveryPageData();//加上发现页面中用户的其他数据
+    	return SUCCESS;
+    }
+    
   
     //显示发现页面
     public String displayDiscoveryPage(){
     	List<Sentence> sentenceList=sentenceService.getHotSentence(0, 10); //发现 好句子
     	List<Label> hotLabelList=labelService.getHotLabels(0,20); // 发现 热的标签
     	List<User> labelHotUserList=new ArrayList<User>(); //发现 热的标签对应的优秀博客
-    	List<List<User>> labelActiveUserList=new ArrayList<List<User>>();//发现 热的标签对应的活跃博客
-    	List<List<Integer>> labelCountList=new ArrayList<List<Integer>>();
+    	List<List<User>> labelActiveUserList=new ArrayList<List<User>>();//发现 热的标签对应的几个活跃博客
+    	List<List<Integer>> labelCountList=new ArrayList<List<Integer>>();//热的标签对应一周内使用次数
     	for(Label l:hotLabelList){
     		labelHotUserList.add(userService.getHotUserByLabel(l.getLabelID()));
-    		labelActiveUserList.add(userService.getActiveUsersByLabel(l.getLabelID(), 0, 3));
-    		List<Integer> countList=new ArrayList<Integer>();//近5天的使用次数
+    		labelActiveUserList.add(userService.getActiveUsersByLabel(l.getLabelID(), 0, 5));
+    		List<Integer> countList=new ArrayList<Integer>();//近7天的使用次数
     		Calendar calendar=Calendar.getInstance();
     		calendar.setTime(new Date());
+    		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
+    		calendar.add(Calendar.DAY_OF_YEAR, -1);
+    		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
+    		calendar.add(Calendar.DAY_OF_YEAR, -1);
     		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
     		calendar.add(Calendar.DAY_OF_YEAR, -1);
     		countList.add(labelService.getUsedCount(l.getLabelID(), calendar.getTime()));
@@ -130,52 +162,57 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     }
     //显示我的句子
     public String displayOwnSentence(){
-    	getOwnPageData();//加载个人博客数据
-    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
     	List<Sentence> sentences=sentenceService.getMySentences(userID, 0, 10);
+    	resultMap.put("ownPage_type", "ownSentence");
     	resultMap.put("ownPage_ownSentenceList", sentences);
+    	getOwnPageMenu();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
     //显示我的粉丝
     public String displayOwnFollowing(){
-    	getOwnPageData();//加载个人博客数据
-    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
     	List<Following> followings=userService.getFollowings(userID, 0, 10);
+    	resultMap.put("ownPage_type", "ownFollowing");
     	resultMap.put("ownPage_ownFollowingList", followings);
+    	getOwnPageMenu();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
     //显示我的关注
     public String displayOwnAttention(){
-    	getOwnPageData();//加载个人博客数据
-    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
     	List<Attention> attentions=userService.getAttentions(userID, 0, 10);
+    	resultMap.put("ownPage_type", "ownAttention");
     	resultMap.put("ownPage_ownAttentionList", attentions);
+    	getOwnPageMenu();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
     //显示我搜藏标签
     public String displayOwnSubscribeLabel(){
-    	getOwnPageData();//加载个人博客数据
-    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
     	List<SubscribeLabel> subscribeLabels=labelService.getSubscribeLabels(userID, 0, 10);
+    	resultMap.put("ownPage_type", "subscribeLabel");
     	resultMap.put("ownPage_subscribeLabelList", subscribeLabels);
+    	getOwnPageMenu();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
     //显示我喜欢的句子
     public String displayOwnLoveSentence(){
-    	getOwnPageData();//加载个人博客数据
-    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
     	List<LoveSentence> loveSentences=sentenceService.getLoveSentences(userID, 0, 10);
+    	resultMap.put("ownPage_type", "loveSentence");
     	resultMap.put("ownPage_loveSentenceList", loveSentences);
+    	getOwnPageMenu();//加载个人博客数据
+    	getDiscoveryPageData();//加上发现页面中用户的其他数据
     	return SUCCESS;
     }
     //显示我的消息
@@ -198,27 +235,31 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     	resultMap.put("sentences", sentences);
         return SUCCESS;
     }
-    
-    private void getDiscoveryPageData(){
+    private void getUserHomepageMenu(){
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
-    	int attentionSize=userService.getAttentionUsersSize(userID);//关注博客数
     	int loveSentenceSize=sentenceService.getLoveSentencesSize(userID);//喜欢的句子数
-    	List<Label> subscribeLabels=labelService.getSubscribedLabels(userID, 0, 5);//收藏的标签
-    	List<User> hotUserList=userService.getHotUsers();//优秀博客
-        List<Label> hotLabelList=labelService.getHotLabels(0,5);//热门标签
-        resultMap.put("userHomePage_attentionSize", attentionSize);
-        resultMap.put("userHomePage_loveSentenceSize", loveSentenceSize);
+    	int subscribeLabelSize=labelService.getSubscribeLabelsSize(userID);
+    	List<Label> subscribeLabels=labelService.getSubscribedLabels(userID, 0, 5);//收藏的标签  
+    	List<User> attentionUsers=userService.getAttentionUsers(userID, 0, 5);
+    	resultMap.put("userHomePage_loveSentenceSize", loveSentenceSize);
+        resultMap.put("userHomePage_subscribeLabelSize", subscribeLabels);
         resultMap.put("userHomePage_subscribeLabels", subscribeLabels);
-        resultMap.put("userHomePage_hotUserList", hotUserList);
-        resultMap.put("userHomePage_hotLabelList", hotLabelList);
+        resultMap.put("userHomePage_attentionSize", loginUser.getAttentionNum());
+        resultMap.put("userHomePage_attentionUsers", attentionUsers);
     }
-    private void getOwnPageData(){
+    private void getDiscoveryPageData(){
+    	List<User> hotUserList=userService.getHotUsers(0,5);//优秀博客
+        List<Label> hotLabelList=labelService.getHotLabels(0,5);//热门标签
+        resultMap.put("discoveryPage_hotUserList", hotUserList);
+        resultMap.put("discoveryPage_hotLabelList", hotLabelList);
+    }
+    private void getOwnPageMenu(){
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
-    	int ownSentenceSize=sentenceService.getMySentencesSize(userID);//个人句子数
-    	int followingSize=userService.getFollowingUsersSize(userID);//粉丝个数
-    	int attentionSize=userService.getAttentionUsersSize(userID);//关注个数
+    	int ownSentenceSize=loginUser.getSentenceNum();//个人句子数
+    	int followingSize=loginUser.getFollowingNum();//粉丝个数
+    	int attentionSize=loginUser.getAttentionNum();//关注个数
     	int subscribeLabelsSize=labelService.getSubscribeLabelsSize(userID);//收藏的标签数
     	int loveSentenceSize=sentenceService.getLoveSentencesSize(userID);//喜欢的句子数
     	int messageSize = 0;

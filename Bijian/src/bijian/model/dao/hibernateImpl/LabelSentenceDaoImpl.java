@@ -3,9 +3,12 @@ package bijian.model.dao.hibernateImpl;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -44,6 +47,19 @@ public class LabelSentenceDaoImpl implements ILabelSentenceDao{
 			}     
 		});
     }
+    public List<LabelSentence> getLabelSentencesByLabelList(final List<Long> labelList,final int page,final int limit){
+    	return this.hibernateTemplate.executeFind(new HibernateCallback(){
+			public Object doInHibernate(Session session){
+				Criteria criteria=session.createCriteria(LabelSentence.class)
+				.add(Restrictions.in("label.labelID", labelList))
+				.addOrder(Order.desc("createTime"))
+				.setFirstResult(page)                   
+				.setMaxResults(limit);
+				return criteria.list();
+			}
+		});
+    }
+    
     public int getLabelSentencesSizeBySentence(final long sentenceID){
     	final String sql="select count(*) from LabelSentence as l " +
 	                   "  where l.sentence.sentenceID=:sentenceID";

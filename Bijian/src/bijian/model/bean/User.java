@@ -12,16 +12,15 @@ public class User{
    private String password;
    private Integer sex;
    private Integer age;
-   private String province;
-   private String city;
-   private String area;
-   private String constellation;
    private String photo;
-   private Integer attentionNum;
-   private Integer followingNum;
+   
    private Date createTime; 
    private Integer loginState;
    private Integer hotValue;
+   private Integer attentionNum;
+   private Integer followingNum;
+   private Integer sentenceNum;
+   private Integer visitNum;
    
    private Set attentions=new HashSet();
    private Set followings=new HashSet();
@@ -76,30 +75,6 @@ public class User{
 	}
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-	public String getProvince() {
-		return province;
-	}
-	public void setProvince(String province) {
-		this.province = province;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getArea() {
-		return area;
-	}
-	public void setArea(String area) {
-		this.area = area;
-	}
-	public String getConstellation() {
-		return constellation;
-	}
-	public void setConstellation(String constellation) {
-		this.constellation = constellation;
 	}
 	public String getPhoto() {
 		return photo;
@@ -214,6 +189,18 @@ public class User{
 	}
 	public void setHotValue(Integer hotValue) {
 		this.hotValue = hotValue;
+	}
+	public Integer getVisitNum() {
+		return visitNum;
+	}
+	public void setVisitNum(Integer visitNum) {
+		this.visitNum = visitNum;
+	}
+	public Integer getSentenceNum() {
+		return sentenceNum;
+	}
+	public void setSentenceNum(Integer sentenceNum) {
+		this.sentenceNum = sentenceNum;
 	}
    
 }

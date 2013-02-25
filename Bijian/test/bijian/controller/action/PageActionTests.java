@@ -19,9 +19,9 @@ public class PageActionTests extends ActionTestBase{
 //    	user.setUserID(100);
 //    	user.setUsername("jazywoo");
 //    	this.request.getSession().putValue("loginUser", user);
-    	String result=this.executeAction("/pageAction?method=displayHomepage");
-    	Assert.assertEquals(result, Action.SUCCESS);
+    	String result=this.executeAction("/pageAction!displayHomepage.action");
+    	//Assert.assertEquals(Action.SUCCESS,result);
     	List<User> hotUserList=(List<User>) findValueAfterExecute("homepage_hotUserList");
-    	
+    	System.out.println(hotUserList.get(0).getUsername());
     }
 }

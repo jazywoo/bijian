@@ -9,6 +9,8 @@ public class Label {
    private String content;
    private Date createTime;
    private Integer hotValue;
+   private Integer usedNum;
+   private Integer subscribedNum;
    
    private Set labelSentences=new HashSet();
    private Set labelUsers=new HashSet();
@@ -55,6 +57,18 @@ public class Label {
 	}
 	public void setHotValue(Integer hotValue) {
 		this.hotValue = hotValue;
+	}
+	public Integer getUsedNum() {
+		return usedNum;
+	}
+	public void setUsedNum(Integer usedNum) {
+		this.usedNum = usedNum;
+	}
+	public Integer getSubscribedNum() {
+		return subscribedNum;
+	}
+	public void setSubscribedNum(Integer subscribedNum) {
+		this.subscribedNum = subscribedNum;
 	}
 		
 

@@ -11,17 +11,14 @@
       <property name="nickname" column="nickname" type="string"/>  
       <property name="password" column="password" type="string"/>
       <property name="sex" column="sex" type="java.lang.Integer"/>  
-      <property name="age" column="age" type="java.lang.Integer"/>
-      <property name="province" column="province" type="string"/>  
-      <property name="city" column="city" type="string"/>  
-      <property name="area" column="area" type="string"/>
-      <property name="constellation" column="constellation" type="string"/>  
+      <property name="age" column="age" type="java.lang.Integer"/> 
       <property name="photo" column="photo" type="string"/> 
-      <property name="attentionNum" column="attentionNum" type="java.lang.Integer"/>
-      <property name="followingNum" column="followingNum" type="java.lang.Integer"/>  
       <property name="createTime" column="createTime" type="java.util.Date"/>
       <property name="hotValue" column="hotValue" type="java.lang.Integer"/> 
-
+      <property name="attentionNum" column="attentionNum" type="java.lang.Integer"/>
+      <property name="followingNum" column="followingNum" type="java.lang.Integer"/> 
+      <property name="sentenceNum" column="sentenceNum" type="java.lang.Integer"/>
+      <property name="visitNum" column="visitNum" type="java.lang.Integer"/> 
       
       <set name="attentions" table="attention" lazy="true" inverse="true" order-by="createTime desc">
          <key column="self"/>

@@ -13,16 +13,14 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `password` VARCHAR(45) NULL ,
   `sex` TINYINT NULL ,
   `age` INT NULL ,
-  `province` VARCHAR(45) NULL ,
-  `city` VARCHAR(45) NULL ,
-  `area` VARCHAR(45) NULL ,
-  `constellation` VARCHAR(45) NULL ,
   `photo` VARCHAR(100) NULL ,
   `createTime` DATETIME NULL ,
+  `isValid` TINYINT NULL ,
+  `hotValue` INT NULL ,
   `attentionNum` INT NULL ,
   `followingNum` INT NULL ,
-  `hotValue` INT NULL ,
-  `isValid` TINYINT NULL ,
+  `sentenceNum` INT NULL ,
+  `visitNum` INT NULL ,
   PRIMARY KEY (`userID`) )
 ENGINE = InnoDB;
 
@@ -307,6 +305,8 @@ CREATE  TABLE IF NOT EXISTS `label` (
   `content` VARCHAR(200) NULL ,
   `createTime` DATETIME NULL ,
   `hotValue` INT NULL ,
+  `usedNum` INT NULL ,
+  `subscribedNum` INT NULL ,
   PRIMARY KEY (`labelID`) )
 ENGINE = InnoDB;
 
