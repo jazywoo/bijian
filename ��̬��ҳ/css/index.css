@@ -6,7 +6,7 @@ body{
   height: 100%;
 }
 .leftFloat{
-  float:left;
+	float:left;
 }
 .rightFloat{
 	float:right;
@@ -67,7 +67,7 @@ body{
   width:675px;
 }
 #rightContent{
-  width:235px;
+	width:235px;
 }
 #contentTitle{
 	font-size:14px;
@@ -123,13 +123,23 @@ body{
 }
 .label{
   margin-right:5px;
-  color:#AAA;
+  color:#AAA;  
+}
+.label.extractBtnSelect{
+  color:#0099FF;
+}
+.labelA{
+  cursor:pointer;
+}
+.labelA:hover{
+  color:#0099FF;
 }
 .extractContainer{
-  background-color: #FAFAFA;
-  clear:both;
-  margin:auto auto;
-  margin-top:0px;
+	background-color: #FAFAFA;
+	clear:both;
+	margin:auto auto;
+	margin-top:0px;
+	display: none;
 }
 .extractBtnContainer{
 	width:200px;
@@ -139,6 +149,7 @@ body{
 	position:absolute;
 	left: 10px;
 	top: 14px;
+	display: none;
 }
 .extractBtn{
 	margin-right:10px;
@@ -174,7 +185,6 @@ body{
 .commentContainer{
   clear:both;
   border-top:1px solid #FFFFFF;
-  border-bottom:1px solid #BCBCBC;
   border-left:1px solid #BCBCBC;
   border-right:1px solid #BCBCBC;
   
@@ -221,7 +231,6 @@ body{
 	border-top:1px solid #FFFFFF;
 	border-left:1px solid #BCBCBC;
 	border-right:1px solid #BCBCBC;
-	border-bottom: 1px solid #BCBCBC;
   
 }
 .forwardingDiv{
@@ -252,12 +261,14 @@ body{
   border-right:1px solid #BCBCBC;
 }
 #rightContent .menuItem{
-    margin-top:10px;
+	margin-top:10px;
+	clear: both;
 }
 .menuBtn{
   clear:both;
   overflow: hidden;
   height: 38px;
+  width:100%;
   line-height:38px;
   padding:0 10px;
   border: 1px solid #D6D6D6;
@@ -273,6 +284,7 @@ body{
 }
 .headMenuBtn{
   clear:both;
+  width:100%;
   background-color: #E7E7E7;
   overflow: hidden;
   height: 38px;
@@ -288,7 +300,7 @@ body{
 background-color:#FFFFFF;
 }
 .menuPortrait{
-  line-height:12px;
+	line-height:12px;
 }
 .menuPortraitDiv{
 }
@@ -296,12 +308,18 @@ background-color:#FFFFFF;
 	margin-top:2px;
 	margin-right: 10px;
 }
+.menuPortraitDiv .tipName{
+   margin-top:2px;
+}
 .menuPortraitDiv .span1{
   display:block;
   margin-top:7px;
 }
 .menuPortraitDiv .span2{
   margin-top:10px;
+}
+.menuPortraitDiv .span3{
+	font-size:13px;
 }
 .icon{
   display:block; 
@@ -349,7 +367,7 @@ background-color:#FFFFFF;
 .icon7.extractBtnSelect{
    background-image: url(../img/sentenceOprator.png);
    background-repeat: no-repeat;
-   background-position: -30px -3px
+   background-position: -32px -3px
 }
 .icon8{
    background-image: url(../img/sentenceOprator.png);
@@ -359,7 +377,7 @@ background-color:#FFFFFF;
 .icon8.extractBtnSelect{
    background-image: url(../img/sentenceOprator.png);
    background-repeat: no-repeat;
-   background-position: -30px -37px
+   background-position: -32px -37px
 }
 .icon9{
    background-image: url(../img/sentenceOprator.png);
@@ -369,27 +387,40 @@ background-color:#FFFFFF;
 .icon9.extractBtnSelect{
    background-image: url(../img/sentenceOprator.png);
    background-repeat: no-repeat;
-   background-position: -30px -67px
+   background-position: -32px -67px
 }
 .icon10{
    background-image: url(../img/add.png);
    background-repeat: no-repeat;
    background-position: 0 -2px
 }
+.icon11{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 0px -2px;
+	width: 20px;
+}
+.icon12{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 20px;
+}
 #dailySentenceDiv{
-   clear:both;
-  padding:0 10px;
-  border: 1px solid #D6D6D6;
-  border-top:1px solid #FFFFFF;
-  border-bottom:1px solid #BCBCBC;
-  border-left:1px solid #BCBCBC;
-  border-right:1px solid #BCBCBC;
-  background-color: #F3F3F3;
+	clear:both;
+	padding:5px 10px;
+	border: 1px solid #D6D6D6;
+	border-top:1px solid #FFFFFF;
+	border-bottom:1px solid #BCBCBC;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+	background-color: #F3F3F3;
+	width: 100%;
 }
 #userInfoTip{
 	position:absolute;
-	left:25px;
-	top:0px;
+	left:12px;
+	top:800px;
 	width: 295px;
 	background-color: #FFFFFF;
 	padding: 5px 10px;
@@ -412,7 +443,7 @@ background-color:#FFFFFF;
    width:140px;
 }
 #userInfoTip .tipName{
-   margin-right:20px;
+	margin-right:0px;
 }
 #userInfoTip .span1{
 	margin-top:5px;
@@ -421,16 +452,19 @@ background-color:#FFFFFF;
 	color: #FFFFFF;
 }
 #userInfoTip .span2{
-    display:block;
-	margin-top:5px
+	display:block;
+	margin-top:5px;
+	font-size: 17px;
 }
 #userInfoTip .span3{
-    display:block;
+	display:block;
 	margin-top:15px;
+	font-size: 12px;
+	width: 50px;
 }
 
 #userInfoTip .portrait{
-   margin-right:5px;
+   margin-right:10px;
 }
 #userInfoTip .fanNumDiv{
    margin-top:5px;
