@@ -1,0 +1,90 @@
+/* CSS Document */
+
+/*鼠标移动到photo上信息的样式*/
+#userInfoTip{
+	position:absolute;
+	left:5px;
+	top:1900px;
+	width: 295px;
+	background-color: #FFFFFF;
+	padding: 5px 10px;
+	border-top:1px solid #BCBCBC;
+	border-bottom:1px solid #BCBCBC;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+	display: block;
+}
+#userInfoTip .userInfoTipContainer{
+   position:relative;
+}
+#userInfoTip .tipImg{
+	position:absolute;
+	left: 22px;
+	top: -16px;
+	z-index: 20;
+}
+#userInfoTip .tipPhoto{
+   width:140px;
+}
+#userInfoTip .tipName{
+	margin-right:0px;
+}
+#userInfoTip .span1{
+	margin-top:5px;
+	background-color: #303539;
+	padding: 5px 0;
+	color: #FFFFFF;
+}
+#userInfoTip .span2{
+	display:block;
+	margin-top:5px;
+	font-size: 17px;
+}
+#userInfoTip .span3{
+	display:block;
+	margin-top:15px;
+	font-size: 12px;
+}
+
+#userInfoTip .portrait{
+   margin-right:10px;
+}
+#userInfoTip .fanNumDiv{
+   margin-top:5px;
+}
+#userInfoTip .fanNumDiv .addImg{
+	width:15px;
+	margin-left: 15px;
+	margin-right: 5px;
+}
+#userInfoTip .fanNumDiv .span1{
+   cursor:default;
+}
+#userInfoTip .fanNumDiv .span1:hover{
+   background-color:#191919;
+}
+#userInfoTip #userPopSentenceDiv{
+	clear:both;
+	margin: 10px 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width:100%;
+	position: relative;
+}
+/*图标*/
+#userInfoTip .icon{
+  display:block; 
+  float:left; 
+  width: 30px;
+}
+#userInfoTip .icon1{
+   background-image: url(../img/label.png);
+   background-repeat: no-repeat;
+   background-position: 10px 1px
+}
+
+#userInfoTip .icon2{
+   background-image: url(../img/add.png);
+   background-repeat: no-repeat;
+   background-position: 0 -2px
+}

@@ -21,27 +21,3 @@ button{border:none;cursor:pointer;font-size:12px;background-color:transparent;}
 select{border-width:1px;_zoom:1;border-style:solid;padding-top:2px;font-size:12px;}
 a:link,a:visited{text-decoration:none;color:#333;}
 a:hover,a:active{text-decoration:underline;color:#f60;}
-.clearFloat{
-  clear:both;
-}
-.floatLeft{
-  float:left;
-}
-.floatRight{
-  float:right;
-}
-.clickSpan{
-  color:#65ABBB;
-  cursor:pointer;
-}
-.clickSpan:hover{
-   color:#0099FF;
-   text-decoration:underline;
-}
-.clickSpan2{
-  color:#AAA;
-  cursor:pointer;
-}
-.clickSpan2:hover{
-   color:#7594B3;
-}

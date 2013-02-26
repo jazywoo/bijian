@@ -1,0 +1,56 @@
+/* CSS Document */
+
+
+.leftFloat{
+	float:left;
+}
+.rightFloat{
+	float:right;
+	margin-top: 0px;
+}
+.clearFloat{
+  clear:both;
+}
+/*图像大小*/
+.portrait{
+  width:64px;
+  height:64px;
+}
+.smallPortrait{
+	width:20px;
+	height:20px;
+	margin-right: 10px;
+}
+.middlePortrait{
+  width:30px;
+  height:30px;
+}
+/*文字点击，链接*/
+.label{
+  margin-right:5px;
+  color:#AAA;  
+}
+.label.extractBtnSelect{
+  color:#0099FF;
+}
+.labelA{
+  cursor:pointer;
+}
+.labelA:hover{
+  color:#0099FF;
+}
+.clickSpan{
+  color:#65ABBB;
+  cursor:pointer;
+}
+.clickSpan:hover{
+   color:#0099FF;
+   text-decoration:underline;
+}
+.clickSpan2{
+  color:#AAA;
+  cursor:pointer;
+}
+.clickSpan2:hover{
+   color:#7594B3;
+}

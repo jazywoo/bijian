@@ -1,64 +1,5 @@
 /*index页面的 CSS Document */
 
-body{
-  background:#EDEDEF url(../img/bg.png) repeat-x ;
-  width: 100%;
-  height: 100%;
-}
-.leftFloat{
-	float:left;
-}
-.rightFloat{
-	float:right;
-	margin-top: 0px;
-}
-.portrait{
-  width:64px;
-  height:64px;
-}
-.smallPortrait{
-	width:20px;
-	height:20px;
-	margin-right: 10px;
-}
-.middlePortrait{
-  width:30px;
-  height:30px;
-}
-#header{
-  width:1000px;
-  height:80px;
-  margin:auto auto;
-}
-#searchMenu{
-  margin-left:200px;
-  margin-top:40px;
-}
-#searchMenuInput{
-  width:250px;
-  height:25px;
- 
-}
-#searchMenuBtn{
-  color:white;
-  font-size:18px;
-}
-#naviMenu{
-	font-size:18px;
-	position: relative;
-	top: 40px;
-}
-.navi{
-	color:#DFDFDF;
-	margin-left:10px;
-	cursor: pointer;
-}
-.selectNavi{
-	color:white;
-	margin-left:10px;
-	font-weight:300;
-	cursor: pointer;
-}
 #content{
   width:1000px;
   margin:auto auto;
@@ -83,188 +24,12 @@ body{
   border-left:1px solid #BCBCBC;
   border-right:1px solid #BCBCBC;
 }
-.contentItem{
-  margin-bottom:10px;;
-}
-.photoContainer{
-	width:80px;
-	height: 80px;
-	position: relative;
-}
-.sentenceParentContainer{
-	width:560px;
-	position: relative;
-	
-}
-.sentenceParentContainer .sentenceHeader{
-	height:35px;
-	background-image: url(../img/sentenceBg1.png);
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
-	position: absolute;
-	left: -25px;
-	width: 28px;
-	top: -1px;
-}
-.sentenceContainer{
-	background-color: #FFFFFF;
-	padding: 10px 10px 10px 10px;
-	border-top:1px solid #FFFFFF;
-  border-bottom:1px solid #BCBCBC;
-  border-left:1px solid #BCBCBC;
-  border-right:1px solid #BCBCBC;
-  
-}
-.sentenceDiv{
-  font-size: 14px;
-  margin-top:10px;
-  margin-bottom:10px;
-  clear:both;
-}
-.label{
-  margin-right:5px;
-  color:#AAA;  
-}
-.label.extractBtnSelect{
-  color:#0099FF;
-}
-.labelA{
-  cursor:pointer;
-}
-.labelA:hover{
-  color:#0099FF;
-}
-.extractContainer{
-	background-color: #FAFAFA;
-	clear:both;
-	margin:auto auto;
-	margin-top:0px;
-	display: none;
-}
-.extractBtnContainer{
-	width:200px;
-	position: relative;
-}
-.extractBtnContainer .extracImg{
-	position:absolute;
-	left: 10px;
-	top: 14px;
-	display: none;
-}
-.extractBtn{
-	margin-right:10px;
-	width: 55px;
-	cursor: pointer;
-}
-.extractContainer .packUp{
-	padding:0 20px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-.extractContainer .moreDiv{
-	clear:both;
-	text-align:center;
-	background-color: #E7E7E7;
-	height: 25px;
-	line-height: 25px;
-	color:#888;
-	margin: 0 20px;
-	border: 1px solid #E7E7E7;
-	cursor:default;
-}
-.extractContainer .moreDiv:hover{
-	background-color: #F3F3F3;
-	
-}
-.extractContainer .moreDiv .moreImg{
-	width: 15px;
-	position: relative;
-	left: 220px;
-	top: 4px;
-}
-.commentContainer{
-  clear:both;
-  border-top:1px solid #FFFFFF;
-  border-left:1px solid #BCBCBC;
-  border-right:1px solid #BCBCBC;
-  
-}
-.extractContainer .submitBtnDiv{
-	margin:5px auto;
-	padding: 0 20px;
-}
-.commentContainer .commmentInput{
-	width:380px;
-	height: 40px;
-	float: left;
-}
-.commentContainer .commentDiv{
-	clear:both;
-	padding: 10px 20px;
-	border-top-width: 1px;
-	border-top-style: solid;
-	border-top-color: #E7E7E7;
-}
-.submitBtn{
-	width:100px;
-	height:40px;
-	float: left;
-	line-height: 40px;
-	text-align: center;
-	background-color: #303539;
-	color: #FFFFFF;
-	font-size: 14px;
-	margin-left: 10px;
-	cursor:default;
-}
-.submitBtn:hover{
-	background-color: #191919;
-}
-.username{
-  color:#7594B3;
-}
-.commentContent{
-  width:380px;
-}
-.forwardingContainer{
-	clear:both;
-	border-top:1px solid #FFFFFF;
-	border-left:1px solid #BCBCBC;
-	border-right:1px solid #BCBCBC;
-  
-}
-.forwardingDiv{
-    clear:both;
-	padding: 10px 20px;
-    border-top-width: 1px;
-	border-top-style: solid;
-	border-top-color: #E7E7E7;
-}
-.loveContainer{
-  clear:both;
-  border-top:1px solid #FFFFFF;
-  border-left:1px solid #BCBCBC;
-  border-right:1px solid #BCBCBC;
-  
-}
-.loveDiv{
-    clear:both;
-	padding: 10px 20px;
-    border-top-width: 1px;
-	border-top-style: solid;
-	border-top-color: #E7E7E7;
-}
-.moreBtnContainer{
-  border-top:1px solid #FFFFFF;
-  border-bottom:1px solid #BCBCBC;
-  border-left:1px solid #BCBCBC;
-  border-right:1px solid #BCBCBC;
-}
+/*右侧菜单*/
 #rightContent .menuItem{
 	margin-top:10px;
 	clear: both;
 }
-.menuBtn{
+#rightContent .menuBtn{
   clear:both;
   overflow: hidden;
   height: 38px;
@@ -279,10 +44,10 @@ body{
   background-color: #F3F3F3;
   cursor:default;
 }
-.menuBtn:hover{
+#rightContent .menuBtn:hover{
    background-color:#FFFFFF;
 }
-.headMenuBtn{
+#rightContent .headMenuBtn{
   clear:both;
   width:100%;
   background-color: #E7E7E7;
@@ -296,117 +61,32 @@ body{
   border-right:1px solid #BCBCBC;
   cursor:default;
 }
-.headMenuBtn:hover{
+#rightContent .headMenuBtn:hover{
 background-color:#FFFFFF;
 }
-.menuPortrait{
+#rightContent .menuPortrait{
 	line-height:12px;
 }
-.menuPortraitDiv{
+#rightContent .menuPortraitDiv{
 }
-.menuPortraitDiv .middlePortrait{
+#rightContent .menuPortraitDiv .middlePortrait{
 	margin-top:2px;
 	margin-right: 10px;
 }
-.menuPortraitDiv .tipName{
+#rightContent .menuPortraitDiv .tipName{
    margin-top:2px;
 }
-.menuPortraitDiv .span1{
+#rightContent .menuPortraitDiv .span1{
   display:block;
   margin-top:7px;
 }
-.menuPortraitDiv .span2{
+#rightContent .menuPortraitDiv .span2{
   margin-top:10px;
 }
-.menuPortraitDiv .span3{
+#rightContent .menuPortraitDiv .span3{
 	font-size:13px;
 }
-.icon{
-  display:block; 
-  float:left; 
-  width: 30px;
-}
-.extractBtnContainer .icon{
-  width:20px;
-}
-.icon1{
-	background-image: url(../img/label.png);
-	background-repeat: no-repeat;
-	background-position: 10px -27px;
-}
-.icon2{
-	background-image: url(../img/label+2.png);
-	background-repeat: no-repeat;
-	background-position: 10px 6px;
-}
-.icon3{
-	background-image: url(../img/love.png);
-	background-repeat: no-repeat;
-	background-position: 10px -27px;
-}
-.icon4{
-	background-image: url(../img/people.png);
-	background-repeat: no-repeat;
-	background-position: 10px 6px;
-}
-.icon5{
-	background-image: url(../img/fangkuai.png);
-	background-repeat: no-repeat;
-	background-position: 10px 11px;
-}
-.icon6{
-   background-image: url(../img/label.png);
-   background-repeat: no-repeat;
-   background-position: 10px 1px
-}
-.icon7{
-   background-image: url(../img/sentenceOprator.png);
-   background-repeat: no-repeat;
-   background-position: 0 -3px
-}
-.icon7.extractBtnSelect{
-   background-image: url(../img/sentenceOprator.png);
-   background-repeat: no-repeat;
-   background-position: -32px -3px
-}
-.icon8{
-   background-image: url(../img/sentenceOprator.png);
-   background-repeat: no-repeat;
-   background-position: 0 -37px
-}
-.icon8.extractBtnSelect{
-   background-image: url(../img/sentenceOprator.png);
-   background-repeat: no-repeat;
-   background-position: -32px -37px
-}
-.icon9{
-   background-image: url(../img/sentenceOprator.png);
-   background-repeat: no-repeat;
-   background-position: 0 -67px
-}
-.icon9.extractBtnSelect{
-   background-image: url(../img/sentenceOprator.png);
-   background-repeat: no-repeat;
-   background-position: -32px -67px
-}
-.icon10{
-   background-image: url(../img/add.png);
-   background-repeat: no-repeat;
-   background-position: 0 -2px
-}
-.icon11{
-	background-image: url(../img/label.png);
-	background-repeat: no-repeat;
-	background-position: 0px -2px;
-	width: 20px;
-}
-.icon12{
-	background-image: url(../img/label.png);
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
-	width: 20px;
-}
-#dailySentenceDiv{
+#rightContent #dailySentenceDiv{
 	clear:both;
 	padding:5px 10px;
 	border: 1px solid #D6D6D6;
@@ -417,114 +97,55 @@ background-color:#FFFFFF;
 	background-color: #F3F3F3;
 	width: 100%;
 }
-#userInfoTip{
-	position:absolute;
-	left:12px;
-	top:800px;
-	width: 295px;
-	background-color: #FFFFFF;
-	padding: 5px 10px;
-	border-top:1px solid #BCBCBC;
-	border-bottom:1px solid #BCBCBC;
-	border-left:1px solid #BCBCBC;
-	border-right:1px solid #BCBCBC;
-	display: block;
+/*所有右侧菜单icon图标的显示*/
+#index .sentenceItem .extractBtnContainer .icon{
+  width:20px;
 }
-#userInfoTip .userInfoTipContainer{
-   position:relative;
-}
-#userInfoTip .tipImg{
-	position:absolute;
-	left: 22px;
-	top: -16px;
-	z-index: 20;
-}
-#userInfoTip .tipPhoto{
-   width:140px;
-}
-#userInfoTip .tipName{
-	margin-right:0px;
-}
-#userInfoTip .span1{
-	margin-top:5px;
-	background-color: #303539;
-	padding: 5px 0;
-	color: #FFFFFF;
-}
-#userInfoTip .span2{
-	display:block;
-	margin-top:5px;
-	font-size: 17px;
-}
-#userInfoTip .span3{
-	display:block;
-	margin-top:15px;
-	font-size: 12px;
-	width: 50px;
+#index .icon{
+  display:block; 
+  float:left; 
+  width: 30px;
 }
 
-#userInfoTip .portrait{
-   margin-right:10px;
+#index #rightContent .icon1{
+	background-image: url(../img/love.png);
+	background-repeat: no-repeat;
+	background-position: 10px -27px;
 }
-#userInfoTip .fanNumDiv{
-   margin-top:5px;
+#index #rightContent .icon2{
+	background-image: url(../img/label+2.png);
+	background-repeat: no-repeat;
+	background-position: 10px 6px;
 }
-#userInfoTip .fanNumDiv .addImg{
-	width:15px;
-	margin-left: 15px;
-	margin-right: 5px;
+#index #rightContent .icon3{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 10px -27px;
 }
-#userInfoTip .fanNumDiv .span1{
-   cursor:default;
+
+#index #rightContent .icon4{
+	background-image: url(../img/people.png);
+	background-repeat: no-repeat;
+	background-position: 10px 6px;
 }
-#userInfoTip .fanNumDiv .span1:hover{
-   background-color:#191919;
+#index #rightContent .icon5{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 0px -2px;
+	width: 20px;
 }
-#userPopSentenceDiv{
-	clear:both;
-	margin: 10px 0;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width:100%;
-	position: relative;
+#index #rightContent .icon6{
+	background-image: url(../img/sentence.png);
+	background-repeat: no-repeat;
+	background-position: 10px 11px;
 }
-#ownTip{
-	position:absolute;
-	width: 142px;
-	z-index: 20;
-	left: 102px;
-	top: 30px;
-	display: none;
+#index #rightContent .icon7{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 20px;
 }
-#ownTip .ownTipContainer{
-  position:relative;
-}
-#ownTip .ownTipImg{
-	position:absolute;
-	left: 19px;
-	top: -6px;
-}
-.ownSubMenu{
-	text-align:center;
-	background-color: #3B4247;
-	border-left: 1px solid #303539;
-	border-right: 1px solid #303539;
-	border-bottom: 1px solid #303539;
-	border-left: 1px solid #303539;
-	color: #FFFFFF;
-	height: 25px;
-	line-height: 25px;
-	font-size: 12px;
-	cursor:pointer;
-}
-.ownSubMenu:hover{
-   color:#AAA;
-   text-decoration:underline;
-}
-#discoveryTip{
-	position:absolute;
-	left:212px;
-	top:878px;
-	width: 171px;
-	height: 107px;
-}
+
+
+
+

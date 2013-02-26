@@ -1,0 +1,200 @@
+/* CSS Document */
+/*显示中间一个整体句子的样式*/
+.sentenceItem{
+  margin-bottom:10px;;
+}
+.sentenceItem .photoContainer{
+	width:80px;
+	height: 80px;
+	position: relative;
+}
+.sentenceItem .sentenceParentContainer{
+	width:560px;
+	position: relative;
+	
+}
+.sentenceItem .sentenceParentContainer .sentenceHeader{
+	height:35px;
+	background-image: url(../img/sentenceBg1.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	position: absolute;
+	left: -25px;
+	width: 28px;
+	top: -1px;
+}
+.sentenceItem .sentenceContainer{
+	background-color: #FFFFFF;
+	padding: 10px 10px 10px 10px;
+	border-top:1px solid #FFFFFF;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+  
+}
+.sentenceItem .sentenceDiv{
+  font-size: 14px;
+  margin-top:10px;
+  margin-bottom:10px;
+  clear:both;
+}
+.sentenceItem .extractContainer{
+	background-color: #FAFAFA;
+	clear:both;
+	margin:auto auto;
+	margin-top:0px;
+	display: none;
+}
+.sentenceItem .extractBtnContainer{
+	width:200px;
+	position: relative;
+}
+.sentenceItem .extractBtnContainer .extracImg{
+	position:absolute;
+	left: 10px;
+	top: 14px;
+	display: none;
+}
+.sentenceItem .extractBtn{
+	margin-right:10px;
+	width: 55px;
+	cursor: pointer;
+}
+.sentenceItem .extractContainer .packUp{
+	padding:0 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.sentenceItem .extractContainer .moreDiv{
+	clear:both;
+	text-align:center;
+	background-color: #E7E7E7;
+	height: 25px;
+	line-height: 25px;
+	color:#888;
+	margin: 0 20px;
+	border: 1px solid #E7E7E7;
+	cursor:default;
+}
+.sentenceItem .extractContainer .moreDiv:hover{
+	background-color: #F3F3F3;
+	
+}
+.sentenceItem .extractContainer .moreDiv .moreImg{
+	width: 15px;
+	position: relative;
+	left: 220px;
+	top: 4px;
+}
+.sentenceItem .commentContainer{
+  clear:both;
+  border-top:1px solid #FFFFFF;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+  
+}
+.sentenceItem .extractContainer .submitBtnDiv{
+	margin:5px auto;
+	padding: 0 20px;
+}
+.sentenceItem .commentContainer .commmentInput{
+	width:380px;
+	height: 40px;
+	float: left;
+}
+.sentenceItem .commentContainer .commentDiv{
+	clear:both;
+	padding: 10px 20px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #E7E7E7;
+}
+.sentenceItem .submitBtn{
+	width:100px;
+	height:40px;
+	float: left;
+	line-height: 40px;
+	text-align: center;
+	background-color: #303539;
+	color: #FFFFFF;
+	font-size: 14px;
+	margin-left: 10px;
+	cursor:default;
+}
+.sentenceItem .submitBtn:hover{
+	background-color: #191919;
+}
+.sentenceItem .username{
+  color:#7594B3;
+}
+.sentenceItem .commentContent{
+  width:380px;
+}
+.sentenceItem .forwardingContainer{
+	clear:both;
+	border-top:1px solid #FFFFFF;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+  
+}
+.sentenceItem .forwardingDiv{
+    clear:both;
+	padding: 10px 20px;
+    border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #E7E7E7;
+}
+.sentenceItem .loveContainer{
+  clear:both;
+  border-top:1px solid #FFFFFF;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+  
+}
+.sentenceItem .loveDiv{
+    clear:both;
+	padding: 10px 20px;
+    border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #E7E7E7;
+}
+.sentenceItem .moreBtnContainer{
+  border-top:1px solid #FFFFFF;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+}
+/*sentence下icon按钮*/
+.sentenceItem .extractBtnContainer .icon{
+  width:20px;
+}
+.sentenceItem .icon1{
+   background-image: url(../img/sentenceOprator.png);
+   background-repeat: no-repeat;
+   background-position: 0 -3px
+}
+.sentenceItem .icon1.extractBtnSelect{
+   background-image: url(../img/sentenceOprator.png);
+   background-repeat: no-repeat;
+   background-position: -32px -3px
+}
+.sentenceItem .icon2{
+   background-image: url(../img/sentenceOprator.png);
+   background-repeat: no-repeat;
+   background-position: 0 -37px
+}
+.sentenceItem .icon2.extractBtnSelect{
+   background-image: url(../img/sentenceOprator.png);
+   background-repeat: no-repeat;
+   background-position: -32px -37px
+}
+.sentenceItem .icon3{
+   background-image: url(../img/sentenceOprator.png);
+   background-repeat: no-repeat;
+   background-position: 0 -67px
+}
+.sentenceItem .icon3.extractBtnSelect{
+   background-image: url(../img/sentenceOprator.png);
+   background-repeat: no-repeat;
+   background-position: -32px -67px
+}

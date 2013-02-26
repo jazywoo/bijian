@@ -1,35 +1,5 @@
-/* ownPage CSS Document */
-body{
-  background:#EDEDEF url(../img/bg.png) repeat-x ;
-  width: 100%;
-  height: 100%;
-}
-.leftFloat{
-  float:left;
-}
-.rightFloat{
-  float:right;
-}
-.portrait{
-  width:64px;
-  height:64px;
-}
-.smallPortrait{
-  width:30px;
-  height:30px;
-}
-#header{
-  width:1000px;
-  height:80px;
-  margin:auto auto;
-}
-.navi{
-  margin-left:10px;
-}
-.selectNavi{
-  margin-left:10px;
-  font-weight:bold;
-}
+/*index页面的 CSS Document */
+
 #content{
   width:1000px;
   margin:auto auto;
@@ -38,58 +8,273 @@ body{
   width:675px;
 }
 #rightContent{
-  width:235px;
+	width:235px;
 }
 #contentTitle{
-  text-align:center;
+	font-size:14px;
+	margin-left:120px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	border-top:1px solid #FFFFFF;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
 }
-#photoContainer{
-  width:120px;
+/*粉丝选项下的内容css*/
+#ownPage .fansItem{
+	margin-left:112px;
+	background-color: #FFFFFF;
+	padding: 8px;
+	border-top:1px solid #FFFFFF;
+	border-bottom:1px solid #BCBCBC;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+	margin-bottom: 3px;
 }
-#sentenceContainer{
-  width:550px;
+#ownPage .fansItem .middlePortrait{
+	margin-right:10px;
+	margin-left: 10px;
 }
-#commentContainer{
-  clear:both;
+#ownPage .fansItem .tipName{
+   margin-right:50px;
 }
-#sentenceDiv{
-  clear:both;
+#ownPage .fansItem .span1{
+	font-size:12px;
 }
-.comment_moreDiv{
-  clear:left;
-  text-align:center;
+#ownPage .fansItem .span3{
+	margin-top: 10px;
 }
-.menuBtn{
-  clear:both;
+#ownPage .fansItem .span4{
+	margin-right:50px;
+	margin-top: 10px;
 }
-.headMenuBtn{
-  clear:both;
+#ownPage .fansItem .icon1{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 7px 5px;
 }
-.menuPortrait{
-  height:40px;
+/*以下是关注选项下内容css*/
+#ownPage .attentionItem{
+    margin-left:112px;
+	background-color: #FFFFFF;
+	padding: 8px;
+	border-top:1px solid #FFFFFF;
+	border-bottom:1px solid #BCBCBC;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+	margin-bottom: 3px;
 }
-#userInfoTip{
-	position:absolute;
-	left:855px;
-	top:536px;
-	width: 207px;
+#ownPage .attentionItem .middlePortrait{
+	margin-right:10px;
+	margin-left: 10px;
 }
-#userPopSentenceDiv{
-  clear:both;
+#ownPage .attentionItem .tipName{
+   margin-right:50px;
 }
-#ownTip{
-  position:absolute;
-  left:888px;
-  top:443px;
-  width: 142px;
+#ownPage .attentionItem .span1{
+	font-size:12px;
 }
-.ownSubMenu{
-  text-align:center;
+#ownPage .attentionItem .span3{
+	margin-top: 10px;
 }
-#discoveryTip{
-	position:absolute;
-	left:851px;
-	top:280px;
-	width: 171px;
-	height: 107px;
+#ownPage .attentionItem .span4{
+	margin-right:50px;
+	margin-top: 0px;
+	background-color: #303539;
+	color: #FFFFFF;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	padding: 0 10px;
+}
+#ownPage .attentionItem .deleteImg{
+}
+
+#ownPage .attentionItem .icon1{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 7px 5px;
+}
+#ownPage .attentionItem .icon2{
+	background-image: url(../img/delete.png);
+	background-repeat: no-repeat;
+	background-position: 4px 8px;
+	width: 20px;
+}
+/*以下是收藏标签选项下内容css*/
+#ownPage .subscribeItem{
+    margin-left:112px;
+	background-color: #FFFFFF;
+	padding: 8px;
+	border-top:1px solid #FFFFFF;
+	border-bottom:1px solid #BCBCBC;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+	margin-bottom: 3px;
+}
+#ownPage .subscribeItem .tipName{
+    margin-left:20px;
+	margin-top:3px;
+    margin-right:80px;
+}
+#ownPage .subscribeItem .span1{
+	font-size:14px;
+}
+#ownPage .subscribeItem .span2{
+	margin-top: 10px;
+}
+#ownPage .subscribeItem .span3{
+	margin-right:50px;
+	margin-top: 0px;
+	background-color: #303539;
+	color: #FFFFFF;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	padding: 0 10px;
+}
+#ownPage .subscribeItem .deleteImg{
+}
+
+#ownPage .subscribeItem .icon1{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 7px 5px;
+}
+#ownPage .subscribeItem .icon2{
+	background-image: url(../img/delete.png);
+	background-repeat: no-repeat;
+	background-position: 4px 8px;
+	width: 20px;
+}
+
+/*右侧菜单*/
+
+#rightContent .menu1{
+   margin-top:10px;
+}
+#rightContent .menu2{
+	margin-top:20px;
+	margin-bottom:10px;
+	width: 109%;
+}
+#rightContent .menu2 .searchMenuItem{
+	border: 1px solid #D6D6D6;
+	border-color: #BCBCBC #EDEDEF white;
+	background: #F3F3F3;
+	height: 38px;
+}
+#rightContent .menu2 .searchMenuItem form{
+	height: 30px;
+	margin-top: 6px;
+	margin-left: 10px;
+}
+#rightContent .menu2 .searchMenuItem .searchBtn{
+    float: left;
+	background-image: url(../img/search.png);
+	background-repeat: no-repeat;
+	background-position: 0px 3px;
+	width: 20px;
+	height: 25px;
+}
+#rightContent .menu2 .searchMenuItem form input{
+	width: 190px;
+	height: 28px;
+	border: 0;
+	line-height: 28px;
+	outline: none;
+	color: #AAA;
+	background: none;
+	font-size: 14px;
+} 
+#rightContent .menuItem{
+	margin-top:0px;
+}
+#rightContent .headMenuBtn{
+  overflow: hidden;
+  height: 38px;
+  width:100%;
+  line-height:38px;
+  padding:0 10px;
+  border: 1px solid #D6D6D6;
+  border-top:1px solid #FFFFFF;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+  background-color: #F3F3F3;
+  cursor:default;
+}
+#rightContent .headMenuBtn:hover{
+  background-color: #FFFFFF;
+}
+#rightContent .selectMenuBtn{
+	background-color: #717171;
+	color: #FFFFFF;
+}
+#rightContent .selectMenuBtn:hover{
+	background-color: #717171;
+	color: #FFFFFF;
+}
+/*所有icon图标的显示*/
+#ownPage .sentenceItem .extractBtnContainer .icon{
+  width:20px;
+}
+#ownPage .icon{
+  display:block; 
+  float:left; 
+  width: 30px;
+}
+#ownPage #rightContent .icon1{
+	background-image: url(../img/visitPage.png);
+	background-repeat: no-repeat;
+	background-position: 10px 9px;
+}
+#ownPage #rightContent .icon2{
+	background-image: url(../img/setting.png);
+	background-repeat: no-repeat;
+	background-position: 10px 6px;
+}
+#ownPage #rightContent .icon3{
+	background-image: url(../img/setting2.png);
+	background-repeat: no-repeat;
+	background-position: 10px 9px;
+}
+#ownPage #rightContent .icon4{
+	background-image: url(../img/sentence.png);
+	background-repeat: no-repeat;
+	background-position: 10px 10px;
+}
+#ownPage #rightContent .icon5{
+	background-image: url(../img/people2.png);
+	background-repeat: no-repeat;
+	background-position: 10px 10px;
+}
+#ownPage #rightContent .icon6{
+   background-image: url(../img/people.png);
+   background-repeat: no-repeat;
+   background-position: 10px 6px
+}
+#ownPage #rightContent .icon7{
+   background-image: url(../img/label+2.png);
+   background-repeat: no-repeat;
+   background-position: 8px 6px
+}
+#ownPage #rightContent .icon8{
+   background-image: url(../img/good.png);
+   background-repeat: no-repeat;
+   background-position: 8px 6px
+}
+#ownPage #rightContent .icon9{
+   background-image: url(../img/notice.png);
+   background-repeat: no-repeat;
+   background-position: 8px 8px
+}
+#ownPage #rightContent .icon10{
+   background-image: url(../img/message.png);
+   background-repeat: no-repeat;
+   background-position: 8px 8px
 }
