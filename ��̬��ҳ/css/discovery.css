@@ -1,0 +1,135 @@
+/* CSS Document */
+
+#content{
+  width:1000px;
+  margin:auto auto;
+}
+#leftContent{
+  width:675px;
+}
+#rightContent{
+	width:235px;
+}
+#contentTitle{
+	font-size:14px;
+	margin-left:120px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	border-top:1px solid #FFFFFF;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+}
+#rightContent .labelItemTitle{
+	clear:both;
+	width:100%;
+	background-color: #E7E7E7;
+	overflow: hidden;
+	height: 38px;
+	line-height:38px;
+	padding:0 10px;
+	border-top:1px solid #BCBCBC;
+	border-bottom:1px solid #BCBCBC;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+	cursor:default;
+	margin-top: 10px;
+}
+#rightContent .labelItemTitle .span1{
+	margin-right:35px;
+	margin-left: 15px;
+}
+#rightContent .labelItemTitle .span2{
+  margin-right:40px;
+}
+#rightContent .labelItem{
+   width:100%;
+  background-color: #F3F3F3;
+  overflow: hidden;
+  height: 38px;
+  padding:0 10px;
+  border: 1px solid #D6D6D6;
+  border-top:1px solid #FFFFFF;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+  background-color: #F3F3F3;
+  cursor:default;
+}
+#rightContent .labelItem:hover{
+  background-color:#FFFFFF;
+}
+#rightContent .labelName{
+	margin-top: 10px;
+	font-size: 16px;
+}
+#rightContent .labelImg{
+	margin-top: 3px;
+	margin-right: 15px;
+}
+#rightContent .labelHotContainer{
+	width:70px;
+	margin-top: 5px;
+	margin-left: 20px;
+}
+#rightContent .labelHotContainer .labelHot{
+	display:block;
+	float:left;
+	height:25px;
+	width:7px;
+	margin-right: 2px;
+	position: relative;
+}
+#rightContent .labelHotContainer .labelHotValue{
+	position:absolute;
+	border-bottom: 1px solid #A8C082;
+	background: #B9D38F;
+	width: 7px;
+	display: block;
+	bottom: 0;
+}
+#rightContent .labelHotContainer .labelHotValue1{
+	height:10%;
+}
+#rightContent .labelHotContainer .labelHotValue2{
+	height:30%;
+}
+#rightContent .labelHotContainer .labelHotValue3{
+	height:40%;
+}
+#rightContent .labelHotContainer .labelHotValue4{
+	height:50%;
+}
+#rightContent .labelHotContainer .labelHotValue5{
+	height:70%;
+}
+#rightContent .labelHotContainer .labelHotValue6{
+	height:80%;
+}
+#rightContent .labelHotContainer .labelHotValue7{
+	height:100%;
+}
+#rightContent .labelHotContainer em{
+   position:absolute;
+   display:none;
+
+}
+
+/*所有右侧菜单icon图标的显示*/
+#discovery .sentenceItem .extractBtnContainer .icon{
+  width:20px;
+}
+#discovery .icon{
+  display:block; 
+  float:left; 
+  width: 30px;
+}
+#discovery #rightContent .icon1{
+  background-image: url(../img/label.png);
+  background-repeat: no-repeat;
+  background-position: 10px 4px;
+}

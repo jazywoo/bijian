@@ -4,7 +4,6 @@
 function toggleOwnSubMenu(){   
 	$("#ownNavi").bind("mouseenter",function (){
             $("#ownTip").css("display","block");
-            $("#ownTip").onfocus();
     });
 	$(document).bind("click",function(event){  
 		  var e = event || window.event;   
