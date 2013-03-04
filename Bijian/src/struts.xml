@@ -10,6 +10,12 @@
 
     <constant name="struts.objectFactory" value="spring" />
     <constant name="struts.custom.i18n.resources" value="properties/global" />
+    <constant name="struts.devMode" value="false" />  
+    <constant name="struts.action.extension" value="" />  
+    
+    <constant name="smarturls.action.packages" value="bijian.controller.action" />  
+    <constant name="smarturls.base.result.location" value="/WEB-INF/page/" ></constant>  
+    
     
     <package name="default" namespace="" extends="struts-default">
        <global-results>
@@ -19,9 +25,6 @@
 	      <exception-mapping exception="java.lang.Exception" result="error"/>
 	   </global-exception-mappings>
 	   
-        <action name="LanguageAction_changeLanguage" class="languageAction" method="changeLanguage">
-           <result>/index.jsp</result>
-        </action>
     </package>
 	<include file="strutsXml/CommentAction.xml"/>
 	<include file="strutsXml/LabelAction.xml"/>

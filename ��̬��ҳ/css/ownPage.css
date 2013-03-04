@@ -151,6 +151,74 @@
 	background-position: 4px 8px;
 	width: 20px;
 }
+/*以下是个人设置选项下内容css*/
+#ownPage .settingItem{
+    margin-left:112px;
+	background-color: #FFFFFF;
+	padding: 8px;
+	border-top:1px solid #FFFFFF;
+	border-bottom:1px solid #BCBCBC;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+	margin-bottom: 3px;
+}
+#ownPage .settingItem .tabNaviItem{
+	float:left;
+	width: 80px;
+	height: 30px;
+	font-size: 16px;
+	line-height: 30px;
+	text-align: center;
+}
+#ownPage .settingItem .tabItem{
+	padding: 5px 20px;
+}
+#ownPage .settingItem .noticeField{
+	height: 80px;
+	margin-top: 15px;
+}
+#ownPage .settingItem .noticeDiv{
+	height: 40px;
+	padding: 10px 20px;
+	font-size: 14px;
+}
+#ownPage .settingItem .noticeDiv input{
+	margin-left: 25px;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+#ownPage .settingItem .noticeDiv span{
+	margin-left: 0px;
+	margin-top: -2px;
+	vertical-align: -3px;
+}
+#ownPage .blacklist{
+	height: 40px;
+	padding: 10px 0;
+	margin-top: 20px;
+	font-size: 16px;
+}
+#ownPage .blacklist input{
+	width:220px;
+	height: 22px;
+}
+#ownPage .blacklist .icon1{
+	background-image: url(../img/good.png);
+	background-repeat: no-repeat;
+	background-position: 5px -30px;
+}
+#ownPage .blacklist .btn{
+	margin-right:0px;
+	margin-top: 0px;
+	background-color: #303539;
+	color: #FFFFFF;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	padding: 0 15px;
+	font-size: 12px;
+
+}
 
 /*右侧菜单*/
 
@@ -237,11 +305,6 @@
 	background-image: url(../img/setting.png);
 	background-repeat: no-repeat;
 	background-position: 10px 6px;
-}
-#ownPage #rightContent .icon3{
-	background-image: url(../img/setting2.png);
-	background-repeat: no-repeat;
-	background-position: 10px 9px;
 }
 #ownPage #rightContent .icon4{
 	background-image: url(../img/sentence.png);

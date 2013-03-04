@@ -2,24 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>个人主页</title>
+<title>jazywoo</title>
 <link href="css/global.css" type="text/css" rel="stylesheet" />
 <link href="css/header.css" type="text/css" rel="stylesheet" />
 <link href="css/public.css" type="text/css" rel="stylesheet" />
 <link href="css/sentence.css" type="text/css" rel="stylesheet" />
 <link href="css/userInfoTip.css" type="text/css" rel="stylesheet" />
-<link href="css/ownPage.css" type="text/css" rel="stylesheet" />
+<link href="css/person.css" type="text/css" rel="stylesheet" />
 </head>
 
-<body id="ownPage">
+<body id="person">
    <div id="header">
       <div class="leftFloat"><img src="img/logo.jpg"> </div>
 	  <div id="searchMenu" class="leftFloat">
-	     <form> 
-		   <input id="searchMenuInput" type="text"/>
-		   <span id="searchMenuBtn">搜索</span>
+	     <form><span id="searchMenuBtn">搜索</span>
 		 </form>
-	  </div>
+	  
+     </div>
 	  <div id="naviMenu" class="rightFloat"> 
 		   <span class="selectNavi">首页</span>
 		   <span class="navi">发现</span>
@@ -35,11 +34,11 @@
 			  </div>
 	    </div>
 	  </div>
+      <input name="text" type="text" id="searchMenuInput"/>
    </div>
    <div id="content">
-      <div id="leftContent" class="leftFloat">
-	     <div id="contentTitle"> <span>猜你喜欢的句子</span> </div>
-		   <div class="contentContainer">
+      <div id="leftContent">
+		    <div class="contentContainer">
 		      <div class="sentenceItem">
 		   <div class="photoContainer  leftFloat"><img class="portrait photoInfo" src="img/icon.jpg"/></div>
 		   <div class="sentenceParentContainer rightFloat">
@@ -130,7 +129,7 @@
 		   </div>
 		   <div class="clearFloat"></div>
 		 </div>
-	         <div class="sentenceItem">
+		      <div class="sentenceItem">
 		   <div class="photoContainer  leftFloat"><img class="portrait photoInfo" src="img/icon.jpg"/></div>
 		   <div class="sentenceParentContainer rightFloat">
 		      <div class="sentenceHeader"></div>
@@ -223,7 +222,7 @@
 		      <div class="sentenceItem">
 		   <div class="photoContainer  leftFloat"><img class="portrait photoInfo" src="img/icon.jpg"/></div>
 		   <div class="sentenceParentContainer rightFloat">
-	         <div class="sentenceHeader"></div>
+		      <div class="sentenceHeader"></div>
 		      <div class="sentenceContainer" sentenceID="125">
 		        <div><span class="label leftFloat">2012年12月21号</span>  <span class="label rightFloat">78℃</span></div>
 			    <div class="clearFloat"></div>
@@ -237,7 +236,7 @@
 					  <img class="extracImg" src="img/extrac1.png"/>				  </div>
 				  <div class="clearFloat"></div>
 			    </div>
-		     </div>
+			  </div>
 			  <div class="extractContainer" sentenceID="125">
 			     <div class="commentContainer">
 		          <div class="submitBtnDiv" >
@@ -262,7 +261,7 @@
 				    <div class="clearFloat"></div>
 			      </div>
 		        </div>
-		        <div class="forwardingContainer">
+			     <div class="forwardingContainer">
 		          <div class="submitBtnDiv" >
 					 <div class="submitBtn">我要转发</div>
 					 <div class="clearFloat"></div>
@@ -401,167 +400,8 @@
 		   <div class="clearFloat"></div>
 		 </div>
 		   </div>
-		   <div class="contentContainer">
-		      <div class="fansItem">
-				  <div class=""> 
-					 <img class="middlePortrait leftFloat photoInfo" src="img/icon.jpg"/>
-					 <div class="leftFloat tipName"><span class="span1">jazywoo</span><div class="span2"><span class="icon icon1">&nbsp;</span><span class="label labelA">时间</span></div></div>
-					 <div class="leftFloat span3">于2012年3月7号成为我的粉丝</div>
-					 <div class="rightFloat span4 label">累计访问我100次</div>
-					 <div class="clearFloat"></div>
-				</div>
-			  
-			  </div>
-			  <div class="fansItem">
-				  <div class=""> 
-					 <img class="middlePortrait leftFloat photoInfo" src="img/icon.jpg"/>
-					 <div class="leftFloat tipName"><span class="span1">jazywoo</span><div class="span2"><span class="icon icon1">&nbsp;</span><span class="label labelA">时间</span></div></div>
-					 <div class="leftFloat span3">于2012年3月7号成为我的粉丝</div>
-					 <div class="rightFloat span4 label">累计访问我100次</div>
-					 <div class="clearFloat"></div>
-				</div>
-			  
-			  </div>
-		   </div>
-		   <div class="contentContainer">
-		      <div class="attentionItem">
-				  <div class=""> 
-					 <img class="middlePortrait leftFloat photoInfo" src="img/icon.jpg"/>
-					 <div class="leftFloat tipName"><span class="span1">jazywoo</span><div class="span2"><span class="icon icon1">&nbsp;</span><span class="label labelA">时间</span></div></div>
-					 <div class="leftFloat span3">于2012年3月7号我关注了TA</div>
-					 <div class="rightFloat span4"><span class="icon icon2 deleteImg">&nbsp;</span><span>取消关注</span></div>
-					 <div class="clearFloat"></div>
-				</div>
-			  
-			  </div>
-			  <div class="attentionItem">
-				  <div class=""> 
-					 <img class="middlePortrait leftFloat photoInfo" src="img/icon.jpg"/>
-					 <div class="leftFloat tipName"><span class="span1">jazywoo</span><div class="span2"><span class="icon icon1">&nbsp;</span><span class="label labelA">时间</span></div></div>
-					 <div class="leftFloat span3">于2012年3月7号我关注了TA</div>
-					 <div class="rightFloat span4"><span class="icon icon2 deleteImg">&nbsp;</span><span>取消关注</span></div>
-					 <div class="clearFloat"></div>
-				</div>
-			  
-			  </div>
-		   </div>
-		   <div class="contentContainer">
-		      <div class="subscribeItem">
-				  <div class=""> 
-					 <div class="leftFloat tipName"><span class="icon icon1">&nbsp;</span><span class="span1">时尚</span></div>
-					 <div class="leftFloat span2">于2012年3月7号我收藏了该标签</div>
-					 <div class="rightFloat span3"><span class="icon icon2 deleteImg">&nbsp;</span><span>取消收藏</span></div>
-					 <div class="clearFloat"></div>
-				</div>
-			  
-			  </div>
-			  <div class="subscribeItem">
-				  <div class=""> 
-					 <div class="leftFloat tipName"><span class="icon icon1">&nbsp;</span><span class="span1">时尚</span></div>
-					 <div class="leftFloat span2">于2012年3月7号我收藏了该标签</div>
-					 <div class="rightFloat span3"><span class="icon icon2 deleteImg">&nbsp;</span><span>取消收藏</span></div>
-					 <div class="clearFloat"></div>
-				</div>
-			  
-			  </div>
-		   </div>
-		   <div class="contentContainer">
-		      <div class="settingItem">
-				  <div class="tabNavi">
-				      <div class="tabNaviItem tabSelected" index="1">
-				          <span>通知提醒</span>
-				      </div>
-					  <div class="tabNaviItem" index="2">
-				          <span>黑名单</span>
-				      </div>
-					  <div class="clearFloat"></div>
-				  </div>
-				  <div class="tabContainer">
-				      <div class="tabItem tabSelected" index="1">
-				          <form>
-						     <fieldset class="noticeField">
-							     <legend>站内通知</legend>
-								 <div class="rightFloat label">(被勾选上之后，会受到对应的通知)</div>
-								 <div class="noticeDiv clearFloat">
-								    <input type="checkbox" name="insideNotice"/><span>被评论</span>
-									<input type="checkbox" name="insideNotice"/><span>被转载</span>
-									<input type="checkbox" name="insideNotice"/><span>被喜欢</span>
-									<input type="checkbox" name="insideNotice"/><span>被关注</span>
-								 </div>
-							 </fieldset>
-						     <fieldset class="noticeField">
-							     <legend>邮件通知</legend>
-								 <div class="rightFloat label">(被勾选上之后，会受到对应的通知)</div>
-								 <div  class="noticeDiv clearFloat">
-								    <input type="checkbox" name="insideNotice"/><span>被关注</span>
-									<input type="checkbox" name="insideNotice"/><span>收到私信</span>
-									<input type="checkbox" name="insideNotice"/><span>每周精选</span>
-								 </div>
-							 </fieldset>
-						  
-						  </form>
-				      </div>
-					  <div class="tabItem" index="2">
-					     <div class="blacklist">
-				          <form class="leftFloat">
-						     <span>输入TA的博客地址：</span><input type="text"/>
-						  </form>
-						  <div class="rightFloat btn"><span class="icon icon1">&nbsp;</span><span>拉黑</span></div>
-						  <div class="clearFloat"></div>
-						 </div>
-				      </div>
-				  </div>
-			  
-			  </div>
-			  
-		   </div>     
 	  </div>
-	  <div id="rightContent" class="rightFloat">
-	     <div class="menu1">
-		      <div class="menuItem">
-	              <div class="headMenuBtn"><span class="icon icon1">&nbsp;</span><span>访问jazywoo</span></div>
-			  </div>
-			  <div class="menuItem">
-				  <div class="headMenuBtn"><span class="icon icon2">&nbsp;</span><span>个人设置</span></div>
-			  </div>
-		 </div>
-		 <div class="menu2">
-		      <div class="searchMenuItem">
-			     <form>
-				    <button class="searchBtn" type="submit"></button>
-					<input type="text"/>
-				 </form>
-			  </div>
-		 </div>
-		 <div class="menu3">
-		      <div class="menuItem">
-	              <div class="headMenuBtn selectMenuBtn"><span class="icon icon4">&nbsp;</span><span>我的5个句子</span></div>
-			  </div>
-			  <div class="menuItem">
-				  <div class="headMenuBtn"><span class="icon icon5">&nbsp;</span><span>我的12个粉丝</span></div>
-			  </div>
-			  <div class="menuItem">
-				  <div class="headMenuBtn"><span class="icon icon6">&nbsp;</span><span>我关注的5个人</span></div>
-			  </div>
-			  <div class="menuItem">
-				  <div class="headMenuBtn"><span class="icon icon7">&nbsp;</span><span>我收藏的12个标签</span></div>
-			  </div>
-			  <div class="menuItem">
-				  <div class="headMenuBtn"><span class="icon icon8">&nbsp;</span><span>我喜欢的2个句子</span></div>
-			  </div>
-			  <div class="menuItem">
-				  <div class="headMenuBtn"><span class="icon icon9">&nbsp;</span><span>我的4条未读消息</span></div>
-			  </div>
-			  <div class="menuItem">
-				  <div class="headMenuBtn"><span class="icon icon10">&nbsp;</span><span>我的12条未读私信</span></div>
-			  </div>
-		 </div>
-	     
-		  
-		  
-     </div>
    </div>
-</div> 
 
 
    <div id="userInfoTip">
@@ -576,17 +416,17 @@
 			 <div class="span1"><span class="icon icon2 addImg">&nbsp;</span>关注我</div>
 		  </div>
 		  <div class="clearFloat"></div>
-       </div>
+     </div>
 	   
        <div id="userPopSentenceDiv">
 	      <span>在英国，在美国，在香港，在上海……一台相机能走遍全世界，一名直升机私照飞行员，他眼里的世界是什么模样？城市一样的匆忙，每个人依然渴望内心的理想。		  </span></div>
 	   
        <div><a href="#">www.bijian.com/jazywoo</a></div>
-   </div>
+</div>
    
    
 <script type="text/javascript" src="js/jquery-min1.6.js"></script>
 <script type="text/javascript" src="js/public.js"></script>
-<script type="text/javascript" src="js/ownPage.js"></script>
+<script type="text/javascript" src="js/person.js"></script>
 </body>
 </html>

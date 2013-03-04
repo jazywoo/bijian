@@ -24,7 +24,13 @@ public class ActionTestBase  extends StrutsSpringTestCase {
 	     super.setUp();
 	     SessionFactory sessionFactory = lookupSessionFactory(this.request);
 	     Session hibernateSession= getSession(sessionFactory);
-	     TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(hibernateSession));
+	     try{
+	    	 TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(hibernateSession));
+	     }catch(IllegalStateException e){
+	         //e.printStackTrace();
+	    	 //session已经关联存在，不再将session关联到线程
+	     }
+	     
 	 }
 	 @Override
 	 public String getContextLocations() {

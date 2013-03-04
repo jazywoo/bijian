@@ -36,4 +36,10 @@ public class CommonAction extends ActionSupport{
 //    	resultJson=jsonObject.toString();
     	return SUCCESS;    	
     }
+    public String changeLanguage(){
+//  	  System.out.println("sds");
+//  	  Locale locale=new Locale("en","US");//(这个能根据你传来的值动态改变)
+//  	  this.session.put("WW_TRANS_I18N_LOCALE", locale);
+  	  return SUCCESS;
+    }
 }

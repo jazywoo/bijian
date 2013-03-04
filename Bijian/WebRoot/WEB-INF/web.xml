@@ -29,16 +29,30 @@
         <url-pattern>/*</url-pattern>   
     </filter-mapping>
   
-    <!-- struts2过滤器前配置 -->
+    <!-- struts2过滤器前配置 -重写Url-->
   <filter>
-     <filter-name>struts2</filter-name>
-     <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+      <filter-name>UrlRewriteFilter</filter-name>
+      <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+      <init-param>
+          <param-name>logLevel</param-name>
+          <param-value>WARN</param-value>
+      </init-param>
+  </filter>
+  <filter-mapping>
+      <filter-name>UrlRewriteFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+    
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.texturemedia.smarturls.SmartURLsFilter</filter-class>   
   </filter>
   <filter-mapping>
      <filter-name>struts2</filter-name>
      <url-pattern>/*</url-pattern>
+     <dispatcher>REQUEST</dispatcher> 
+     <dispatcher>FORWARD</dispatcher> 
   </filter-mapping>
-  
   
   
   <!-- spring配置 -->

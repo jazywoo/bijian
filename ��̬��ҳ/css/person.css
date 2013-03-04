@@ -1,0 +1,31 @@
+/* CSS Document */
+
+#content{
+  width:1200px;
+}
+#leftContent{
+	width:675px;
+	margin: auto auto;
+	margin-top: 10px;
+}
+#content .contentContainer{
+}
+
+/*所有icon图标的显示*/
+#person .sentenceItem .extractBtnContainer .icon{
+  width:20px;
+}
+#person .icon{
+  display:block; 
+  float:left; 
+  width: 30px;
+}
+
+/*隐藏掉图像，等*/
+
+#person  .sentenceHeader{
+   display:none;
+}
+#person  .photoContainer{
+   display:none;
+}

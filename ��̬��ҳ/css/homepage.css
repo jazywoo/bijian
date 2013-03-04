@@ -1,0 +1,151 @@
+/*index页面的 CSS Document */
+
+#content{
+  width:1000px;
+  margin:auto auto;
+}
+#leftContent{
+  width:675px;
+}
+#rightContent{
+	width:235px;
+}
+#contentTitle{
+	font-size:14px;
+	margin-left:120px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	border-top:1px solid #FFFFFF;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+}
+/*右侧菜单*/
+#rightContent .menuItem{
+	margin-top:10px;
+	clear: both;
+}
+#rightContent .menuBtn{
+  clear:both;
+  overflow: hidden;
+  height: 38px;
+  width:100%;
+  line-height:38px;
+  padding:0 10px;
+  border: 1px solid #D6D6D6;
+  border-top:1px solid #FFFFFF;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+  background-color: #F3F3F3;
+  cursor:default;
+}
+#rightContent .menuBtn:hover{
+   background-color:#FFFFFF;
+}
+#rightContent .headMenuBtn{
+  clear:both;
+  width:100%;
+  background-color: #E7E7E7;
+  overflow: hidden;
+  height: 38px;
+  line-height:38px;
+  padding:0 10px;
+  border-top:1px solid #BCBCBC;
+  border-bottom:1px solid #BCBCBC;
+  border-left:1px solid #BCBCBC;
+  border-right:1px solid #BCBCBC;
+  cursor:default;
+}
+#rightContent .headMenuBtn:hover{
+background-color:#FFFFFF;
+}
+#rightContent .menuPortrait{
+	line-height:12px;
+}
+#rightContent .menuPortraitDiv{
+}
+#rightContent .menuPortraitDiv .middlePortrait{
+	margin-top:2px;
+	margin-right: 10px;
+}
+#rightContent .menuPortraitDiv .tipName{
+   margin-top:2px;
+}
+#rightContent .menuPortraitDiv .span1{
+  display:block;
+  margin-top:7px;
+}
+#rightContent .menuPortraitDiv .span2{
+  margin-top:10px;
+}
+#rightContent .menuPortraitDiv .span3{
+	font-size:13px;
+}
+#rightContent #dailySentenceDiv{
+	clear:both;
+	padding:5px 10px;
+	border: 1px solid #D6D6D6;
+	border-top:1px solid #FFFFFF;
+	border-bottom:1px solid #BCBCBC;
+	border-left:1px solid #BCBCBC;
+	border-right:1px solid #BCBCBC;
+	background-color: #F3F3F3;
+	width: 100%;
+}
+/*所有右侧菜单icon图标的显示*/
+#index .sentenceItem .extractBtnContainer .icon{
+  width:20px;
+}
+#index .icon{
+  display:block; 
+  float:left; 
+  width: 30px;
+}
+
+#index #rightContent .icon1{
+	background-image: url(../img/love.png);
+	background-repeat: no-repeat;
+	background-position: 10px -27px;
+}
+#index #rightContent .icon2{
+	background-image: url(../img/label+2.png);
+	background-repeat: no-repeat;
+	background-position: 10px 6px;
+}
+#index #rightContent .icon3{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 10px -27px;
+}
+
+#index #rightContent .icon4{
+	background-image: url(../img/people.png);
+	background-repeat: no-repeat;
+	background-position: 10px 6px;
+}
+#index #rightContent .icon5{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 0px -2px;
+	width: 20px;
+}
+#index #rightContent .icon6{
+	background-image: url(../img/sentence.png);
+	background-repeat: no-repeat;
+	background-position: 10px 11px;
+}
+#index #rightContent .icon7{
+	background-image: url(../img/label.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 20px;
+}
+
+
+
+

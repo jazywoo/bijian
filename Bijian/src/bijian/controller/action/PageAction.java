@@ -48,6 +48,7 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     public String displayUserHomepage(){
     	User loginUser=(User) session.get("loginUser");
     	long userID=loginUser.getUserID();
+    	System.out.println(loginUser.getUsername());
     	List<Sentence> sentences=sentenceService.getSuggestSentences(userID, 0, 10);//推荐句子
     	resultMap.put("userHomePage_type", "suggest");
         resultMap.put("userHomePage_sentences", sentences);  //显示推荐句子
@@ -70,6 +71,7 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     public String displayUserAllLabelSentence(){
     	long labelID=Long.parseLong(request.get("labelID").toString());
     	User loginUser=(User) session.get("loginUser");
+    	
     	long userID=loginUser.getUserID();
     	List<Sentence> sentences=sentenceService.getAllLabelSentences(userID, 0, 10);//标签句子
     	resultMap.put("userHomePage_type", "allLabelSentence");
@@ -150,11 +152,6 @@ public class PageAction extends ActionSupport implements SessionAware,RequestAwa
     }
     
     //显示个人管理页面
-    //显示博客设置
-    public String displayOwnBlogSetting(){
-    	
-    	return SUCCESS;
-    }
     //显示个人设置
     public String displayOwnSetting(){
     	
